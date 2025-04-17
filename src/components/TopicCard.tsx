@@ -1,6 +1,6 @@
 // src/components/TopicCard.tsx
+// ------------------------------
 import { FC } from 'react';
-import { useRouter } from 'next/router';
 
 interface TopicCardProps {
   title: string;
@@ -19,8 +19,6 @@ const TopicCard: FC<TopicCardProps> = ({
   isUserPro,
   onClick,
 }) => {
-  const router = useRouter();
-
   return (
     <div
       className="bg-white shadow-md rounded-lg p-5 cursor-pointer hover:shadow-lg transition relative"

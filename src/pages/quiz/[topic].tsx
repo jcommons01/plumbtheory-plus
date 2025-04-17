@@ -1,3 +1,4 @@
+// src/pages/quiz/[topic].tsx
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getQuizQuestions, updateQuizProgress } from '@/lib/firebase';
@@ -41,15 +42,6 @@ export default function Quiz() {
     return now - trialStart <= threeDays;
   };
 
-  // Gating pro content
-  if (isProTopic && userData && !userData.isPro && !trialStillActive()) {
-    return (
-      <Layout>
-        <ProGateway />
-      </Layout>
-    );
-  }
-
   useEffect(() => {
     const fetchQuestions = async () => {
       if (!topic || Array.isArray(topic)) return;
@@ -58,7 +50,6 @@ export default function Quiz() {
         setIsLoading(true);
         const amountNumber = parseInt(amount as string) || 10;
         const fetchedQuestions = await getQuizQuestions(topic, amountNumber);
-
         setQuestions(fetchedQuestions);
         setAnswers(new Array(fetchedQuestions.length).fill(null));
       } catch (err) {
@@ -101,9 +92,9 @@ export default function Quiz() {
   };
 
   const handleFinish = async () => {
-    if (user) {
+    if (user && typeof topic === 'string') {
       try {
-        await updateQuizProgress(user.uid, topic as string, score);
+        await updateQuizProgress(user.uid, topic, score);
       } catch (err) {
         console.error('Error updating quiz progress:', err);
       }
@@ -116,6 +107,20 @@ export default function Quiz() {
 
     router.push('/results');
   };
+
+  // 🔐 PRO Access Control
+  if (
+    isProTopic &&
+    userData &&
+    !userData.isPro &&
+    !trialStillActive()
+  ) {
+    return (
+      <Layout>
+        <ProGateway />
+      </Layout>
+    );
+  }
 
   if (loading || isLoading) {
     return (
@@ -167,7 +172,7 @@ export default function Quiz() {
     <Layout>
       <div className="max-w-3xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-1 text-center">
-          {topic?.toString().replace(/-/g, ' ')} Quiz
+          {typeof topic === 'string' ? topic.replace(/-/g, ' ') : ''} Quiz
         </h1>
         <p className="text-center text-sm text-gray-600 mb-4">
           You are answering {questions.length} randomized question{questions.length !== 1 && 's'}.

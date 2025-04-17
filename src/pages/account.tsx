@@ -17,6 +17,7 @@ export default function AccountPage() {
       }
 
       setLoadingPortal(true);
+
       const res = await fetch('/api/create-customer-portal-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -24,6 +25,7 @@ export default function AccountPage() {
       });
 
       const data = await res.json();
+
       if (data.url) {
         window.location.href = data.url;
       } else {

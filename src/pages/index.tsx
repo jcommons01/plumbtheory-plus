@@ -1,3 +1,4 @@
+// src/pages/index.tsx
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
@@ -20,9 +21,12 @@ export default function Home() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold text-blue-600 mb-4">PlumbTheory+</h1>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">Prepare for your plumbing exams</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+              Prepare for your plumbing exams
+            </h2>
             <p className="text-lg text-gray-700 mb-8">
-              PlumbTheory+ helps UK plumbing students prepare for their Level 3 exams with interactive quizzes, progress tracking, and comprehensive coverage of all exam topics.
+              PlumbTheory+ helps UK plumbing students prepare for their Level 3 exams with interactive
+              quizzes, progress tracking, and comprehensive coverage of all exam topics.
             </p>
             <button
               onClick={handleStartLearning}
@@ -42,7 +46,7 @@ export default function Home() {
                   Practice with quizzes on 9 key plumbing topics covered in Level 3 exams.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="text-blue-500 text-4xl mb-4">📊</div>
                 <h3 className="text-xl font-semibold mb-2">Progress Tracking</h3>
@@ -50,7 +54,7 @@ export default function Home() {
                   Monitor your improvement with detailed progress tracking.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="text-blue-500 text-4xl mb-4">🔍</div>
                 <h3 className="text-xl font-semibold mb-2">Detailed Explanations</h3>
