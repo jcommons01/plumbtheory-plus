@@ -1,4 +1,4 @@
-// ✅ src/pages/subscribe.tsx
+// src/pages/subscribe.tsx
 import { useState } from 'react';
 import Layout from '@/components/Layout';
 
@@ -7,7 +7,8 @@ const Subscribe = () => {
   const [error, setError] = useState<string | null>(null);
 
   const handleSubscribe = () => {
-    window.location.href = "https://buy.stripe.com/test_aEU02bcz4bCReIwcMN";
+    setIsLoading(true);
+    window.location.href = "https://buy.stripe.com/test_aEU02bcz4bCReIwcMN"; // ✅ Replace with your real link
   };
 
   return (
@@ -18,17 +19,17 @@ const Subscribe = () => {
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="bg-blue-500 p-6 text-white text-center">
             <h2 className="text-2xl font-bold">Pro Subscription</h2>
-            <p className="text-4xl font-bold mt-4">\u00a37 <span className="text-xl font-normal">/month</span></p>
+            <p className="text-4xl font-bold mt-4">£7 <span className="text-xl font-normal">/month</span></p>
           </div>
 
           <div className="p-6">
             <h3 className="text-xl font-semibold mb-4">Benefits of Pro:</h3>
             <ul className="space-y-3 mb-6">
-              <li className="flex items-start"><span className="mr-2 text-green-500">\u2714</span> Access all Pro topics</li>
-              <li className="flex items-start"><span className="mr-2 text-green-500">\u2714</span> Detailed explanations</li>
-              <li className="flex items-start"><span className="mr-2 text-green-500">\u2714</span> Full progress tracking</li>
-              <li className="flex items-start"><span className="mr-2 text-green-500">\u2714</span> New content monthly</li>
-              <li className="flex items-start"><span className="mr-2 text-green-500">\u2714</span> Cancel anytime</li>
+              <li className="flex items-start"><span className="mr-2 text-green-500">✔</span> Access all Pro topics</li>
+              <li className="flex items-start"><span className="mr-2 text-green-500">✔</span> Detailed explanations</li>
+              <li className="flex items-start"><span className="mr-2 text-green-500">✔</span> Full progress tracking</li>
+              <li className="flex items-start"><span className="mr-2 text-green-500">✔</span> New content monthly</li>
+              <li className="flex items-start"><span className="mr-2 text-green-500">✔</span> Cancel anytime</li>
             </ul>
 
             {error && <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">{error}</div>}
