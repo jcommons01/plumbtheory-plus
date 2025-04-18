@@ -422,14 +422,15 @@ const centralHeatingQuestions = [
 ];
 
 async function upload() {
-  for (const question of centralHeatingQuestions) {
-    try {
-      await setDoc(doc(db, 'questions', question.id), question);
-      console.log(`✅ Uploaded: ${question.id}`);
-    } catch (err) {
-      console.error(`❌ Failed to upload ${question.id}:`, err);
+    for (const question of centralHeatingQuestions) {
+      try {
+        const ref = doc(db, 'questions', 'central-heating', 'items', question.id);
+        await setDoc(ref, question);
+        console.log(`✅ Uploaded: ${question.id}`);
+      } catch (err) {
+        console.error(`❌ Failed to upload ${question.id}:`, err);
+      }
     }
   }
-}
-
-upload();
+  
+  upload();

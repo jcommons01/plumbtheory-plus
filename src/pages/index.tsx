@@ -1,11 +1,10 @@
-// src/pages/index.tsx
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 
 export default function Home() {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user } = useAuth(); // ✅ removed unused `loading`
 
   const handleStartLearning = () => {
     if (user) {

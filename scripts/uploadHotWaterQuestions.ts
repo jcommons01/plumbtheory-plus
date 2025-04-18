@@ -17,7 +17,7 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0
 const db = getFirestore(app);
 
 const hotWaterQuestions = [
-    {
+  {
         id: 'hotWaterQ1',
         topic: 'hot-water',
         question: 'What is the recommended storage temperature for hot water to prevent Legionella?',
@@ -422,18 +422,15 @@ const hotWaterQuestions = [
 ];
 
 async function upload() {
-    for (const [i, question] of hotWaterQuestions.entries()) {
-      const id = `hotWaterQ${i + 1}`;
-      const updatedQuestion = { ...question, id }; // Ensure each question gets the correct ID
-  
+    for (const question of hotWaterQuestions) {
       try {
-        await setDoc(doc(db, 'questions', id), updatedQuestion);
-        console.log(`✅ Uploaded question: ${id}`);
+        const ref = doc(db, 'questions', 'hot-water', 'items', question.id);
+        await setDoc(ref, question);
+        console.log(`✅ Uploaded: ${question.id}`);
       } catch (err) {
-        console.error(`❌ Failed to upload ${id}:`, err);
+        console.error(`❌ Failed to upload ${question.id}:`, err);
       }
     }
   }
   
-
-upload();
+  upload();

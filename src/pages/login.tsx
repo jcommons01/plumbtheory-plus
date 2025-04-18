@@ -1,7 +1,6 @@
 // src/pages/login.tsx
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { signIn, signUp } from '@/lib/firebase';
 import Layout from '@/components/Layout';
 
