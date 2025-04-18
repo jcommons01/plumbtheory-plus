@@ -13,18 +13,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { userId, userEmail } = req.body;
 
-    // Debugging logs to track the incoming data
     console.log('📨 Checkout request from:', { userId, userEmail });
-    console.log('🔑 STRIPE_SECRET_KEY length:', process.env.STRIPE_SECRET_KEY?.length);
-    console.log('💸 STRIPE_PRICE_ID:', process.env.STRIPE_PRICE_ID);
-    console.log('🌍 NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL);
 
-    if (!userId || !userEmail) {
-      console.warn('⚠️ Missing userId or userEmail in body');
-      return res.status(400).json({ error: 'Missing required parameters' });
+    // Ensure the required environment variables are set
+    if (!process.env.STRIPE_PRICE_ID) {
+      console.error('⚠️ STRIPE_PRICE_ID is missing!');
+      return res.status(500).json({ error: 'Missing Stripe Price ID in environment variables' });
     }
 
-    // Attempt to create the Stripe session
+    // Create the Stripe session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       billing_address_collection: 'auto',
@@ -36,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       ],
       subscription_data: {
-        trial_period_days: 3,
+        trial_period_days: 3, // Keep the 3-day trial, or modify/remove it as needed
         metadata: {
           userId,
         },

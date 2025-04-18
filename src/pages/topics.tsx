@@ -8,7 +8,7 @@ type Topic = {
   id: string;
   title: string;
   icon: string;
-  isPro: boolean;
+  isPro: boolean;  // Ensure 'isPro' is correctly set to true/false
 };
 
 export default function Topics() {
@@ -20,8 +20,8 @@ export default function Topics() {
 
   useEffect(() => {
     const topicsData: Topic[] = [
-      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false }, // Free Topic
-      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false }, // Free Topic
+      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false },  // Free topic
+      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false },    // Free topic
       { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true },
       { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true },
       { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true },
@@ -44,12 +44,9 @@ export default function Topics() {
   }
 
   const openQuizOptions = (topic: Topic) => {
-    // Check if the user is allowed to access the topic
-    const hasAccess =
-      !topic.isPro || (userData?.isPro || userData?.trialActive);
+    const hasAccess = !topic.isPro || userData?.isPro || userData?.trialActive;
 
     if (!hasAccess) {
-      // Redirect to subscribe page if the topic is Pro and the user doesn't have access
       router.push('/subscribe');
     } else {
       setSelectedTopic(topic);

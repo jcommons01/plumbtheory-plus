@@ -5,9 +5,34 @@ const Subscribe = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubscribe = () => {
-    // Redirect to the Stripe payment link
-    window.location.href = "https://buy.stripe.com/test_eVa6qz2Yu9uJasgeUU"; // This is your Stripe payment link
+  const handleSubscribe = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Fetch the Stripe checkout session URL from your API
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: 'USER_ID', // Replace with the actual user ID
+          userEmail: 'USER_EMAIL', // Replace with the actual user email
+        }),
+      });
+
+      const { url } = await response.json();
+
+      if (url) {
+        window.location.href = url; // Redirect to the Stripe payment page
+      } else {
+        throw new Error('Failed to create checkout session');
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -34,7 +59,7 @@ const Subscribe = () => {
             {error && <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">{error}</div>}
 
             <button
-              onClick={handleSubscribe} // On click, redirect to the Stripe payment link
+              onClick={handleSubscribe} // On click, fetch and redirect to Stripe
               disabled={isLoading}
               className={`w-full py-3 px-6 rounded-md text-white font-semibold transition ${
                 isLoading ? 'bg-blue-300' : 'bg-blue-500 hover:bg-blue-600'
