@@ -1,4 +1,3 @@
-// src/pages/topics.tsx
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
@@ -21,8 +20,8 @@ export default function Topics() {
 
   useEffect(() => {
     const topicsData: Topic[] = [
-      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false },
-      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: true },
+      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false }, // Free Topic
+      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false }, // Free Topic
       { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true },
       { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true },
       { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true },
@@ -45,10 +44,12 @@ export default function Topics() {
   }
 
   const openQuizOptions = (topic: Topic) => {
+    // Check if the user is allowed to access the topic
     const hasAccess =
       !topic.isPro || (userData?.isPro || userData?.trialActive);
 
     if (!hasAccess) {
+      // Redirect to subscribe page if the topic is Pro and the user doesn't have access
       router.push('/subscribe');
     } else {
       setSelectedTopic(topic);

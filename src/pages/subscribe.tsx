@@ -1,54 +1,13 @@
-// src/pages/subscribe.tsx
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { loadStripe } from '@stripe/stripe-js';
 import Layout from '@/components/Layout';
-import { useAuth } from '@/contexts/AuthProvider';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-
-export default function Subscribe() {
-  const { user, userData } = useAuth();
-  const router = useRouter();
+const Subscribe = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (userData?.isPro) {
-    router.push('/topics');
-  }
-
-  const handleSubscribe = async () => {
-    if (!user) {
-      router.push('/login');
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      setError(null);
-
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: user.uid,
-          userEmail: user.email,
-        }),
-      });
-
-      const { url } = await response.json();
-
-      if (url) {
-        window.location.href = url;
-      } else {
-        throw new Error('Failed to create checkout session');
-      }
-    } catch (err) {
-      console.error('Checkout error:', err);
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSubscribe = () => {
+    // Redirect to the Stripe payment link
+    window.location.href = "https://buy.stripe.com/test_eVa6qz2Yu9uJasgeUU"; // This is your Stripe payment link
   };
 
   return (
@@ -75,7 +34,7 @@ export default function Subscribe() {
             {error && <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">{error}</div>}
 
             <button
-              onClick={handleSubscribe}
+              onClick={handleSubscribe} // On click, redirect to the Stripe payment link
               disabled={isLoading}
               className={`w-full py-3 px-6 rounded-md text-white font-semibold transition ${
                 isLoading ? 'bg-blue-300' : 'bg-blue-500 hover:bg-blue-600'
@@ -92,7 +51,7 @@ export default function Subscribe() {
 
         <div className="mt-6 text-center">
           <button
-            onClick={() => router.push('/topics')}
+            onClick={() => window.location.href = '/topics'} // "Back to Topics" button
             className="text-blue-500 hover:underline"
           >
             Back to Topics
@@ -101,4 +60,6 @@ export default function Subscribe() {
       </div>
     </Layout>
   );
-}
+};
+
+export default Subscribe;

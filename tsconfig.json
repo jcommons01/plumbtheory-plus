@@ -18,10 +18,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "src",
+    "baseUrl": "src",        // Make sure this is set to "src"
     "paths": {
       "@/*": [
-        "*"
+        "*"               // This ensures @/ maps to the src directory
       ]
     },
     "plugins": [
