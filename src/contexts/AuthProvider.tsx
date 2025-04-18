@@ -35,6 +35,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
       setUser(firebaseUser);
+      setLoading(true);
 
       try {
         if (firebaseUser) {
@@ -43,12 +44,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
         } else {
           setUserData(null);
 
-          const protectedRoutes = ['/topics', '/quiz', '/results', '/subscribe'];
-          const isProtectedRoute = protectedRoutes.some((route) =>
+          const protectedRoutes = [
+            '/topics',
+            '/quiz',
+            '/results',
+            '/subscribe',
+          ];
+
+          const isProtected = protectedRoutes.some((route) =>
             router.pathname.startsWith(route)
           );
 
-          if (isProtectedRoute) {
+          const isAllowedPublicRoute = router.pathname.startsWith('/subscription/success');
+
+          if (isProtected && !isAllowedPublicRoute) {
             router.push('/login');
           }
         }
