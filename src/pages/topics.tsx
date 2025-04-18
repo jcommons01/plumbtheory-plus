@@ -1,3 +1,4 @@
+// src/pages/topics.tsx
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
@@ -8,7 +9,7 @@ type Topic = {
   id: string;
   title: string;
   icon: string;
-  isPro: boolean;  // Ensure 'isPro' is correctly set to true/false
+  isPro: boolean;
 };
 
 export default function Topics() {
@@ -20,8 +21,8 @@ export default function Topics() {
 
   useEffect(() => {
     const topicsData: Topic[] = [
-      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false },  // Free topic
-      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false },    // Free topic
+      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false },
+      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false },
       { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true },
       { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true },
       { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true },
@@ -44,8 +45,7 @@ export default function Topics() {
   }
 
   const openQuizOptions = (topic: Topic) => {
-    const hasAccess = !topic.isPro || userData?.isPro || userData?.trialActive;
-
+    const hasAccess = !topic.isPro || userData?.isPro;
     if (!hasAccess) {
       router.push('/subscribe');
     } else {
@@ -72,7 +72,7 @@ export default function Topics() {
               icon={topic.icon}
               progress={userData?.quizProgress?.[topic.title] || 0}
               isPro={topic.isPro}
-              isUserPro={userData?.isPro || userData?.trialActive || false}
+              isUserPro={!!userData?.isPro}
               onClick={() => openQuizOptions(topic)}
             />
           ))}

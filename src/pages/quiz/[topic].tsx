@@ -6,16 +6,16 @@ import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 import QuizQuestion from '@/components/QuizQuestion';
 import ProgressBar from '@/components/ProgressBar';
-import ProGateway from '@/components/ProGateway';
 
-type Question = {
+// ✅ Types
+interface Question {
   id: string;
   topic: string;
   question: string;
   options: string[];
   correctAnswer: string;
   explanation: string;
-};
+}
 
 export default function Quiz() {
   const router = useRouter();
@@ -29,18 +29,16 @@ export default function Quiz() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const proTopics = ['Environmental Technologies', 'Domestic Fuels', 'Calculation Questions'];
+  const proTopics = [
+    'Central Heating',
+    'Drainage & Sanitation',
+    'Rainwater',
+    'Electrical',
+    'Domestic Fuels',
+    'Environmental Technologies',
+    'Calculation Questions',
+  ];
   const isProTopic = proTopics.includes(topic as string);
-
-  const trialStillActive = () => {
-    if (!userData?.trialActive || !userData.trialStartedAt) return false;
-
-    const trialStart = new Date(userData.trialStartedAt).getTime();
-    const now = Date.now();
-    const threeDays = 3 * 24 * 60 * 60 * 1000;
-
-    return now - trialStart <= threeDays;
-  };
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -108,16 +106,23 @@ export default function Quiz() {
     router.push('/results');
   };
 
-  // 🔐 PRO Access Control
   if (
     isProTopic &&
     userData &&
-    !userData.isPro &&
-    !trialStillActive()
+    !userData.isPro
   ) {
     return (
       <Layout>
-        <ProGateway />
+        <div className="text-center py-12">
+          <h2 className="text-xl font-semibold text-red-600">This is a Pro topic.</h2>
+          <p className="mt-2">Subscribe to access this quiz.</p>
+          <button
+            className="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+            onClick={() => router.push('/subscribe')}
+          >
+            Subscribe
+          </button>
+        </div>
       </Layout>
     );
   }
@@ -177,12 +182,6 @@ export default function Quiz() {
         <p className="text-center text-sm text-gray-600 mb-4">
           You are answering {questions.length} randomized question{questions.length !== 1 && 's'}.
         </p>
-
-        {trialStillActive() && (
-          <div className="bg-yellow-100 text-yellow-800 px-4 py-2 mb-6 text-center rounded">
-            🧪 You're currently in your 3-day free trial. Enjoy full access!
-          </div>
-        )}
 
         <div className="mb-6">
           <ProgressBar current={currentQuestion + 1} total={questions.length} />

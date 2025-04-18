@@ -4,9 +4,10 @@ export type User = {
   uid: string;
   email: string;
   isPro: boolean;
-  trialActive?: boolean;           // ✅ Indicates if trial is currently active
-  trialStartedAt?: string;         // ✅ Timestamp when the trial started
-  stripeCustomerId?: string;       // ✅ Stripe customer ID for managing subscriptions
+  trialActive?: boolean;              // ✅ Previously used for free trial (can now be deprecated)
+  trialStartedAt?: string;           // ✅ Timestamp of when trial started
+  stripeCustomerId?: string;         // ✅ Optional: Stored Stripe customer ID
+  stripeSubscriptionId?: string;     // ✅ Newly added: Stripe subscription ID for managing cancellations
   quizProgress: {
     [topic: string]: number;
   };

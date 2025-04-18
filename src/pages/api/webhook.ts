@@ -1,7 +1,8 @@
+// ✅ src/pages/api/webhook.ts
 import { buffer } from 'micro';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
-import { adminDB } from '@/lib/firebase-admin'; // ✅ Make sure this file exists
+import { adminDB } from '@/lib/firebase-admin';
 
 export const config = {
   api: {
@@ -9,15 +10,14 @@ export const config = {
   },
 };
 
-// ✅ Fix: Removed apiVersion to avoid type conflict
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-03-31.basil',
+});
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).end('Method Not Allowed');
-  }
+  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
 
   let event: Stripe.Event;
 
@@ -25,10 +25,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const buf = await buffer(req);
     const sig = req.headers['stripe-signature'] as string;
 
-    console.log('📥 Incoming Stripe Webhook');
     event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
   } catch (err) {
-    console.error('❌ Webhook signature verification failed:', err);
+    console.error('❌ Webhook Error:', err);
     return res.status(400).send(`Webhook Error: ${err instanceof Error ? err.message : 'Unknown error'}`);
   }
 
@@ -36,29 +35,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
       const userId = session.client_reference_id;
+      const subscriptionId = session.subscription;
 
-      if (userId) {
-        console.log('✅ Checkout completed for user:', userId);
-        try {
-          await adminDB.collection('users').doc(userId).set(
-            {
-              isPro: true,
-              subscribedAt: new Date().toISOString(),
-            },
-            { merge: true }
-          );
-          console.log('🔥 Firestore updated: isPro = true');
-        } catch (firestoreError) {
-          console.error('❌ Failed to update Firestore:', firestoreError);
-        }
-      } else {
-        console.warn('⚠️ Missing userId in session');
+      if (userId && subscriptionId) {
+        await adminDB.collection('users').doc(userId).set(
+          {
+            isPro: true,
+            subscribedAt: new Date().toISOString(),
+            stripeSubscriptionId: subscriptionId,
+          },
+          { merge: true }
+        );
       }
       break;
     }
-
     default:
-      console.log(`ℹ️ Unhandled event type: ${event.type}`);
+      console.log(`Unhandled event type: ${event.type}`);
   }
 
   res.status(200).json({ received: true });

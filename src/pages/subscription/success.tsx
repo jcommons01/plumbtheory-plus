@@ -1,40 +1,35 @@
-// src/pages/subscription/success.tsx
+// ✅ src/pages/subscription/success.tsx
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '@/components/Layout';
-import { useAuth } from '@/contexts/AuthProvider';
-import { updateUserIsPro } from '@/lib/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '@/lib/firebase';
 
-export default function SubscriptionSuccess() {
-  const { user } = useAuth();
+export default function SuccessPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const activatePro = async () => {
+    const markUserAsPro = async () => {
+      const user = auth.currentUser;
       if (user) {
-        try {
-          await updateUserIsPro(user.uid, true);
-          console.log('✅ User upgraded to Pro!');
-        } catch (error) {
-          console.error('❌ Failed to update Pro status:', error);
-        }
-      }
-
-      // Redirect after short delay
-      setTimeout(() => {
+        const userRef = doc(db, 'users', user.uid);
+        await updateDoc(userRef, {
+          isPro: true,
+          subscribedAt: new Date().toISOString(),
+        });
         router.push('/topics');
-      }, 1500);
+      }
     };
 
-    activatePro();
-  }, [user, router]);
+    const timeout = setTimeout(() => {
+      markUserAsPro();
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [router]);
 
   return (
-    <Layout>
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-        <h1 className="text-3xl font-bold text-green-600 mb-4">✅ Subscription Successful!</h1>
-        <p className="text-gray-700 text-lg">Redirecting you to your topics...</p>
-      </div>
-    </Layout>
+    <div className="flex items-center justify-center min-h-screen">
+      <p className="text-lg font-semibold">Thanks for subscribing! Redirecting...</p>
+    </div>
   );
 }
