@@ -37,16 +37,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const userId = session.client_reference_id;
       const subscriptionId = session.subscription;
 
-      if (userId && subscriptionId) {
+      if (userId && session.subscription) {
         await adminDB.collection('users').doc(userId).set(
           {
             isPro: true,
             subscribedAt: new Date().toISOString(),
-            stripeSubscriptionId: subscriptionId,
+            stripeSubscriptionId: session.subscription, // ✅ stores subscription ID for cancellation
           },
           { merge: true }
         );
       }
+      
       break;
     }
     default:

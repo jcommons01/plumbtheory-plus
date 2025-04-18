@@ -1,17 +1,16 @@
 // src/components/TopicCard.tsx
-// ------------------------------
-import { FC } from 'react';
+import React from 'react';
 
-interface TopicCardProps {
+type TopicCardProps = {
   title: string;
   icon: string;
   progress: number;
   isPro: boolean;
   isUserPro: boolean;
   onClick: () => void;
-}
+};
 
-const TopicCard: FC<TopicCardProps> = ({
+const TopicCard: React.FC<TopicCardProps> = ({
   title,
   icon,
   progress,
@@ -21,44 +20,28 @@ const TopicCard: FC<TopicCardProps> = ({
 }) => {
   return (
     <div
-      className="bg-white shadow-md rounded-lg p-5 cursor-pointer hover:shadow-lg transition relative"
+      className="cursor-pointer border rounded-lg p-4 hover:shadow-lg transition relative"
       onClick={onClick}
     >
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
-          <span className="text-2xl">{icon}</span>
-          {title}
+        <h3 className="text-xl font-bold">
+          {icon} {title}
         </h3>
-        {isPro && (
-          <span
-            className={`text-xs font-semibold px-2 py-1 rounded-full uppercase tracking-wide flex items-center gap-1
-              ${isUserPro ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}
-          >
-            {isUserPro ? 'Trial Access' : (
-              <>
-                Pro <span className="text-xs">🔒</span>
-              </>
-            )}
+        {isPro && !isUserPro && (
+          <span className="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+            PRO
           </span>
         )}
       </div>
 
-      <div className="text-sm text-gray-500 mb-1">Progress</div>
       <div className="w-full bg-gray-200 rounded-full h-2.5">
         <div
           className="bg-blue-600 h-2.5 rounded-full"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <div className="mt-2 text-sm font-semibold text-right text-blue-600">
-        {progress}%
-      </div>
 
-      {!isUserPro && isPro && (
-        <div className="mt-4 text-center text-sm text-gray-600 bg-gray-100 py-2 px-3 rounded">
-          Upgrade to Pro to unlock
-        </div>
-      )}
+      <p className="text-sm text-right mt-1 text-blue-600">{progress}%</p>
     </div>
   );
 };
