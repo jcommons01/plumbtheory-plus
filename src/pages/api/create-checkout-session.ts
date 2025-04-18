@@ -1,53 +1,58 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getAuth } from 'firebase-admin/auth';
+import { initializeApp, applicationDefault, getApps } from 'firebase-admin/app';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil',
-});
+// Initialize Firebase Admin SDK if not already initialized
+if (!getApps().length) {
+  initializeApp({
+    credential: applicationDefault(),
+  });
+}
+
+const auth = getAuth();
+
+// Initialize Stripe without explicitly setting API version
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).end('Method Not Allowed');
   }
 
   try {
-    const { userId, userEmail } = req.body;
+    const { token } = req.body;
 
-    console.log('📨 Checkout request from:', { userId, userEmail });
-
-    // Ensure the required environment variables are set
-    if (!process.env.STRIPE_PRICE_ID) {
-      console.error('⚠️ STRIPE_PRICE_ID is missing!');
-      return res.status(500).json({ error: 'Missing Stripe Price ID in environment variables' });
+    if (!token) {
+      return res.status(400).json({ error: 'Missing Firebase ID token' });
     }
 
-    // Create the Stripe session
+    // Verify Firebase ID token
+    const decodedToken = await auth.verifyIdToken(token);
+    const userEmail = decodedToken.email;
+
+    if (!userEmail) {
+      return res.status(400).json({ error: 'User email not found in token' });
+    }
+
+    // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      billing_address_collection: 'auto',
       mode: 'subscription',
+      payment_method_types: ['card'],
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID!,
+          price: process.env.STRIPE_PRICE_ID!, // Your Stripe Price ID
           quantity: 1,
         },
       ],
-      subscription_data: {
-        trial_period_days: 3, // Keep the 3-day trial, or modify/remove it as needed
-        metadata: {
-          userId,
-        },
-      },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
       customer_email: userEmail,
-      client_reference_id: userId,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cancelled`,
     });
 
-    console.log('✅ Stripe session created:', session.id);
-    res.status(200).json({ sessionId: session.id, url: session.url });
+    res.status(200).json({ sessionId: session.id });
   } catch (error: any) {
-    console.error('❌ Stripe session error:', error.message);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: 'Something went wrong. ' + error.message });
   }
 }
