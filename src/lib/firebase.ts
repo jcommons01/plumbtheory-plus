@@ -1,3 +1,4 @@
+// src/lib/firebase.ts
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getAuth,
@@ -75,6 +76,12 @@ export const updateUserIsPro = async (uid: string, isPro: boolean) => {
   return updateDoc(userRef, {
     isPro,
   });
+};
+
+// ✅ NEW: Update isPro after Stripe success
+export const updateUserProStatus = async (uid: string, isPro: boolean) => {
+  const userRef = doc(db, 'users', uid);
+  await updateDoc(userRef, { isPro });
 };
 
 // 💾 Quiz progress

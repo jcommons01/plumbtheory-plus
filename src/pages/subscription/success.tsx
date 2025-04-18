@@ -1,21 +1,31 @@
+// src/pages/subscription/success.tsx
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useAuth } from '@/contexts/AuthProvider';
+import { updateUserProStatus } from '@/lib/firebase';
 
-export default function SuccessPage() {
+export default function SubscriptionSuccess() {
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/topics');
-    }, 2000);
+    if (user) {
+      updateUserProStatus(user.uid, true); // Set isPro to true
+    }
 
-    return () => clearTimeout(timer);
-  }, [router]);
+    const timeout = setTimeout(() => {
+      router.push('/topics');
+    }, 1500);
+
+    return () => clearTimeout(timeout);
+  }, [user, router]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
-      <h1 className="text-3xl font-bold mb-4">✅ Thanks for subscribing!</h1>
-      <p className="text-lg text-gray-700">Redirecting you to your topics...</p>
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-green-600 mb-4">🎉 Subscription Successful</h1>
+        <p className="text-gray-700">Redirecting you to your topics...</p>
+      </div>
     </div>
   );
 }
