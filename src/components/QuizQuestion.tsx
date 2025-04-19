@@ -26,34 +26,37 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
 
   const handleSubmitReport = async () => {
     setReportStatus('submitting');
+  
     try {
       const res = await fetch('/api/report-question', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           question,
           reportText,
         }),
       });
-
-      if (res.ok) {
-        setReportStatus('success');
-        setReportText('');
-        setTimeout(() => {
-          setShowReportModal(false);
-          setReportStatus('idle');
-        }, 2000);
-      } else {
-        const err = await res.json();
-        console.error('❌ Report error:', err);
-        setReportStatus('error');
+  
+      if (!res.ok) {
+        const text = await res.text(); // avoid .json() crash
+        console.error('❌ Server error:', text);
+        throw new Error(text);
       }
-    } catch (err) {
-      console.error('❌ Report failed:', err);
+  
+      setReportStatus('success');
+      setReportText('');
+      setTimeout(() => {
+        setShowReportModal(false);
+        setReportStatus('idle');
+      }, 2000);
+    } catch (err: any) {
+      console.error('❌ Report failed:', err.message);
       setReportStatus('error');
     }
   };
-
+  
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-xl font-bold mb-4">{question.text}</h2>
