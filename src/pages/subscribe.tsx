@@ -6,31 +6,38 @@ import { useAuth } from '@/contexts/AuthProvider';
 const Subscribe = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
 
   const handleSubscribe = async () => {
+    if (!user || !user.email) {
+      setError('You must be logged in.');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
     try {
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          userId: user?.uid,
-          userEmail: user?.email,
+          userId: user.uid,
+          userEmail: user.email,
         }),
       });
 
       const data = await response.json();
 
-      if (data?.url) {
+      if (data.url) {
         window.location.href = data.url;
       } else {
-        throw new Error('No redirect URL returned');
+        throw new Error('No checkout URL returned');
       }
-    } catch (err) {
-      console.error('❌ Stripe subscription error:', err);
+    } catch (err: any) {
+      console.error('Subscription error:', err);
       setError('Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);

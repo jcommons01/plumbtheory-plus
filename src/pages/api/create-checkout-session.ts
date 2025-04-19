@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil', // <-- ✅ use this exact value
+  apiVersion: '2025-03-31.basil',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -21,16 +21,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
+      customer_email: userEmail,
+      client_reference_id: userId,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
       line_items: [
         {
           price: process.env.STRIPE_PRICE_ID!,
           quantity: 1,
         },
       ],
-      customer_email: userEmail,
-      client_reference_id: userId,
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
+      metadata: {
+        userId, // ✅ This makes it easier to fetch in webhook
+        userEmail,
+      },
     });
 
     return res.status(200).json({ url: session.url });
