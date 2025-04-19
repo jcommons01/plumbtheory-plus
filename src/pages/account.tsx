@@ -1,87 +1,74 @@
-// ✅ src/pages/account.tsx
+import { useState } from 'react';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthProvider';
-import { useEffect, useState } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
 
-export default function AccountPage() {
-  const { userData, loading } = useAuth();
-  const [cancelling, setCancelling] = useState(false);
-  const [cancelled, setCancelled] = useState(false);
-  const [error, setError] = useState('');
+export default function Account() {
+  const { userData } = useAuth();
+  const [isCancelling, setIsCancelling] = useState(false);
+  const [message, setMessage] = useState('');
 
-  const cancelSubscription = async () => {
+  const handleCancelSubscription = async () => {
     if (!userData?.stripeSubscriptionId) return;
+
+    setIsCancelling(true);
+    setMessage('');
+
     try {
-      setCancelling(true);
       const res = await fetch('/api/cancel-subscription', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subscriptionId: userData.stripeSubscriptionId }),
       });
 
-      if (!res.ok) {
-        throw new Error('Failed to cancel subscription.');
+      if (res.ok) {
+        setMessage(
+          '✅ Subscription cancellation scheduled. You’ll retain access until the end of your billing period.'
+        );
+      } else {
+        const err = await res.json();
+        setMessage(`❌ Error: ${err.error}`);
       }
-
-      // Update Firestore to remove Pro access
-      await updateDoc(doc(db, 'users', userData.uid), {
-        isPro: false,
-        stripeSubscriptionId: null,
-      });
-
-      setCancelled(true);
-    } catch (err: any) {
-      console.error(err);
-      setError('Something went wrong.');
+    } catch (err) {
+      setMessage('❌ Something went wrong. Please try again.');
     } finally {
-      setCancelling(false);
+      setIsCancelling(false);
     }
   };
 
-  if (loading || !userData) {
-    return (
-      <Layout>
-        <div className="flex justify-center items-center min-h-screen">
-          <div className="animate-spin h-8 w-8 border-t-2 border-b-2 border-blue-500 rounded-full"></div>
-        </div>
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
-      <div className="max-w-xl mx-auto py-12 px-4">
-        <h1 className="text-2xl font-bold mb-6 text-center">Account Settings</h1>
-        <div className="bg-white p-6 rounded shadow text-center">
-          <p className="mb-4">
-            <strong>Email:</strong> {userData.email}
+      <div className="max-w-md mx-auto px-4 py-12 text-center">
+        <h1 className="text-2xl font-bold mb-6">Account Settings</h1>
+
+        <div className="bg-white shadow-md p-6 rounded-md">
+          <p>
+            <strong>Email:</strong> {userData?.email}
           </p>
-          <p className="mb-4">
+          <p className="mt-2">
             <strong>Status:</strong>{' '}
-            {userData.isPro ? (
-              <span className="text-green-600 font-semibold">✅ Pro User</span>
+            {userData?.isPro ? (
+              <span className="text-green-600 font-medium">✅ Pro User</span>
             ) : (
-              <span className="text-gray-600">Free User</span>
+              'Free User'
             )}
           </p>
 
-          {userData.isPro && userData.stripeSubscriptionId && (
-            <button
-              onClick={cancelSubscription}
-              disabled={cancelling}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-            >
-              {cancelling ? 'Cancelling...' : 'Cancel Subscription'}
-            </button>
+          {userData?.isPro && userData?.stripeSubscriptionId && (
+            <div className="mt-6">
+              <button
+                onClick={handleCancelSubscription}
+                disabled={isCancelling}
+                className={`px-6 py-2 rounded text-white ${
+                  isCancelling ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
+                }`}
+              >
+                {isCancelling ? 'Cancelling...' : 'Cancel Subscription'}
+              </button>
+            </div>
           )}
 
-          {cancelled && (
-            <p className="mt-4 text-green-600">✅ Subscription cancelled successfully.</p>
-          )}
-          {error && (
-            <p className="mt-4 text-red-600 font-medium">{error}</p>
+          {message && (
+            <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">{message}</p>
           )}
         </div>
       </div>
