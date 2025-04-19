@@ -1,8 +1,10 @@
+// src/pages/api/report-question.ts
+
+console.log('✅ Report-question API route loaded'); // <--- add this line at the top
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-
-console.log('✅ Report-question API route loaded');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -21,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       reportText,
       createdAt: Timestamp.now(),
     });
+
     return res.status(200).json({ message: 'Report submitted successfully' });
   } catch (error) {
     console.error('❌ Firestore error:', error);
