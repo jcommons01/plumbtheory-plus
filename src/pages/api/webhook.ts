@@ -56,9 +56,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             isPro: true,
             stripeSubscriptionId: subscriptionId,
             subscribedAt: new Date().toISOString(),
+            trialActive: false, // 🔥 disable trial
           },
           { merge: true }
         );
+        
         console.log(`✅ Updated user ${userId} with Pro access.`);
       } catch (error) {
         console.error('❌ Failed to update Firestore:', error);
