@@ -58,7 +58,7 @@ export default function Home() {
                 <div className="text-blue-500 text-4xl mb-4">🔍</div>
                 <h3 className="text-xl font-semibold mb-2">Detailed Explanations</h3>
                 <p className="text-gray-700">
-                  Get comprehensive explanations for each question (Pro feature).
+                  Get comprehensive explanations for each question.
                 </p>
               </div>
             </div>

@@ -6,38 +6,21 @@ import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 import QuizQuestion from '@/components/QuizQuestion';
 import ProgressBar from '@/components/ProgressBar';
-
-// ✅ Types
-interface Question {
-  id: string;
-  topic: string;
-  question: string;
-  options: string[];
-  correctAnswer: string;
-  explanation: string;
-}
+import ProGateway from '@/components/ProGateway';
 
 export default function Quiz() {
   const router = useRouter();
   const { topic, amount } = router.query;
   const { user, userData, loading } = useAuth();
 
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<any[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const proTopics = [
-    'Central Heating',
-    'Drainage & Sanitation',
-    'Rainwater',
-    'Electrical',
-    'Domestic Fuels',
-    'Environmental Technologies',
-    'Calculation Questions',
-  ];
+  const proTopics = ['Environmental Technologies', 'Domestic Fuels', 'Calculation Questions'];
   const isProTopic = proTopics.includes(topic as string);
 
   useEffect(() => {
@@ -92,7 +75,7 @@ export default function Quiz() {
   const handleFinish = async () => {
     if (user && typeof topic === 'string') {
       try {
-        await updateQuizProgress(user.uid, topic, score);
+        await updateQuizProgress(user.uid, topic, score, questions.length);
       } catch (err) {
         console.error('Error updating quiz progress:', err);
       }
@@ -105,27 +88,6 @@ export default function Quiz() {
 
     router.push('/results');
   };
-
-  if (
-    isProTopic &&
-    userData &&
-    !userData.isPro
-  ) {
-    return (
-      <Layout>
-        <div className="text-center py-12">
-          <h2 className="text-xl font-semibold text-red-600">This is a Pro topic.</h2>
-          <p className="mt-2">Subscribe to access this quiz.</p>
-          <button
-            className="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-            onClick={() => router.push('/subscribe')}
-          >
-            Subscribe
-          </button>
-        </div>
-      </Layout>
-    );
-  }
 
   if (loading || isLoading) {
     return (

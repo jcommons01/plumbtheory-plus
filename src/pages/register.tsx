@@ -1,24 +1,22 @@
-// ✅ src/pages/login.tsx
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
-import { signIn } from '@/lib/firebase';
-import Link from 'next/link';
+import { signUp } from '@/lib/firebase';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     try {
-      await signIn(email, password);
+      await signUp(email, password);
       router.push('/topics');
     } catch (err) {
-      setError('Failed to login. Please check your email and password.');
+      setError('Failed to create account. Please try again.');
     }
   };
 
@@ -26,8 +24,8 @@ export default function LoginPage() {
     <Layout>
       <div className="flex justify-center items-center min-h-screen">
         <div className="w-full max-w-md bg-white p-6 rounded shadow">
-          <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
-          <form onSubmit={handleLogin} className="space-y-4">
+          <h1 className="text-2xl font-bold text-center mb-6">Create Account</h1>
+          <form onSubmit={handleRegister} className="space-y-4">
             <input
               type="email"
               placeholder="Email"
@@ -49,21 +47,15 @@ export default function LoginPage() {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
             >
-              Login
+              Sign Up
             </button>
           </form>
 
           <div className="text-center mt-4">
-            <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-              Forgot Password?
-            </Link>
-          </div>
-
-          <div className="text-center mt-2">
-            <span className="text-sm">Don’t have an account?</span>{' '}
-            <Link href="/register" className="text-sm text-blue-600 hover:underline font-medium">
-              Sign Up
-            </Link>
+            <span className="text-sm">Already have an account?</span>{' '}
+            <a href="/login" className="text-sm text-blue-600 hover:underline font-medium">
+              Login
+            </a>
           </div>
         </div>
       </div>

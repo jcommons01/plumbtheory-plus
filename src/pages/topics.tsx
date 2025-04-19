@@ -1,4 +1,4 @@
-// src/pages/topics.tsx
+// ✅ src/pages/topics.tsx
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
@@ -65,17 +65,34 @@ export default function Topics() {
         <h1 className="text-3xl font-bold mb-8 text-center">Plumbing Topics</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {topics.map((topic) => (
-            <TopicCard
-              key={topic.id}
-              title={topic.title}
-              icon={topic.icon}
-              progress={userData?.quizProgress?.[topic.title] || 0}
-              isPro={topic.isPro}
-              isUserPro={!!userData?.isPro}
-              onClick={() => openQuizOptions(topic)}
-            />
-          ))}
+          {topics.map((topic) => {
+            const progressData = userData?.quizProgress?.[topic.id] || {};
+            const lastCorrect = progressData.lastCorrect ?? null;
+            const lastTotal = progressData.lastTotal ?? null;
+
+            const hasAttempted = lastCorrect !== null && lastTotal !== null;
+
+            const percentage = hasAttempted && lastTotal > 0
+              ? Math.round((lastCorrect / lastTotal) * 100)
+              : 0;
+
+            const caption = hasAttempted
+              ? `${lastCorrect}/${lastTotal} - Last attempt`
+              : 'No attempts yet';
+
+            return (
+              <TopicCard
+                key={topic.id}
+                title={topic.title}
+                icon={topic.icon}
+                progress={percentage}
+                caption={caption}
+                isPro={topic.isPro}
+                isUserPro={!!userData?.isPro}
+                onClick={() => openQuizOptions(topic)}
+              />
+            );
+          })}
         </div>
 
         {/* Question Amount Modal */}

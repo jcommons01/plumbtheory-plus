@@ -1,4 +1,4 @@
-// src/lib/firebase.ts
+// ✅ src/lib/firebase.ts
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getAuth,
@@ -17,7 +17,6 @@ import {
 } from 'firebase/firestore';
 import { User, Question } from '@/types/user';
 
-// ✅ Firebase config
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -28,12 +27,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// ✅ Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 🔐 Auth functions
 export const signUp = async (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password).then(
     async (userCredential) => {
@@ -62,7 +59,6 @@ export const logOut = () => {
   return signOut(auth);
 };
 
-// 🔍 User data
 export const getUserData = async (uid: string) => {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
@@ -76,37 +72,37 @@ export const updateUserIsPro = async (uid: string, isPro: boolean) => {
   });
 };
 
-// ✅ NEW: Update isPro after Stripe success
-export const updateUserProStatus = async (uid: string, isPro: boolean) => {
-  const userRef = doc(db, 'users', uid);
-  await updateDoc(userRef, { isPro });
-};
-
-// 💾 Quiz progress
+// ✅ UPDATED: Store best and last attempt
 export const updateQuizProgress = async (
   uid: string,
   topic: string,
-  score: number
+  score: number,
+  total: number
 ) => {
   const userRef = doc(db, 'users', uid);
-  const userData = await getDoc(userRef);
+  const userSnap = await getDoc(userRef);
 
-  if (userData.exists()) {
-    const user = userData.data() as User;
-    const quizProgress = user.quizProgress || {};
-    const currentScore = quizProgress[topic] || 0;
+  if (!userSnap.exists()) return;
 
-    if (score > currentScore) {
-      quizProgress[topic] = score;
+  const user = userSnap.data() as User;
+  const existing = user.quizProgress?.[topic] || {};
 
-      return updateDoc(userRef, {
-        quizProgress,
-      });
-    }
-  }
+  const updatedProgress = {
+    bestScore: Math.max(existing.bestScore || 0, score),
+    lastCorrect: score,
+    lastTotal: total,
+  };
+
+  const newProgress = {
+    ...user.quizProgress,
+    [topic]: updatedProgress,
+  };
+
+  await updateDoc(userRef, {
+    quizProgress: newProgress,
+  });
 };
 
-// 📘 Quiz questions from nested structure
 export const getQuizQuestions = async (
   topic: string,
   questionCount: number = 10
