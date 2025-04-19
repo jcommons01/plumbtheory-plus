@@ -1,6 +1,5 @@
-// src/pages/api/report-question.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '@/lib/firebase'; // must use Firebase Web SDK (not admin SDK here)
+import { db } from '@/lib/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,7 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       reportText,
       createdAt: Timestamp.now(),
     });
-
     return res.status(200).json({ message: 'Report submitted successfully' });
   } catch (error) {
     console.error('❌ Firestore error:', error);
