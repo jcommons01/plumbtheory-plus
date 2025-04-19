@@ -28,7 +28,8 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
     setReportStatus('submitting');
   
     try {
-      const res = await fetch('/api/submit-report', {
+      const res = await fetch('/api/report-question', {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
