@@ -1,6 +1,6 @@
 // ✅ src/pages/api/report-question.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '@/lib/firebase'; // your Web SDK Firestore client
+import { db } from '@/lib/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

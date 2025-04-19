@@ -1,20 +1,19 @@
-// ✅ src/components/QuizQuestion.tsx
 import { FC, useEffect, useState } from 'react';
 
 interface QuizQuestionProps {
-  question: string;
-  options: string[];
+  question: {
+    text: string;
+    options: string[];
+    correctAnswer?: string;
+  };
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
-  correctAnswer?: string;
 }
 
 const QuizQuestion: FC<QuizQuestionProps> = ({
   question,
-  options,
   selectedAnswer,
   onSelectAnswer,
-  correctAnswer,
 }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportText, setReportText] = useState('');
@@ -22,8 +21,8 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
 
   useEffect(() => {
     console.log('✅ selected:', selectedAnswer);
-    console.log('✅ correct:', correctAnswer);
-  }, [selectedAnswer, correctAnswer]);
+    console.log('✅ correct:', question.correctAnswer);
+  }, [selectedAnswer, question.correctAnswer]);
 
   const handleSubmitReport = async () => {
     setReportStatus('submitting');
@@ -32,15 +31,11 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          question: {
-            text: question,
-            options,
-            correctAnswer,
-          },
+          question,
           reportText,
         }),
       });
-  
+
       if (res.ok) {
         setReportStatus('success');
         setReportText('');
@@ -58,16 +53,15 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       setReportStatus('error');
     }
   };
-  
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">{question}</h2>
+      <h2 className="text-xl font-bold mb-4">{question.text}</h2>
 
       <div className="space-y-3 mb-4">
-        {options.map((option, index) => {
+        {question.options.map((option, index) => {
           const normalizedOption = option.trim().toLowerCase();
-          const normalizedCorrect = correctAnswer?.trim().toLowerCase();
+          const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
           const isCorrect = normalizedOption === normalizedCorrect;
 

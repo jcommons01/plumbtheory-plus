@@ -151,12 +151,15 @@ export default function Quiz() {
 
         {currentQ && (
           <QuizQuestion
-            question={currentQ.question}
-            options={currentQ.options}
-            selectedAnswer={answers[currentQuestion]}
-            onSelectAnswer={handleAnswer}
-            correctAnswer={currentQ.correctAnswer}
-          />
+          question={{
+            text: currentQ.question,
+            options: currentQ.options,
+            correctAnswer: currentQ.correctAnswer,
+          }}
+          selectedAnswer={answers[currentQuestion]}
+          onSelectAnswer={handleAnswer}
+        />
+        
         )}
 
         <div className="flex justify-between mt-8">
