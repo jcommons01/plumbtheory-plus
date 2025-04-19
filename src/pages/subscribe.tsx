@@ -1,14 +1,40 @@
 // src/pages/subscribe.tsx
 import { useState } from 'react';
 import Layout from '@/components/Layout';
+import { useAuth } from '@/contexts/AuthProvider';
 
 const Subscribe = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
     setIsLoading(true);
-    window.location.href = "https://buy.stripe.com/test_aEU02bcz4bCReIwcMN"; // ✅ Replace with your real link
+    setError(null);
+
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user?.uid,
+          userEmail: user?.email,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No redirect URL returned');
+      }
+    } catch (err) {
+      console.error('❌ Stripe subscription error:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

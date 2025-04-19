@@ -1,94 +1,71 @@
 // src/pages/account.tsx
-import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthProvider';
+import Layout from '@/components/Layout';
 import { useState } from 'react';
 
 export default function Account() {
-  const { userData } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [cancelled, setCancelled] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { user, userData } = useAuth();
+  const [canceling, setCanceling] = useState(false);
+  const [message, setMessage] = useState('');
 
-  const cancelSubscription = async () => {
+  const handleCancelSubscription = async () => {
     if (!userData?.stripeSubscriptionId) {
-      setError('Subscription ID not found.');
+      setMessage('No active subscription found.');
       return;
     }
 
-    setLoading(true);
-    setError(null);
+    setCanceling(true);
+    setMessage('');
 
     try {
       const res = await fetch('/api/cancel-subscription', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ subscriptionId: userData.stripeSubscriptionId }),
       });
 
-      if (!res.ok) {
-        throw new Error('Failed to cancel subscription');
+      if (res.ok) {
+        setMessage('✅ Your subscription will be canceled at the end of the billing period.');
+      } else {
+        const { error } = await res.json();
+        setMessage(`❌ Failed to cancel: ${error}`);
       }
-
-      setCancelled(true);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong.');
+    } catch (error) {
+      console.error('Cancel error:', error);
+      setMessage('❌ An error occurred while canceling.');
     } finally {
-      setLoading(false);
+      setCanceling(false);
     }
   };
 
   return (
     <Layout>
-      <div className="max-w-lg mx-auto py-12 px-6 text-center bg-white rounded shadow">
-        <h1 className="text-2xl font-bold mb-6">Account Settings</h1>
+      <div className="max-w-2xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold mb-4">My Account</h1>
 
-        {userData && (
-          <>
-            <p className="mb-2">
-              <strong>Email:</strong> {userData.email}
+        <div className="bg-white shadow rounded p-6 mb-4">
+          <p><strong>Email:</strong> {userData?.email}</p>
+          <p><strong>Status:</strong> {userData?.isPro ? 'Pro User' : 'Free User'}</p>
+        </div>
+
+        {userData?.isPro && userData?.stripeSubscriptionId && (
+          <div className="bg-red-100 border border-red-300 p-4 rounded">
+            <h2 className="font-semibold text-red-600 mb-2">Manage Your Subscription</h2>
+            <p className="mb-3 text-sm text-red-700">
+              You can cancel your subscription at any time. You will retain access until the end of your billing cycle.
             </p>
-            <p className="mb-6">
-              <strong>Status:</strong>{' '}
-              {userData.isPro ? (
-                <span className="text-green-600 font-semibold">✅ Pro User</span>
-              ) : (
-                <span className="text-gray-500">Free User</span>
-              )}
-            </p>
-
-            {userData.isPro && userData.stripeSubscriptionId && !cancelled && (
-              <button
-                onClick={cancelSubscription}
-                className={`bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 mb-4 ${
-                  loading && 'opacity-60 cursor-not-allowed'
-                }`}
-                disabled={loading}
-              >
-                {loading ? 'Cancelling...' : 'Cancel Subscription'}
-              </button>
-            )}
-
-            {cancelled && (
-              <p className="text-sm text-yellow-600 mb-4">
-                Subscription will end at the end of the current billing cycle.
-              </p>
-            )}
-
-            {error && (
-              <p className="text-sm text-red-600 mb-4">{error}</p>
-            )}
-          </>
+            <button
+              onClick={handleCancelSubscription}
+              disabled={canceling}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              {canceling ? 'Cancelling...' : 'Cancel Subscription'}
+            </button>
+            {message && <p className="mt-3 text-sm text-gray-700">{message}</p>}
+          </div>
         )}
-
-        <button
-          onClick={() => {
-            localStorage.clear();
-            window.location.href = '/login';
-          }}
-          className="bg-gray-300 text-black px-6 py-2 rounded hover:bg-gray-400"
-        >
-          Log Out
-        </button>
       </div>
     </Layout>
   );
