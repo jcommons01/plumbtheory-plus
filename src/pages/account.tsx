@@ -1,80 +1,81 @@
 // ✅ src/pages/account.tsx
-import { useState } from 'react';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthProvider';
+import { useEffect, useState } from 'react';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-export default function Account() {
-  const { userData, user, loading } = useAuth();
-  const [isCancelling, setIsCancelling] = useState(false);
+export default function AccountPage() {
+  const { userData, user } = useAuth();
+  const [cancelling, setCancelling] = useState(false);
   const [message, setMessage] = useState('');
 
   const handleCancelSubscription = async () => {
     if (!userData?.stripeSubscriptionId) return;
 
-    setIsCancelling(true);
+    setCancelling(true);
     setMessage('');
 
     try {
       const res = await fetch('/api/cancel-subscription', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subscriptionId: userData.stripeSubscriptionId }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          subscriptionId: userData.stripeSubscriptionId,
+          uid: user?.uid,
+        }),
       });
 
       if (res.ok) {
-        setMessage('✅ Subscription cancellation scheduled. You’ll retain access until the end of your billing period.');
+        setMessage('Subscription cancelled. You will retain access until the end of your billing period.');
       } else {
-        const err = await res.json();
-        setMessage(`❌ Error: ${err.error}`);
+        setMessage('Failed to cancel subscription. Please contact support.');
       }
     } catch (err) {
-      console.error('❌ Cancel Error:', err);
-      setMessage('❌ Something went wrong. Please try again.');
-    } finally {
-      setIsCancelling(false);
+      console.error(err);
+      setMessage('An error occurred. Try again later.');
     }
-  };
 
-  if (loading || !userData) {
-    return (
-      <Layout>
-        <div className="flex justify-center items-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      </Layout>
-    );
-  }
+    setCancelling(false);
+  };
 
   return (
     <Layout>
-      <div className="max-w-md mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold mb-6">Account Settings</h1>
+      <div className="max-w-xl mx-auto px-4 py-12 text-center">
+        <h1 className="text-3xl font-bold mb-6">Account Settings</h1>
 
-        <div className="bg-white shadow-md p-6 rounded-md">
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p className="mt-2">
-            <strong>Status:</strong> {userData.isPro ? '✅ Pro User' : 'Free User'}
-          </p>
+        {userData ? (
+          <div className="bg-white shadow-md p-6 rounded-md">
+            <p className="text-lg mb-2">
+              <strong>Email:</strong> {userData.email}
+            </p>
+            <p className="text-lg mb-4">
+              <strong>Status:</strong>{' '}
+              {userData.isPro ? (
+                <span className="text-green-600 font-semibold">✅ Pro User</span>
+              ) : (
+                'Free User'
+              )}
+            </p>
 
-          {/* ✅ Show cancel button if Pro and has sub ID */}
-          {userData.isPro && userData.stripeSubscriptionId && (
-            <div className="mt-6">
-              <button
-                onClick={handleCancelSubscription}
-                disabled={isCancelling}
-                className={`px-6 py-2 rounded text-white ${
-                  isCancelling ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
-                }`}
-              >
-                {isCancelling ? 'Cancelling...' : 'Cancel Subscription'}
-              </button>
-            </div>
-          )}
-
-          {message && (
-            <p className="mt-4 text-sm text-gray-700">{message}</p>
-          )}
-        </div>
+            {userData.isPro && userData.stripeSubscriptionId && (
+              <div className="mt-4">
+                <button
+                  onClick={handleCancelSubscription}
+                  disabled={cancelling}
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                >
+                  {cancelling ? 'Cancelling...' : 'Cancel Subscription'}
+                </button>
+                {message && <p className="mt-3 text-sm text-gray-700">{message}</p>}
+              </div>
+            )}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </Layout>
   );
