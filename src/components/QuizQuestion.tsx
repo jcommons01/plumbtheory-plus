@@ -31,9 +31,16 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       const res = await fetch('/api/report-question', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, reportText }),
+        body: JSON.stringify({
+          question: {
+            text: question,
+            options,
+            correctAnswer,
+          },
+          reportText,
+        }),
       });
-
+  
       if (res.ok) {
         setReportStatus('success');
         setReportText('');
@@ -42,6 +49,8 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
           setReportStatus('idle');
         }, 2000);
       } else {
+        const err = await res.json();
+        console.error('❌ Report error:', err);
         setReportStatus('error');
       }
     } catch (err) {
@@ -49,6 +58,7 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       setReportStatus('error');
     }
   };
+  
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
