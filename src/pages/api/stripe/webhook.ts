@@ -56,7 +56,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             isPro: true,
             stripeSubscriptionId: subscriptionId,
             subscribedAt: new Date().toISOString(),
-            trialActive: false, // 🔥 disable trial
           },
           { merge: true }
         );
