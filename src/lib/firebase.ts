@@ -44,8 +44,6 @@ export const signUp = async (email: string, password: string) => {
         uid: user.uid,
         email: user.email || '',
         isPro: false,
-        trialActive: true,
-        trialStartedAt: now,
         quizProgress: {},
         createdAt: now,
       };

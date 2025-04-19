@@ -34,21 +34,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // ✅ Handle events
   switch (event.type) {
     case 'checkout.session.completed': {
-      const session = event.data.object as Stripe.Checkout.Session;
-      const userId = session?.metadata?.userId;
-      const subscriptionId = session.subscription?.toString();
+  const session = event.data.object as Stripe.Checkout.Session;
+  const userId = session.client_reference_id;
+  const subscriptionId = session.subscription as string;
 
-      if (userId && subscriptionId) {
-        console.log('✅ Subscription complete. Updating Firestore...');
-
-        await adminDB.collection('users').doc(userId).set({
-          isPro: true,
-          subscribedAt: new Date().toISOString(),
-          stripeSubscriptionId: subscriptionId,
-        }, { merge: true });
-      }
-      break;
-    }
+  if (userId && subscriptionId) {
+    await adminDB.collection('users').doc(userId).set({
+      isPro: true,
+      subscribedAt: new Date().toISOString(),
+      stripeSubscriptionId: subscriptionId,
+    }, { merge: true });
+  }
+  break;
+}
 
     case 'customer.subscription.deleted': {
       const subscription = event.data.object as Stripe.Subscription;

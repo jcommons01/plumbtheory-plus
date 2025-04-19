@@ -1,10 +1,9 @@
-// src/pages/account.tsx
 import { useState } from 'react';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthProvider';
 
 export default function Account() {
-  const { userData, user } = useAuth();
+  const { userData } = useAuth();
   const [isCancelling, setIsCancelling] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -17,9 +16,7 @@ export default function Account() {
     try {
       const res = await fetch('/api/cancel-subscription', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subscriptionId: userData.stripeSubscriptionId }),
       });
 
@@ -43,7 +40,14 @@ export default function Account() {
 
         <div className="bg-white shadow-md p-6 rounded-md">
           <p><strong>Email:</strong> {userData?.email}</p>
-          <p className="mt-2"><strong>Status:</strong> {userData?.isPro ? '✅ Pro User' : 'Free User'}</p>
+          <p className="mt-2">
+            <strong>Status:</strong>{' '}
+            {userData?.isPro ? (
+              <span className="text-green-600 font-medium">✅ Pro User</span>
+            ) : (
+              'Free User'
+            )}
+          </p>
 
           {userData?.isPro && userData?.stripeSubscriptionId && (
             <div className="mt-6">
@@ -60,7 +64,7 @@ export default function Account() {
           )}
 
           {message && (
-            <p className="mt-4 text-sm text-gray-700">{message}</p>
+            <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">{message}</p>
           )}
         </div>
       </div>
