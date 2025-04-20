@@ -1,4 +1,3 @@
-// src/pages/quiz/[topic].tsx
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getQuizQuestions, updateQuizProgress } from '@/lib/firebase';
@@ -6,12 +5,11 @@ import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 import QuizQuestion from '@/components/QuizQuestion';
 import ProgressBar from '@/components/ProgressBar';
-import ProGateway from '@/components/ProGateway';
 
 export default function Quiz() {
   const router = useRouter();
   const { topic, amount } = router.query;
-  const { user, userData, loading } = useAuth();
+  const { user, loading } = useAuth();
 
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -19,9 +17,6 @@ export default function Quiz() {
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const proTopics = ['Environmental Technologies', 'Domestic Fuels', 'Calculation Questions'];
-  const isProTopic = proTopics.includes(topic as string);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -142,7 +137,8 @@ export default function Quiz() {
           {typeof topic === 'string' ? topic.replace(/-/g, ' ') : ''} Quiz
         </h1>
         <p className="text-center text-sm text-gray-600 mb-4">
-          You are answering {questions.length} randomized question{questions.length !== 1 && 's'}.
+          You are answering {questions.length} randomized question
+          {questions.length !== 1 && 's'}.
         </p>
 
         <div className="mb-6">
@@ -151,15 +147,14 @@ export default function Quiz() {
 
         {currentQ && (
           <QuizQuestion
-          question={{
-            text: currentQ.question,
-            options: currentQ.options,
-            correctAnswer: currentQ.correctAnswer,
-          }}
-          selectedAnswer={answers[currentQuestion]}
-          onSelectAnswer={handleAnswer}
-        />
-        
+            question={{
+              text: currentQ.question,
+              options: currentQ.options,
+              correctAnswer: currentQ.correctAnswer,
+            }}
+            selectedAnswer={answers[currentQuestion]}
+            onSelectAnswer={handleAnswer}
+          />
         )}
 
         <div className="flex justify-between mt-8">
