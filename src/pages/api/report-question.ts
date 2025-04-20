@@ -1,4 +1,4 @@
-// ✅ src/pages/api/report-question.ts
+// src/pages/api/report-question.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
@@ -20,9 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       reportText,
       createdAt: Timestamp.now(),
     });
+
     return res.status(200).json({ message: 'Report submitted successfully' });
-  } catch (error) {
-    console.error('❌ Firestore error:', error);
+  } catch (err) {
     return res.status(500).json({ error: 'Failed to submit report' });
   }
 }
