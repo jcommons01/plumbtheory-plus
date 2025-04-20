@@ -1,19 +1,19 @@
 import { FC, useEffect, useState } from 'react';
 
 interface QuizQuestionProps {
-  question: {
-    text: string;
-    options: string[];
-    correctAnswer?: string;
-  };
+  question: string;
+  options: string[];
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
+  correctAnswer?: string;
 }
 
 const QuizQuestion: FC<QuizQuestionProps> = ({
   question,
+  options,
   selectedAnswer,
   onSelectAnswer,
+  correctAnswer,
 }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportText, setReportText] = useState('');
@@ -21,31 +21,34 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
 
   useEffect(() => {
     console.log('✅ selected:', selectedAnswer);
-    console.log('✅ correct:', question.correctAnswer);
-  }, [selectedAnswer, question.correctAnswer]);
+    console.log('✅ correct:', correctAnswer);
+  }, [selectedAnswer, correctAnswer]);
 
   const handleSubmitReport = async () => {
     setReportStatus('submitting');
-  
+
     try {
       const res = await fetch('/api/report-question', {
-
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          question,
+          question: {
+            text: question,
+            options,
+            correctAnswer,
+          },
           reportText,
         }),
       });
-  
+
       if (!res.ok) {
-        const text = await res.text(); // avoid .json() crash
+        const text = await res.text();
         console.error('❌ Server error:', text);
         throw new Error(text);
       }
-  
+
       setReportStatus('success');
       setReportText('');
       setTimeout(() => {
@@ -57,15 +60,15 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       setReportStatus('error');
     }
   };
-  
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">{question.text}</h2>
+      <h2 className="text-xl font-bold mb-4">{question}</h2>
 
       <div className="space-y-3 mb-4">
-        {question.options.map((option, index) => {
+        {options.map((option: string, index: number) => {
           const normalizedOption = option.trim().toLowerCase();
-          const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
+          const normalizedCorrect = correctAnswer?.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
           const isCorrect = normalizedOption === normalizedCorrect;
 
@@ -96,7 +99,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         })}
       </div>
 
-      {/* Report Button */}
       <div className="text-right">
         <button
           onClick={() => setShowReportModal(true)}
@@ -106,7 +108,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         </button>
       </div>
 
-      {/* Report Modal */}
       {showReportModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-md shadow-lg max-w-md w-full p-6 text-left">
