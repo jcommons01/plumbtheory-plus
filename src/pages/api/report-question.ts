@@ -1,4 +1,4 @@
-// src/pages/api/report-question.ts
+// ✅ src/pages/api/report-question.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
@@ -8,21 +8,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { question, reportText } = req.body;
+  const { questionText, reportText } = req.body;
 
-  if (!question || !reportText) {
+  if (!questionText || !reportText) {
     return res.status(400).json({ error: 'Missing fields' });
   }
 
   try {
     await addDoc(collection(db, 'questionReports'), {
-      question,
+      questionText,
       reportText,
       createdAt: Timestamp.now(),
     });
-
     return res.status(200).json({ message: 'Report submitted successfully' });
-  } catch (err) {
+  } catch (error) {
+    console.error('❌ Firestore error:', error);
     return res.status(500).json({ error: 'Failed to submit report' });
   }
 }

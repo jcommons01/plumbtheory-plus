@@ -62,23 +62,23 @@ export default function AdminReportsPage() {
           <div className="space-y-4">
             {reports.map((report) => (
               <div key={report.id} className="bg-white p-4 rounded shadow border">
-                <h3 className="font-semibold mb-1">Reported Issue:</h3>
-                <p className="mb-2 text-sm text-gray-700">{report.reportText}</p>
+                <h3 className="font-semibold text-blue-700 mb-1">Question:</h3>
+                <p className="mb-2 text-gray-800">{report.questionText}</p>
 
-                {report.question && typeof report.question === 'object' && (
-                  <>
-                    <h4 className="font-semibold mt-3">Question Details:</h4>
-                    <p className="text-gray-800 font-medium">{report.question.text}</p>
-                    <ul className="ml-4 list-disc text-sm text-gray-700">
-                      {report.question.options?.map((opt: string, i: number) => (
-                        <li key={i}>{opt}</li>
-                      ))}
-                    </ul>
-                    <p className="mt-1 text-green-600 text-sm">
-                      Correct: {report.question.correctAnswer}
-                    </p>
-                  </>
-                )}
+                <h4 className="font-semibold text-blue-700 mb-1">Options:</h4>
+                <ul className="list-disc pl-5 text-gray-700 mb-2">
+                  {report.options?.map((opt: string, idx: number) => (
+                    <li key={idx}>{opt}</li>
+                  ))}
+                </ul>
+
+                <p className="mb-2">
+                  <span className="font-semibold text-blue-700">Correct Answer:</span>{' '}
+                  <span className="text-green-700">{report.correctAnswer}</span>
+                </p>
+
+                <h4 className="font-semibold text-red-700 mb-1">User Report:</h4>
+                <p className="text-gray-700">{report.reportText}</p>
               </div>
             ))}
           </div>

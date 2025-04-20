@@ -1,4 +1,4 @@
-// src/components/QuizQuestion.tsx
+// ✅ src/components/QuizQuestion.tsx
 import { FC, useEffect, useState } from 'react';
 
 interface QuizQuestionProps {
@@ -20,11 +20,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
   const [reportText, setReportText] = useState('');
   const [reportStatus, setReportStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
-  useEffect(() => {
-    console.log('✅ selected:', selectedAnswer);
-    console.log('✅ correct:', question.correctAnswer);
-  }, [selectedAnswer, question.correctAnswer]);
-
   const handleSubmitReport = async () => {
     setReportStatus('submitting');
 
@@ -33,7 +28,9 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          question: question.text, // ✅ Only send the question text
+          questionText: question.text,
+          options: question.options,
+          correctAnswer: question.correctAnswer,
           reportText,
         }),
       });
@@ -62,10 +59,9 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
 
       <div className="space-y-3 mb-4">
         {question.options.map((option, index) => {
-          const normalizedOption = option.trim().toLowerCase();
-          const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
-          const isCorrect = normalizedOption === normalizedCorrect;
+          const isCorrect =
+            option.trim().toLowerCase() === question.correctAnswer?.trim().toLowerCase();
 
           let optionClasses = 'w-full text-left px-4 py-3 rounded-md border transition-colors';
 
@@ -94,7 +90,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         })}
       </div>
 
-      {/* Report Button */}
       <div className="text-right">
         <button
           onClick={() => setShowReportModal(true)}
@@ -104,7 +99,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         </button>
       </div>
 
-      {/* Report Modal */}
       {showReportModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-md shadow-lg max-w-md w-full p-6 text-left">
