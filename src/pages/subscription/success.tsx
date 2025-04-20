@@ -36,9 +36,10 @@ export default function SuccessPage() {
           dangerouslySetInnerHTML={{
             __html: `
               gtag('event', 'conversion', {
-                'send_to': 'AW-17021468689/HCUWC16B_roaEJGAvLQ_',
+                'send_to': 'AW-17021468689/HCUWCI6B_roaEJGAvLQ_',
                 'value': 1.0,
-                'currency': 'GBP'
+                'currency': 'GBP',
+                'transaction_id': ''
               });
             `,
           }}
