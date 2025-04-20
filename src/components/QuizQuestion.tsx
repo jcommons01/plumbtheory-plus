@@ -1,3 +1,4 @@
+// src/components/QuizQuestion.tsx
 import { FC, useEffect, useState } from 'react';
 
 interface QuizQuestionProps {
@@ -31,7 +32,10 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       const res = await fetch('/api/report-question', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, reportText }),
+        body: JSON.stringify({
+          question: question.text, // ✅ Only send the question text
+          reportText,
+        }),
       });
 
       if (!res.ok) {
@@ -90,6 +94,7 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         })}
       </div>
 
+      {/* Report Button */}
       <div className="text-right">
         <button
           onClick={() => setShowReportModal(true)}
@@ -99,6 +104,7 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         </button>
       </div>
 
+      {/* Report Modal */}
       {showReportModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-md shadow-lg max-w-md w-full p-6 text-left">
