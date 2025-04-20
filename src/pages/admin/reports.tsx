@@ -21,7 +21,7 @@ export default function AdminReportsPage() {
 
   useEffect(() => {
     const fetchReports = async () => {
-      const querySnapshot = await getDocs(collection(db, 'questionReports')); // ✅ Corrected collection name
+      const querySnapshot = await getDocs(collection(db, 'questionReports'));
       const reportData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setReports(reportData);
     };
@@ -62,10 +62,23 @@ export default function AdminReportsPage() {
           <div className="space-y-4">
             {reports.map((report) => (
               <div key={report.id} className="bg-white p-4 rounded shadow border">
-                <h3 className="font-semibold">Question:</h3>
-                <p className="mb-2">{report.question}</p>
-                <h4 className="font-semibold">Report:</h4>
-                <p>{report.reportText}</p>
+                <h3 className="font-semibold mb-1">Reported Issue:</h3>
+                <p className="mb-2 text-sm text-gray-700">{report.reportText}</p>
+
+                {report.question && typeof report.question === 'object' && (
+                  <>
+                    <h4 className="font-semibold mt-3">Question Details:</h4>
+                    <p className="text-gray-800 font-medium">{report.question.text}</p>
+                    <ul className="ml-4 list-disc text-sm text-gray-700">
+                      {report.question.options?.map((opt: string, i: number) => (
+                        <li key={i}>{opt}</li>
+                      ))}
+                    </ul>
+                    <p className="mt-1 text-green-600 text-sm">
+                      Correct: {report.question.correctAnswer}
+                    </p>
+                  </>
+                )}
               </div>
             ))}
           </div>
