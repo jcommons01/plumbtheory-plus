@@ -1,5 +1,5 @@
-// ✅ src/components/QuizQuestion.tsx
-import { FC, useEffect, useState } from 'react';
+// src/components/QuizQuestion.tsx
+import { FC, useEffect } from 'react';
 
 interface QuizQuestionProps {
   question: {
@@ -16,42 +16,10 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
   selectedAnswer,
   onSelectAnswer,
 }) => {
-  const [showReportModal, setShowReportModal] = useState(false);
-  const [reportText, setReportText] = useState('');
-  const [reportStatus, setReportStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-
-  const handleSubmitReport = async () => {
-    setReportStatus('submitting');
-
-    try {
-      const res = await fetch('/api/report-question', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          questionText: question.text,
-          options: question.options,
-          correctAnswer: question.correctAnswer,
-          reportText,
-        }),
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        console.error('❌ Server error:', text);
-        throw new Error(text);
-      }
-
-      setReportStatus('success');
-      setReportText('');
-      setTimeout(() => {
-        setShowReportModal(false);
-        setReportStatus('idle');
-      }, 2000);
-    } catch (err: any) {
-      console.error('❌ Report failed:', err.message);
-      setReportStatus('error');
-    }
-  };
+  useEffect(() => {
+    console.log('✅ selected:', selectedAnswer);
+    console.log('✅ correct:', question.correctAnswer);
+  }, [selectedAnswer, question.correctAnswer]);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -59,11 +27,13 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
 
       <div className="space-y-3 mb-4">
         {question.options.map((option, index) => {
+          const normalizedOption = option.trim().toLowerCase();
+          const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
-          const isCorrect =
-            option.trim().toLowerCase() === question.correctAnswer?.trim().toLowerCase();
+          const isCorrect = normalizedOption === normalizedCorrect;
 
-          let optionClasses = 'w-full text-left px-4 py-3 rounded-md border transition-colors';
+          let optionClasses =
+            'w-full text-left px-4 py-3 rounded-md border transition-colors';
 
           if (selectedAnswer) {
             if (isCorrect) {
@@ -89,55 +59,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
           );
         })}
       </div>
-
-      <div className="text-right">
-        <button
-          onClick={() => setShowReportModal(true)}
-          className="text-sm text-blue-600 underline hover:text-blue-800"
-        >
-          Report this question
-        </button>
-      </div>
-
-      {showReportModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-md shadow-lg max-w-md w-full p-6 text-left">
-            <h3 className="text-lg font-bold mb-3">Report this question</h3>
-            <textarea
-              className="w-full border rounded p-2 mb-3"
-              rows={4}
-              placeholder="Describe the issue..."
-              value={reportText}
-              onChange={(e) => setReportText(e.target.value)}
-            />
-            <div className="flex justify-end gap-2">
-              <button
-                className="px-4 py-2 text-gray-600 hover:underline"
-                onClick={() => {
-                  setShowReportModal(false);
-                  setReportText('');
-                  setReportStatus('idle');
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                onClick={handleSubmitReport}
-                disabled={reportStatus === 'submitting'}
-              >
-                {reportStatus === 'submitting' ? 'Sending...' : 'Submit'}
-              </button>
-            </div>
-            {reportStatus === 'success' && (
-              <p className="mt-2 text-green-600 text-sm">Report submitted ✅</p>
-            )}
-            {reportStatus === 'error' && (
-              <p className="mt-2 text-red-600 text-sm">Failed to submit. Try again.</p>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
