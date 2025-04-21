@@ -1,25 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import Stripe from 'stripe';
+// src/pages/api/webhook.ts
 import { buffer } from 'micro';
-import admin from 'firebase-admin';
-
-// ✅ Use correct Stripe API version
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil',
-});
-
-// ✅ Initialize Firebase Admin only once
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    }),
-  });
-}
-
-const adminDB = admin.firestore();
+import * as admin from 'firebase-admin';
+import { NextApiRequest, NextApiResponse } from 'next';
+import Stripe from 'stripe';
 
 export const config = {
   api: {
@@ -27,45 +10,60 @@ export const config = {
   },
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).end('Method Not Allowed');
-  }
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-03-31.basil',
+});
 
-  const buf = await buffer(req);
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string);
+
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
+
+const db = admin.firestore();
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
+
   const sig = req.headers['stripe-signature']!;
+  const buf = await buffer(req);
+
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-  } catch (err) {
-    console.error('❌ Webhook signature verification failed.', err);
-    return res.status(400).send(`Webhook Error: ${err}`);
+    event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
+  } catch (err: any) {
+    console.error('❌ Error verifying webhook signature:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // ✅ Handle successful payment
-  console.log('📦 Stripe event received:', event.type);
-
+  // ✅ Handle subscription success
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
     const userId = session.metadata?.userId;
-    const subscriptionId = session.subscription as string;
+    const subscriptionId = session.subscription;
+
+    console.log('📦 Stripe event received: checkout.session.completed');
+    console.log('👤 userId from metadata:', userId);
+    console.log('📄 subscriptionId:', subscriptionId);
 
     if (userId && subscriptionId) {
       try {
-        await adminDB.collection('users').doc(userId).set(
-          {
-            isPro: true,
-            stripeSubscriptionId: subscriptionId,
-            subscribedAt: new Date().toISOString(),
-          },
-          { merge: true }
-        );
-        
+        await db.collection('users').doc(userId).set({
+          isPro: true,
+          stripeSubscriptionId: subscriptionId,
+          subscribedAt: new Date().toISOString(),
+        }, { merge: true });
+
         console.log(`✅ Updated user ${userId} with Pro access.`);
-      } catch (error) {
-        console.error('❌ Failed to update Firestore:', error);
-        return res.status(500).json({ error: 'Firestore update failed' });
+      } catch (err) {
+        console.error('❌ Failed to update Firestore:', err);
+        return res.status(500).end('Firestore error');
       }
     }
   }
