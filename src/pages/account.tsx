@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Layout from '../src/components/Layout';
-import { useAuth } from '../src/contexts/AuthProvider';
-import { auth } from '../src/lib/firebase';
+import Layout from '@/components/Layout';
+import { useAuth } from '@/contexts/AuthProvider';
+import { auth } from '@/lib/firebase';
 import { getIdToken } from 'firebase/auth';
 
 export default function Account() {
