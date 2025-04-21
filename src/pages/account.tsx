@@ -1,72 +1,74 @@
 import { useState } from "react";
-import { useAuth } from "../contexts/AuthProvider"; // Correct path to your Auth context
+import { useAuth } from "../contexts/AuthProvider";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../lib/firebase"; // Firestore client config
+import { db } from "../lib/firebase";
 
 export default function AccountPage() {
   const { user, userData } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleCancel = async () => {
     if (!user?.uid) return;
 
     setLoading(true);
-    setMessage("");
+    setSuccess(false);
 
-    try {
-      const res = await fetch("/api/cancel-subscription", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ uid: user.uid }),
+    const res = await fetch("/api/cancel-subscription", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ uid: user.uid }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      await updateDoc(doc(db, "users", user.uid), {
+        isPro: false,
+        stripeSubscriptionId: null,
       });
 
-      const data = await res.json();
-
-      if (data.success) {
-        // Optional: update Firestore client-side (if needed)
-        await updateDoc(doc(db, "users", user.uid), {
-          isPro: false,
-          stripeSubscriptionId: null,
-        });
-
-        setMessage("✅ Subscription successfully cancelled.");
-      } else {
-        setMessage(`❌ ${data.error || "Something went wrong."}`);
-      }
-    } catch (err: any) {
-      setMessage(`❌ ${err.message}`);
+      setSuccess(true);
     }
 
     setLoading(false);
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Account Settings</h1>
+    <div className="max-w-md mx-auto mt-10 px-4">
+      <h1 className="text-3xl font-bold text-center mb-6">Account Settings</h1>
 
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <div>
-          <p>
-            <strong>Email:</strong> {user?.email || "Not signed in"}
-          </p>
-          <p>
-            <strong>Pro Access:</strong> {userData?.isPro ? "Yes" : "No"}
-          </p>
-        </div>
+      <div className="bg-white shadow-md rounded-lg p-6 text-center border">
+        <p className="mb-3">
+          <span className="font-semibold">Email:</span>{" "}
+          {user?.email || "Not logged in"}
+        </p>
 
-        {userData?.isPro && userData?.stripeSubscriptionId && (
+        <p className="mb-5">
+          <span className="font-semibold">Status:</span>{" "}
+          {userData?.isPro ? (
+            <span className="text-green-600 font-medium">
+              ✅ Pro User
+            </span>
+          ) : (
+            <span className="text-gray-500">Free User</span>
+          )}
+        </p>
+
+        {userData?.isPro && userData?.stripeSubscriptionId && !success && (
           <button
             onClick={handleCancel}
             disabled={loading}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition"
           >
             {loading ? "Cancelling..." : "Cancel Subscription"}
           </button>
         )}
 
-        {message && (
-          <p className="text-sm mt-2 text-gray-700">{message}</p>
+        {success && (
+          <p className="text-green-600 mt-4 font-medium">
+            ✅ Subscription cancelled
+          </p>
         )}
       </div>
     </div>
