@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Layout from '@/components/Layout';
-import { useAuth } from '@/contexts/AuthProvider';
-import { auth } from '@/lib/firebase'; // ✅ Make sure this is the correct path to your Firebase instance
+import React, { useState } from 'react';
+import Layout from '../src/components/Layout';
+import { useAuth } from '../src/contexts/AuthProvider';
+import { auth } from '../src/lib/firebase';
 import { getIdToken } from 'firebase/auth';
 
 export default function Account() {
@@ -27,6 +27,7 @@ export default function Account() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ subscriptionId: userData.stripeSubscriptionId }),
       });
 
       if (res.ok) {
