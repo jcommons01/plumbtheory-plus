@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/pages/account.tsx
+import React, { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthProvider';
 import { auth } from '@/lib/firebase';
@@ -8,7 +9,10 @@ export default function Account() {
   const { userData } = useAuth();
   const [isCancelling, setIsCancelling] = useState(false);
   const [message, setMessage] = useState('');
-  console.log('🔍 userData:', userData);
+
+  useEffect(() => {
+    console.log('🔍 userData:', userData);
+  }, [userData]);
 
   const handleCancelSubscription = async () => {
     if (!userData?.stripeSubscriptionId) return;
@@ -53,34 +57,40 @@ export default function Account() {
         <h1 className="text-2xl font-bold mb-6">Account Settings</h1>
 
         <div className="bg-white shadow-md p-6 rounded-md">
-          <p>
-            <strong>Email:</strong> {userData?.email}
-          </p>
-          <p className="mt-2">
-            <strong>Status:</strong>{' '}
-            {userData?.isPro ? (
-              <span className="text-green-600 font-medium">✅ Pro User</span>
-            ) : (
-              'Free User'
-            )}
-          </p>
+          {userData ? (
+            <>
+              <p>
+                <strong>Email:</strong> {userData?.email}
+              </p>
+              <p className="mt-2">
+                <strong>Status:</strong>{' '}
+                {userData?.isPro ? (
+                  <span className="text-green-600 font-medium">✅ Pro User</span>
+                ) : (
+                  'Free User'
+                )}
+              </p>
 
-          {userData?.isPro && userData?.stripeSubscriptionId && (
-            <div className="mt-6">
-              <button
-                onClick={handleCancelSubscription}
-                disabled={isCancelling}
-                className={`px-6 py-2 rounded text-white ${
-                  isCancelling ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
-                }`}
-              >
-                {isCancelling ? 'Cancelling...' : 'Cancel Subscription'}
-              </button>
-            </div>
-          )}
+              {userData?.isPro && userData?.stripeSubscriptionId && (
+                <div className="mt-6">
+                  <button
+                    onClick={handleCancelSubscription}
+                    disabled={isCancelling}
+                    className={`px-6 py-2 rounded text-white ${
+                      isCancelling ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
+                    }`}
+                  >
+                    {isCancelling ? 'Cancelling...' : 'Cancel Subscription'}
+                  </button>
+                </div>
+              )}
 
-          {message && (
-            <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">{message}</p>
+              {message && (
+                <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">{message}</p>
+              )}
+            </>
+          ) : (
+            <p>Loading account details...</p>
           )}
         </div>
       </div>
