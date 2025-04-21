@@ -71,19 +71,7 @@ export default function Account() {
                 )}
               </p>
 
-              {userData?.isPro && userData?.stripeSubscriptionId && (
-                <div className="mt-6">
-                  <button
-                    onClick={handleCancelSubscription}
-                    disabled={isCancelling}
-                    className={`px-6 py-2 rounded text-white ${
-                      isCancelling ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'
-                    }`}
-                  >
-                    {isCancelling ? 'Cancelling...' : 'Cancel Subscription'}
-                  </button>
-                </div>
-              )}
+             
 
               {message && (
                 <p className="mt-4 text-sm text-gray-700 whitespace-pre-line">{message}</p>
