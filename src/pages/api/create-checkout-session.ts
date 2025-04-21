@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       mode: 'subscription',
       payment_method_types: ['card'],
       customer_email: userEmail,
-      client_reference_id: userId,
+      client_reference_id: userId, // Optional but useful
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
       line_items: [
@@ -32,8 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       ],
       metadata: {
-        userId, // ✅ This makes it easier to fetch in webhook
-        userEmail,
+        userId, // ✅ This is what your webhook reads
       },
     });
 

@@ -1,8 +1,9 @@
-// src/pages/api/cancel-subscription.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
+import { getAuth } from 'firebase-admin/auth';
+import { adminDB } from '@/lib/firebase-admin'; // ✅ Match the actual export
 
-// ✅ Stripe initialization with API version
+// ✅ Match your Stripe TypeScript version
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil',
 });
@@ -12,20 +13,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end('Method Not Allowed');
   }
 
-  const { subscriptionId } = req.body;
-
-  if (!subscriptionId) {
-    return res.status(400).json({ error: 'Missing subscriptionId' });
-  }
-
   try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const idToken = authHeader.split('Bearer ')[1];
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    const userRef = adminDB.collection('users').doc(uid);
+    const userSnap = await userRef.get();
+
+    if (!userSnap.exists) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const userData = userSnap.data();
+    const subscriptionId = userData?.stripeSubscriptionId;
+
+    if (!subscriptionId) {
+      return res.status(400).json({ error: 'No subscription ID found' });
+    }
+
     await stripe.subscriptions.update(subscriptionId, {
       cancel_at_period_end: true,
     });
 
-    res.status(200).json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (error: any) {
-    console.error('❌ Error cancelling subscription:', error.message);
-    res.status(500).json({ error: 'Failed to cancel subscription' });
+    console.error('❌ Cancel subscription error:', error.message);
+    return res.status(500).json({ error: 'Failed to cancel subscription' });
   }
 }

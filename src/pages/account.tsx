@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthProvider';
+import { auth } from '@/lib/firebase'; // ✅ Make sure this is the correct path to your Firebase instance
+import { getIdToken } from 'firebase/auth';
 
 export default function Account() {
   const { userData } = useAuth();
@@ -14,10 +16,17 @@ export default function Account() {
     setMessage('');
 
     try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) throw new Error('User not logged in');
+
+      const token = await getIdToken(currentUser);
+
       const res = await fetch('/api/cancel-subscription', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subscriptionId: userData.stripeSubscriptionId }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (res.ok) {
@@ -29,6 +38,7 @@ export default function Account() {
         setMessage(`❌ Error: ${err.error}`);
       }
     } catch (err) {
+      console.error(err);
       setMessage('❌ Something went wrong. Please try again.');
     } finally {
       setIsCancelling(false);
