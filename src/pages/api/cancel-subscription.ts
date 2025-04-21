@@ -1,49 +1,53 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import Stripe from 'stripe';
-import { getAuth } from 'firebase-admin/auth';
-import { adminDB } from '@/lib/firebase-admin'; // ✅ Match the actual export
+import { NextApiRequest, NextApiResponse } from "next";
+import Stripe from "stripe";
+import admin from "firebase-admin";
 
-// ✅ Match your Stripe TypeScript version
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil',
-});
+// ✅ Initialize Firebase Admin
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    }),
+  });
+}
+
+const adminDB = admin.firestore();
+
+// ✅ Initialize Stripe (no apiVersion to avoid type errors)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).end('Method Not Allowed');
+  if (req.method !== "POST") return res.status(405).end();
+
+  const { uid } = req.body;
+
+  if (!uid) {
+    return res.status(400).json({ error: "Missing UID" });
   }
 
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    const idToken = authHeader.split('Bearer ')[1];
-    const decodedToken = await getAuth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
-
-    const userRef = adminDB.collection('users').doc(uid);
+    const userRef = adminDB.collection("users").doc(uid);
     const userSnap = await userRef.get();
-
-    if (!userSnap.exists) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
     const userData = userSnap.data();
-    const subscriptionId = userData?.stripeSubscriptionId;
 
-    if (!subscriptionId) {
-      return res.status(400).json({ error: 'No subscription ID found' });
+    if (!userData?.stripeSubscriptionId) {
+      return res.status(400).json({ error: "No active subscription found." });
     }
 
-    await stripe.subscriptions.update(subscriptionId, {
-      cancel_at_period_end: true,
+    // ✅ Cancel subscription on Stripe
+    await stripe.subscriptions.cancel(userData.stripeSubscriptionId);
+
+    // ✅ Update Firestore user doc
+    await userRef.update({
+      isPro: false,
+      stripeSubscriptionId: null,
     });
 
     return res.status(200).json({ success: true });
-  } catch (error: any) {
-    console.error('❌ Cancel subscription error:', error.message);
-    return res.status(500).json({ error: 'Failed to cancel subscription' });
+  } catch (err: any) {
+    console.error("❌ Stripe cancel error:", err.message);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
