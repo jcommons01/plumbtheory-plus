@@ -8,6 +8,7 @@ export default function Account() {
   const { userData } = useAuth();
   const [isCancelling, setIsCancelling] = useState(false);
   const [message, setMessage] = useState('');
+  console.log('🔍 userData:', userData);
 
   const handleCancelSubscription = async () => {
     if (!userData?.stripeSubscriptionId) return;
