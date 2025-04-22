@@ -1,10 +1,8 @@
-// ✅ src/pages/api/create-checkout-session.ts
-
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31' as any, // Cast to any to avoid TS error
+  apiVersion: '2025-03-31.basil',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,8 +14,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { userId, userEmail } = req.body;
 
     if (!userId || !userEmail) {
+      console.warn('❌ Missing userId or userEmail in request body');
       return res.status(400).json({ error: 'Missing user info' });
     }
+
+    console.log('✅ Creating checkout session for:', { userId, userEmail });
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
@@ -43,9 +44,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       expand: ['subscription'],
     });
 
+    console.log('✅ Session created:', session.id);
     return res.status(200).json({ url: session.url });
   } catch (error: any) {
     console.error('❌ Stripe checkout error:', error.message);
+    console.error(error);
     return res.status(500).json({ error: 'Failed to create checkout session' });
   }
 }
