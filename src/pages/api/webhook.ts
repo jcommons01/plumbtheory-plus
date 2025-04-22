@@ -14,15 +14,23 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil',
 });
 
-
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string);
+let serviceAccount: any;
+try {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!);
+} catch (error) {
+  console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY:', error);
+}
 
 if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+  } catch (err) {
+    console.error('❌ Firebase Admin init error:', err);
+  }
 }
 
 const db = admin.firestore();
@@ -37,36 +45,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
+    console.log('✅ Webhook signature verified:', event.type);
   } catch (err: any) {
-    console.error('❌ Error verifying webhook signature:', err.message);
+    console.error('❌ Stripe signature verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // ✅ Handle subscription success
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
     const userId = session.metadata?.userId;
     const subscriptionId = session.subscription;
 
-    console.log('📦 Stripe event received: checkout.session.completed');
-    console.log('👤 userId from metadata:', userId);
-    console.log('📄 subscriptionId:', subscriptionId);
+    console.log('📦 Checkout completed for userId:', userId);
+    console.log('📄 Subscription ID:', subscriptionId);
 
-    if (userId && subscriptionId) {
-      try {
-        await db.collection('users').doc(userId).set({
-          isPro: true,
-          stripeSubscriptionId: subscriptionId,
-          subscribedAt: new Date().toISOString(),
-        }, { merge: true });
+    if (!userId || !subscriptionId) {
+      console.error('❌ Missing userId or subscriptionId in session.');
+      return res.status(400).json({ error: 'Missing data in webhook session.' });
+    }
 
-        console.log(`✅ Updated user ${userId} with Pro access.`);
-      } catch (err) {
-        console.error('❌ Failed to update Firestore:', err);
-        return res.status(500).end('Firestore error');
-      }
+    try {
+      await db.collection('users').doc(userId).set({
+        isPro: true,
+        stripeSubscriptionId: subscriptionId,
+        subscribedAt: new Date().toISOString(),
+      }, { merge: true });
+
+      console.log(`✅ Updated Firestore for user ${userId}`);
+    } catch (err) {
+      console.error('❌ Failed to update Firestore:', err);
+      return res.status(500).send('Firestore update error');
     }
   }
 
-  res.status(200).json({ received: true });
+  return res.status(200).json({ received: true });
 }
