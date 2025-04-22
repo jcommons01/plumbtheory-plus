@@ -59,14 +59,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      await db.collection('users').doc(userId).set(
-        {
-          isPro: true,
-          stripeSubscriptionId: subscriptionId,
-          subscribedAt: new Date().toISOString(),
-        },
-        { merge: true }
-      );
+      await db.collection('users').doc(userId).set({
+        isPro: true,
+        stripeSubscriptionId: subscriptionId,
+        subscribedAt: new Date().toISOString(),
+      }, { merge: true });
 
       console.log(`✅ Firestore updated for user ${userId}`);
     } catch (err) {
