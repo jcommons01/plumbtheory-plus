@@ -1,11 +1,13 @@
 // src/pages/api/webhook.ts
 import { buffer } from 'micro';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import Stripe from 'stripe';
 import * as admin from 'firebase-admin';
+import { NextApiRequest, NextApiResponse } from 'next';
+import Stripe from 'stripe';
 
 export const config = {
-  api: { bodyParser: false },
+  api: {
+    bodyParser: false,
+  },
 };
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -15,48 +17,44 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 if (!admin.apps.length) {
-  try {
-    admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)),
-    });
-  } catch (err) {
-    console.error('❌ Firebase initialization failed:', err);
-  }
+  admin.initializeApp({
+    credential: admin.credential.cert(
+      JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)
+    ),
+  });
 }
 
 const db = admin.firestore();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).send('Method Not Allowed');
+    return res.status(405).end('Method Not Allowed');
   }
 
   const buf = await buffer(req);
   const sig = req.headers['stripe-signature'];
 
-  if (!sig) {
-    console.error('❌ Missing Stripe signature header');
-    return res.status(400).send('Missing Stripe signature header');
-  }
-
   let event: Stripe.Event;
+
   try {
-    event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(buf, sig!, endpointSecret);
   } catch (err: any) {
-    console.error('❌ Webhook signature verification failed:', err.message);
+    console.error('❌ Webhook signature failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  console.log(`ℹ️ Received event: ${event.type}`);
-
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
-    const userId = session?.metadata?.userId;
-    const subscriptionId = session.subscription;
+    const userId = session.metadata?.userId;
+    const subscriptionId = session.subscription as string;
+
+    console.log('🔄 Checkout session received');
+    console.log('🧠 Metadata userId:', userId);
+    console.log('💳 Subscription ID:', subscriptionId);
 
     if (!userId || !subscriptionId) {
-      console.error('❌ Missing userId or subscriptionId in session:', session);
-      return res.status(400).json({ error: 'Missing metadata' });
+      console.error('❌ Missing userId or subscriptionId in session.');
+      return res.status(400).json({ error: 'Missing userId or subscriptionId' });
     }
 
     try {
@@ -68,13 +66,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         { merge: true }
       );
-
-      console.log(`✅ Updated Firestore for user ${userId}`);
+      console.log(`✅ Firestore updated for user ${userId}`);
     } catch (err) {
       console.error('❌ Firestore update failed:', err);
-      return res.status(500).send('Failed to update Firestore');
+      return res.status(500).send('Firestore error');
     }
   }
 
-  return res.status(200).json({ received: true });
+  res.status(200).json({ received: true });
 }
