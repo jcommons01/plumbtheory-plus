@@ -1,4 +1,5 @@
-// src/pages/api/webhook.ts
+// webhook.ts - debug trigger redeploy
+
 import { buffer } from 'micro';
 import * as admin from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -65,11 +66,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      await db.collection('users').doc(userId).set({
-        isPro: true,
-        stripeSubscriptionId: subscriptionId,
-        subscribedAt: new Date().toISOString(),
-      }, { merge: true });
+      await db.collection('users').doc(userId).set(
+        {
+          isPro: true,
+          stripeSubscriptionId: subscriptionId,
+          subscribedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
 
       console.log(`✅ Updated Firestore for user ${userId}`);
     } catch (err) {
