@@ -11,14 +11,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { userId, userEmail } = req.body;
+    const { userId, userEmail, referral } = req.body;
 
     if (!userId || !userEmail) {
       console.warn('❌ Missing userId or userEmail in request body');
       return res.status(400).json({ error: 'Missing user info' });
     }
 
-    console.log('✅ Creating checkout session for:', { userId, userEmail });
+    console.log('✅ Creating checkout session for:', { userId, userEmail, referral });
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
@@ -35,10 +35,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
       metadata: {
         userId,
+        ...(referral && { referral }), // ✅ Only include if it exists
       },
       subscription_data: {
         metadata: {
           userId,
+          ...(referral && { referral }), // ✅ Passed to the subscription too
         },
       },
       expand: ['subscription'],
@@ -48,7 +50,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({ url: session.url });
   } catch (error: any) {
     console.error('❌ Stripe checkout error:', error.message);
-    console.error(error);
     return res.status(500).json({ error: 'Failed to create checkout session' });
   }
 }

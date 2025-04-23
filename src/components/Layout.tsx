@@ -1,6 +1,6 @@
-// src/components/Layout.tsx
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import Navbar from './Navbar';
 
 interface LayoutProps {
@@ -23,6 +23,24 @@ const Layout: FC<LayoutProps> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      {/* ✅ Rewardful Scripts — must be outside <Head> */}
+      <Script
+        src="https://r.wdfl.co/rw.js"
+        data-rewardful="dbf7c1"
+        strategy="afterInteractive"
+      />
+      <Script id="rewardful-queue" strategy="beforeInteractive">
+        {`
+          (function(w,r){
+            w._rwq=r;
+            w[r]=w[r]||function(){
+              (w[r].q=w[r].q||[]).push(arguments)
+            }
+          })(window,'rewardful');
+        `}
+      </Script>
+
       <Navbar />
       <main>{children}</main>
     </>

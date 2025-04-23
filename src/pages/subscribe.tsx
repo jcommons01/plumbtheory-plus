@@ -1,10 +1,27 @@
-// ✅ src/pages/subscribe.tsx
-import React from 'react';
+// ✅ Add Rewardful global declarations for TypeScript
+declare const rewardful: any;
+declare const Rewardful: {
+  referral: string;
+};
+
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 
 export default function SubscribePage() {
   const { userData } = useAuth();
+  const [referral, setReferral] = useState<string | null>(null);
+
+  // ✅ Load referral ID on mount from Rewardful
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof rewardful !== 'undefined') {
+      rewardful('ready', function () {
+        if (typeof Rewardful !== 'undefined' && Rewardful.referral) {
+          setReferral(Rewardful.referral);
+        }
+      });
+    }
+  }, []);
 
   const handleSubscribe = async () => {
     if (!userData?.uid || !userData?.email) {
@@ -21,6 +38,7 @@ export default function SubscribePage() {
         body: JSON.stringify({
           userId: userData.uid,
           userEmail: userData.email,
+          referral, // ✅ Include Rewardful referral ID
         }),
       });
 
