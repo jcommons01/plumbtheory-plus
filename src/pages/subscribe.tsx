@@ -48,7 +48,7 @@ export default function SubscribePage() {
           onClick={handleSubscribe}
           className="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition-all"
         >
-          Subscribe for £7/month
+          Subscribe for £9.99/month
         </button>
       </div>
     </Layout>
