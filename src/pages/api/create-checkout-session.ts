@@ -35,18 +35,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
       metadata: {
         userId,
-        ...(referral && { referral }), // ✅ Only include if it exists
+        ...(referral && { referral }), // ✅ Add referral to metadata if it exists
       },
       subscription_data: {
         metadata: {
           userId,
-          ...(referral && { referral }), // ✅ Passed to the subscription too
+          ...(referral && { referral }), // ✅ Also add it here for subscription tracking
         },
       },
       expand: ['subscription'],
     });
 
-    console.log('✅ Session created:', session.id);
+    console.log('✅ Stripe session created:', session.id);
     return res.status(200).json({ url: session.url });
   } catch (error: any) {
     console.error('❌ Stripe checkout error:', error.message);
