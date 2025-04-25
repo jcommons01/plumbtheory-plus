@@ -1,3 +1,4 @@
+// ✅ FINAL POLISHED: src/pages/topics.tsx with marketing banner + level split
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
@@ -9,6 +10,7 @@ type Topic = {
   title: string;
   icon: string;
   isPro: boolean;
+  level: number;
 };
 
 export default function Topics() {
@@ -21,15 +23,21 @@ export default function Topics() {
 
   useEffect(() => {
     const topicsData: Topic[] = [
-      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false },
-      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false },
-      { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true },
-      { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true },
-      { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true },
-      { id: 'electrical', title: 'Electrical', icon: '⚡', isPro: true },
-      { id: 'domestic-fuels', title: 'Domestic Fuels', icon: '⛽', isPro: true },
-      { id: 'environmental-technologies', title: 'Environmental Technologies', icon: '🌱', isPro: true },
-      { id: 'calculation-questions', title: 'Calculation Questions', icon: '🧮', isPro: true },
+      // Level 2 Topics
+      { id: 'level2-cold-water', title: 'Cold Water (L2)', icon: '💧', isPro: false, level: 2 },
+      { id: 'level2-health-safety', title: 'Health & Safety (L2)', icon: '⚠️', isPro: false, level: 2 },
+      { id: 'level2-common-principles', title: 'Common Principles (L2)', icon: '🔧', isPro: false, level: 2 },
+
+      // Level 3 Topics
+      { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false, level: 3 },
+      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false, level: 3 },
+      { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true, level: 3 },
+      { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true, level: 3 },
+      { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true, level: 3 },
+      { id: 'electrical', title: 'Electrical', icon: '⚡', isPro: true, level: 3 },
+      { id: 'domestic-fuels', title: 'Domestic Fuels', icon: '⛽', isPro: true, level: 3 },
+      { id: 'environmental-technologies', title: 'Environmental Technologies', icon: '🌱', isPro: true, level: 3 },
+      { id: 'calculation-questions', title: 'Calculation Questions', icon: '🧮', isPro: true, level: 3 },
     ];
     setTopics(topicsData);
   }, []);
@@ -59,69 +67,73 @@ export default function Topics() {
     }
   };
 
+  const renderTopics = (level: number) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {topics
+        .filter((topic) => topic.level === level)
+        .map((topic) => {
+          const progressData = userData?.quizProgress?.[topic.id] || {};
+          const lastCorrect = progressData.lastCorrect ?? null;
+          const lastTotal = progressData.lastTotal ?? null;
+          const seenIds = progressData.seenIds || [];
+
+          const hasAttempted = lastCorrect !== null && lastTotal !== null;
+          const percentage = hasAttempted && lastTotal > 0
+            ? Math.round((lastCorrect / lastTotal) * 100)
+            : 0;
+
+          const caption = hasAttempted
+            ? `${lastCorrect}/${lastTotal} - Last attempt\nSeen: ${seenIds.length} questions`
+            : 'No attempts yet';
+
+          return (
+            <TopicCard
+              key={topic.id}
+              title={topic.title}
+              icon={topic.icon}
+              progress={percentage}
+              caption={caption}
+              isPro={topic.isPro}
+              isUserPro={!!userData?.isPro}
+              onClick={() => openQuizOptions(topic)}
+            />
+          );
+        })}
+    </div>
+  );
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-center">Plumbing Topics</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">Plumbing Topics</h1>
 
+        {/* 📣 Tiny Marketing Banner */}
         {showBanner && (
-          <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-md mb-6 relative">
+          <div className="bg-yellow-100 border border-yellow-300 text-yellow-800 px-4 py-3 rounded-md mb-8 relative">
             <button
               onClick={() => setShowBanner(false)}
-              className="absolute top-2 right-3 text-blue-600 hover:text-blue-800"
+              className="absolute top-2 right-3 text-yellow-600 hover:text-yellow-800"
             >
               ✕
             </button>
             <p className="font-semibold">
-              🔧 New: <span className="font-bold">Reference Toolkit</span> now available!
-            </p>
-            <p className="text-sm">
-              Browse pipe sizes, fault codes, clipping distances, and more — under the new "Reference" tab.
+              🆕 Now Live: <span className="font-bold">Level 2 Plumbing Topics</span>! Start revising today.
             </p>
           </div>
         )}
 
-        <div className="flex justify-center mb-6">
-          <button
-            onClick={() => router.push('/quiz/bookmarked')}
-            className="flex items-center gap-2 bg-yellow-100 text-yellow-800 font-medium px-4 py-2 rounded shadow hover:bg-yellow-200 transition"
-          >
-            📌 Bookmarked Quiz
-          </button>
-        </div>
+        {/* Level 2 Topics */}
+        <h2 className="text-2xl font-bold mb-6 text-blue-600">Level 2 Topics</h2>
+        {renderTopics(2)}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {topics.map((topic) => {
-            const progressData = userData?.quizProgress?.[topic.id] || {};
-            const lastCorrect = progressData.lastCorrect ?? null;
-            const lastTotal = progressData.lastTotal ?? null;
-            const seenIds = progressData.seenIds || [];
+        {/* Divider */}
+        <hr className="my-10 border-gray-300" />
 
-            const hasAttempted = lastCorrect !== null && lastTotal !== null;
-            const percentage =
-              hasAttempted && lastTotal > 0
-                ? Math.round((lastCorrect / lastTotal) * 100)
-                : 0;
+        {/* Level 3 Topics */}
+        <h2 className="text-2xl font-bold mb-6 text-green-600">Level 3 Topics</h2>
+        {renderTopics(3)}
 
-            const caption = hasAttempted
-              ? `${lastCorrect}/${lastTotal} - Last attempt\nSeen: ${seenIds.length} questions`
-              : 'No attempts yet';
-
-            return (
-              <TopicCard
-                key={topic.id}
-                title={topic.title}
-                icon={topic.icon}
-                progress={percentage}
-                caption={caption}
-                isPro={topic.isPro}
-                isUserPro={!!userData?.isPro}
-                onClick={() => openQuizOptions(topic)}
-              />
-            );
-          })}
-        </div>
-
+        {/* Question Amount Modal */}
         {selectedTopic && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-md shadow-lg max-w-sm w-full text-center">
