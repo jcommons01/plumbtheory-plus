@@ -1,3 +1,4 @@
+// ✅ UPDATED: src/pages/quiz/[topic].tsx with seenIds support
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getQuizQuestions, updateQuizProgress } from '@/lib/firebase';
@@ -20,12 +21,12 @@ export default function Quiz() {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      if (!topic || Array.isArray(topic)) return;
+      if (!topic || Array.isArray(topic) || !user?.uid) return;
 
       try {
         setIsLoading(true);
         const amountNumber = parseInt(amount as string) || 10;
-        const fetchedQuestions = await getQuizQuestions(topic, amountNumber);
+        const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
         setQuestions(fetchedQuestions);
         setAnswers(new Array(fetchedQuestions.length).fill(null));
       } catch (err) {
@@ -37,7 +38,7 @@ export default function Quiz() {
     };
 
     fetchQuestions();
-  }, [topic, amount]);
+  }, [topic, amount, user?.uid]);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -151,6 +152,7 @@ export default function Quiz() {
               text: currentQ.question,
               options: currentQ.options,
               correctAnswer: currentQ.correctAnswer,
+              explanation: currentQ.explanation,
             }}
             selectedAnswer={answers[currentQuestion]}
             onSelectAnswer={handleAnswer}

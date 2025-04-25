@@ -1,4 +1,10 @@
-// src/types/user.ts
+// ✅ FILE: src/types/user.ts
+
+export type QuizAttempt = {
+  score: number;
+  total: number;
+  timestamp: string;
+};
 
 export type User = {
   uid: string;
@@ -14,6 +20,8 @@ export type User = {
       bestScore?: number;
       lastCorrect?: number;
       lastTotal?: number;
+      seenIds?: string[];
+      history?: QuizAttempt[];
     };
   };
 };

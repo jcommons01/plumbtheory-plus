@@ -1,4 +1,4 @@
-// ✅ src/lib/firebase.ts
+// ✅ FILE: src/lib/firebase.ts
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getAuth,
@@ -72,7 +72,6 @@ export const updateUserIsPro = async (uid: string, isPro: boolean) => {
   });
 };
 
-// ✅ UPDATED: Store best and last attempt
 export const updateQuizProgress = async (
   uid: string,
   topic: string,
@@ -91,6 +90,15 @@ export const updateQuizProgress = async (
     bestScore: Math.max(existing.bestScore || 0, score),
     lastCorrect: score,
     lastTotal: total,
+    seenIds: existing.seenIds || [],
+    history: [
+      ...(existing as any).history || [],
+      {
+        score,
+        total,
+        timestamp: new Date().toISOString(),
+      },
+    ],
   };
 
   const newProgress = {
@@ -104,6 +112,7 @@ export const updateQuizProgress = async (
 };
 
 export const getQuizQuestions = async (
+  uid: string,
   topic: string,
   questionCount: number = 10
 ): Promise<Question[]> => {
@@ -111,24 +120,53 @@ export const getQuizQuestions = async (
     const questionsRef = collection(db, 'questions', topic, 'items');
     const querySnapshot = await getDocs(questionsRef);
 
-    const questions = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        topic,
-        question: data.question,
-        options: data.options,
-        correctAnswer: data.correctAnswer,
-        explanation: data.explanation,
-      } as Question;
+    const allQuestions = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      topic,
+      question: doc.data().question,
+      options: doc.data().options,
+      correctAnswer: doc.data().correctAnswer,
+      explanation: doc.data().explanation,
+    })) as Question[];
+
+    const userRef = doc(db, 'users', uid);
+    const userSnap = await getDoc(userRef);
+    const userData = userSnap.exists() ? (userSnap.data() as User) : null;
+
+    const seenQuestionIds = userData?.quizProgress?.[topic]?.seenIds || [];
+
+    const unseenQuestions = allQuestions.filter(
+      (q) => !seenQuestionIds.includes(q.id)
+    );
+
+    const questionsToUse = [];
+
+    if (unseenQuestions.length >= questionCount) {
+      questionsToUse.push(
+        ...unseenQuestions.sort(() => Math.random() - 0.5).slice(0, questionCount)
+      );
+    } else {
+      const topUpCount = questionCount - unseenQuestions.length;
+      const remaining = allQuestions.filter((q) => seenQuestionIds.includes(q.id));
+      questionsToUse.push(...unseenQuestions);
+      questionsToUse.push(
+        ...remaining.sort(() => Math.random() - 0.5).slice(0, topUpCount)
+      );
+    }
+
+    const updatedSeenIds = Array.from(
+      new Set([...seenQuestionIds, ...questionsToUse.map((q) => q.id)])
+    );
+
+    await updateDoc(userRef, {
+      [`quizProgress.${topic}.seenIds`]: updatedSeenIds,
     });
 
-    const shuffled = questions.sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, questionCount);
+    return questionsToUse;
   } catch (error) {
     console.error('❌ Error fetching questions:', error);
     return [];
   }
 };
 
-export { auth, db };
+export { auth, db, app };

@@ -1,28 +1,49 @@
-// src/components/QuizQuestion.tsx
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/AuthProvider';
+import { toggleBookmark } from '@/lib/bookmark';
 
 interface QuizQuestionProps {
   question: {
+    id?: string;
     text: string;
     options: string[];
     correctAnswer?: string;
+    explanation?: string; // ✅ Add this line
   };
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
 }
+
 
 const QuizQuestion: FC<QuizQuestionProps> = ({
   question,
   selectedAnswer,
   onSelectAnswer,
 }) => {
-  useEffect(() => {
-    console.log('✅ selected:', selectedAnswer);
-    console.log('✅ correct:', question.correctAnswer);
-  }, [selectedAnswer, question.correctAnswer]);
+  const { user } = useAuth();
+  const [bookmarked, setBookmarked] = useState(false);
+
+  const handleBookmark = async () => {
+    if (!user || !question.id) return;
+    await toggleBookmark(user.uid, question.id, bookmarked);
+    setBookmarked(!bookmarked);
+  };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white p-6 rounded-lg shadow-lg relative">
+      {/* ⭐ Bookmark Button */}
+      {question.id && (
+        <button
+          onClick={handleBookmark}
+          className={`absolute top-4 right-4 text-2xl transition ${
+            bookmarked ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+          }`}
+          title={bookmarked ? 'Unbookmark' : 'Bookmark'}
+        >
+          ★
+        </button>
+      )}
+
       <h2 className="text-xl font-bold mb-4">{question.text}</h2>
 
       <div className="space-y-3 mb-4">
