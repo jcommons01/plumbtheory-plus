@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'; // 🆕 import motion
 import { useAuth } from '@/contexts/AuthProvider';
 import { toggleBookmark } from '@/lib/bookmark';
 
@@ -8,12 +9,11 @@ interface QuizQuestionProps {
     text: string;
     options: string[];
     correctAnswer?: string;
-    explanation?: string; // ✅ Add this line
+    explanation?: string;
   };
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
 }
-
 
 const QuizQuestion: FC<QuizQuestionProps> = ({
   question,
@@ -28,6 +28,8 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
     await toggleBookmark(user.uid, question.id, bookmarked);
     setBookmarked(!bookmarked);
   };
+
+  const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg relative">
@@ -49,7 +51,6 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       <div className="space-y-3 mb-4">
         {question.options.map((option, index) => {
           const normalizedOption = option.trim().toLowerCase();
-          const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
           const isCorrect = normalizedOption === normalizedCorrect;
 
@@ -80,6 +81,23 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
           );
         })}
       </div>
+
+      {/* ✅ Animated Explanation */}
+      <AnimatePresence>
+        {selectedAnswer && question.explanation && (
+          <motion.div
+            key="explanation"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mt-4 p-4 bg-blue-50 border-l-4 border-blue-400 rounded overflow-hidden"
+          >
+            <h3 className="font-semibold mb-2 text-blue-700">Explanation:</h3>
+            <p className="text-blue-700">{question.explanation}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
