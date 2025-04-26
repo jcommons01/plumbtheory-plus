@@ -1,19 +1,33 @@
 // ✅ src/components/UpgradeModal.tsx
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
-import { useRouter } from 'next/router';
+import { Fragment, useEffect, useState } from 'react';
 
-interface UpgradeModalProps {
+type UpgradeModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onUpgrade: () => void;
-}
+};
 
-export default function UpgradeModal({
-  isOpen,
-  onClose,
-  onUpgrade,
-}: UpgradeModalProps) {
+const motivationalMessages = [
+  "Unlock Your Full Potential with PlumbTheory+ Pro.",
+  "Get Exam-Ready. Get Pro.",
+  "Access Full Mock Exams and Professional References — Upgrade Today.",
+  "Pass Faster. Learn Smarter. Go Pro.",
+  "Take the Shortcut to Plumbing Success — Join PlumbTheory+ Pro.",
+  "Everything You Need to Succeed — One Upgrade Away.",
+];
+
+export default function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) {
+  const [message, setMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (isOpen) {
+      // Pick a random message each time the modal opens
+      const randomMessage = motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+      setMessage(randomMessage);
+    }
+  }, [isOpen]);
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -26,42 +40,51 @@ export default function UpgradeModal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black bg-opacity-30" />
         </Transition.Child>
 
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-center shadow-xl transition-all">
-              <Dialog.Title className="text-2xl font-bold mb-4 text-gray-800">
-                Unlock Full Access 🚀
-              </Dialog.Title>
-              <p className="text-gray-600 mb-6">
-                Upgrade to Pro to access all Level 3 quizzes, reference materials, and features!
-              </p>
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-2xl font-bold leading-6 text-blue-600 text-center mb-4"
+                >
+                  Upgrade to Pro
+                </Dialog.Title>
 
-              <button
-                onClick={onUpgrade}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition mb-3 w-full"
-              >
-                Upgrade Now
-              </button>
+                <div className="mt-2 mb-6 text-center">
+                  <p className="text-gray-700 text-lg font-semibold">{message}</p>
+                </div>
 
-              <button
-                onClick={onClose}
-                className="mt-2 text-gray-500 text-sm hover:underline"
-              >
-                Maybe Later
-              </button>
-            </Dialog.Panel>
-          </Transition.Child>
+                <div className="mt-4 flex justify-center gap-4">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-6 py-2 text-sm font-medium text-white hover:bg-green-700 transition"
+                    onClick={onUpgrade}
+                  >
+                    Upgrade Now
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
+                    onClick={onClose}
+                  >
+                    Maybe Later
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
         </div>
       </Dialog>
     </Transition>
