@@ -1,10 +1,10 @@
-// ✅ COMPLETE: scripts/uploadLevel2Electrical.ts with 25 Level 2 questions
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
 
+// ✅ Firebase Initialization
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -17,10 +17,10 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
+// ✅ Electrical Level 2 Questions
 const questions = [
   {
     id: 'level2elec1',
-    topic: 'level2-electrical',
     question: "What is the primary risk of working near electrical systems?",
     options: ["Explosion", "Electrocution", "Overheating", "Fire spread"],
     correctAnswer: "Electrocution",
@@ -28,7 +28,6 @@ const questions = [
   },
   {
     id: 'level2elec2',
-    topic: 'level2-electrical',
     question: "Which regulation must be followed for electrical work in UK dwellings?",
     options: ["BS 7671", "Part G", "WRAS", "Gas Safe"],
     correctAnswer: "BS 7671",
@@ -36,7 +35,6 @@ const questions = [
   },
   {
     id: 'level2elec3',
-    topic: 'level2-electrical',
     question: "What does a double pole isolator do?",
     options: ["Isolates live only", "Isolates neutral only", "Isolates live and neutral", "Isolates ground"],
     correctAnswer: "Isolates live and neutral",
@@ -44,7 +42,6 @@ const questions = [
   },
   {
     id: 'level2elec4',
-    topic: 'level2-electrical',
     question: "Which colour is used for the live conductor in new UK wiring?",
     options: ["Red", "Black", "Brown", "Blue"],
     correctAnswer: "Brown",
@@ -52,7 +49,6 @@ const questions = [
   },
   {
     id: 'level2elec5',
-    topic: 'level2-electrical',
     question: "What is the function of an RCD?",
     options: ["Limit water pressure", "Isolate water supply", "Prevent pipe freezing", "Detect earth leakage and cut power"],
     correctAnswer: "Detect earth leakage and cut power",
@@ -60,7 +56,6 @@ const questions = [
   },
   {
     id: 'level2elec6',
-    topic: 'level2-electrical',
     question: "Which type of switch is used for electric showers?",
     options: ["Single pole", "Fused spur", "Pull cord isolator", "Dimmer switch"],
     correctAnswer: "Pull cord isolator",
@@ -68,7 +63,6 @@ const questions = [
   },
   {
     id: 'level2elec7',
-    topic: 'level2-electrical',
     question: "What zone is directly inside a shower or bath?",
     options: ["Zone 0", "Zone 1", "Zone 2", "Zone 3"],
     correctAnswer: "Zone 0",
@@ -76,7 +70,6 @@ const questions = [
   },
   {
     id: 'level2elec8',
-    topic: 'level2-electrical',
     question: "Which of the following is a safe method to test for live voltage?",
     options: ["Multimeter", "Hammer", "Wire strippers", "Pipe bender"],
     correctAnswer: "Multimeter",
@@ -84,7 +77,6 @@ const questions = [
   },
   {
     id: 'level2elec9',
-    topic: 'level2-electrical',
     question: "What is bonding in plumbing and electrical systems?",
     options: ["Joining plastic pipes", "Insulating metal", "Connecting conductive parts to earth", "Fusing circuits"],
     correctAnswer: "Connecting conductive parts to earth",
@@ -92,7 +84,6 @@ const questions = [
   },
   {
     id: 'level2elec10',
-    topic: 'level2-electrical',
     question: "Which test is done to ensure earth continuity in a circuit?",
     options: ["Insulation resistance test", "Voltage drop test", "Continuity test", "RCD trip test"],
     correctAnswer: "Continuity test",
@@ -100,7 +91,6 @@ const questions = [
   },
   {
     id: 'level2elec11',
-    topic: 'level2-electrical',
     question: "What is the minimum IP rating for electrical equipment in Zone 1 of a bathroom?",
     options: ["IPX1", "IPX4", "IPX7", "IP44"],
     correctAnswer: "IPX4",
@@ -108,7 +98,6 @@ const questions = [
   },
   {
     id: 'level2elec12',
-    topic: 'level2-electrical',
     question: "Which tool is used to safely strip insulation from electrical wire?",
     options: ["Screwdriver", "Side cutters", "Pipe cutter", "Wire stripper"],
     correctAnswer: "Wire stripper",
@@ -116,7 +105,6 @@ const questions = [
   },
   {
     id: 'level2elec13',
-    topic: 'level2-electrical',
     question: "What is the usual fuse rating for a 3kW immersion heater?",
     options: ["5A", "13A", "16A", "32A"],
     correctAnswer: "13A",
@@ -124,7 +112,6 @@ const questions = [
   },
   {
     id: 'level2elec14',
-    topic: 'level2-electrical',
     question: "Which document must be issued after completing electrical work?",
     options: ["BSI Certificate", "Gas Safe Certificate", "Electrical Installation Certificate", "Part L certificate"],
     correctAnswer: "Electrical Installation Certificate",
@@ -132,7 +119,6 @@ const questions = [
   },
   {
     id: 'level2elec15',
-    topic: 'level2-electrical',
     question: "Why should flexible cords not be used for fixed wiring?",
     options: ["They are too long", "They lack earth continuity", "They are not mechanically protected", "They use incorrect colours"],
     correctAnswer: "They are not mechanically protected",
@@ -140,7 +126,6 @@ const questions = [
   },
   {
     id: 'level2elec16',
-    topic: 'level2-electrical',
     question: "Which regulation part applies to electrical safety in dwellings?",
     options: ["Part G", "Part P", "Part F", "Part H"],
     correctAnswer: "Part P",
@@ -148,7 +133,6 @@ const questions = [
   },
   {
     id: 'level2elec17',
-    topic: 'level2-electrical',
     question: "How can electricians ensure a safe isolation?",
     options: ["Switch off and unplug", "Use RCD only", "Lock off and verify dead", "Use a resistor"],
     correctAnswer: "Lock off and verify dead",
@@ -156,7 +140,6 @@ const questions = [
   },
   {
     id: 'level2elec18',
-    topic: 'level2-electrical',
     question: "What type of protective device disconnects a circuit in overload conditions?",
     options: ["RCD", "RCBO", "MCB", "Bond"],
     correctAnswer: "MCB",
@@ -164,7 +147,6 @@ const questions = [
   },
   {
     id: 'level2elec19',
-    topic: 'level2-electrical',
     question: "Where should main bonding conductors be connected?",
     options: ["To socket faceplates", "To incoming gas/water pipes", "To every radiator", "To extractor fans"],
     correctAnswer: "To incoming gas/water pipes",
@@ -172,7 +154,6 @@ const questions = [
   },
   {
     id: 'level2elec20',
-    topic: 'level2-electrical',
     question: "Which tool is used to safely cut electrical cables?",
     options: ["Pliers", "Side cutters", "Pipe wrench", "Allen key"],
     correctAnswer: "Side cutters",
@@ -180,7 +161,6 @@ const questions = [
   },
   {
     id: 'level2elec21',
-    topic: 'level2-electrical',
     question: "What is the purpose of a fused connection unit (FCU)?",
     options: ["Provide light", "Reduce voltage", "Safely isolate appliances", "Detect leaks"],
     correctAnswer: "Safely isolate appliances",
@@ -188,7 +168,6 @@ const questions = [
   },
   {
     id: 'level2elec22',
-    topic: 'level2-electrical',
     question: "Which test ensures a circuit has no short circuits or damage to insulation?",
     options: ["Voltage test", "Insulation resistance test", "Continuity test", "RCD test"],
     correctAnswer: "Insulation resistance test",
@@ -196,7 +175,6 @@ const questions = [
   },
   {
     id: 'level2elec23',
-    topic: 'level2-electrical',
     question: "Which zone in a bathroom allows SELV equipment only?",
     options: ["Zone 0", "Zone 1", "Zone 2", "Zone 3"],
     correctAnswer: "Zone 0",
@@ -204,7 +182,6 @@ const questions = [
   },
   {
     id: 'level2elec24',
-    topic: 'level2-electrical',
     question: "Which conductor is identified by blue insulation in new UK wiring?",
     options: ["Live", "Earth", "Neutral", "Bond"],
     correctAnswer: "Neutral",
@@ -212,7 +189,6 @@ const questions = [
   },
   {
     id: 'level2elec25',
-    topic: 'level2-electrical',
     question: "Which item is used to safely lock off a circuit breaker?",
     options: ["Padlock and tag", "Insulation tape", "Marker pen", "Switchboard"],
     correctAnswer: "Padlock and tag",
@@ -220,6 +196,7 @@ const questions = [
   }
 ];
 
+// ✅ Upload function
 async function uploadQuestions() {
   for (const q of questions) {
     try {

@@ -1,10 +1,11 @@
-// ✅ COMPLETE: scripts/uploadLevel2DrainageSanitation.ts with 25 Level 2 questions
+// ✅ COMPLETE: scripts/uploadLevel2DrainageSanitation.ts
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
 
+// ✅ Firebase Initialization
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -17,10 +18,10 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
+// ✅ Drainage & Sanitation Level 2 Questions
 const questions = [
   {
     id: 'level2drain1',
-    topic: 'level2-drainage-sanitation',
     question: "What is the typical minimum fall for a 100mm waste pipe in domestic drainage?",
     options: ["1:10", "1:20", "1:40", "1:80"],
     correctAnswer: "1:40",
@@ -28,7 +29,6 @@ const questions = [
   },
   {
     id: 'level2drain2',
-    topic: 'level2-drainage-sanitation',
     question: "What is the purpose of a trap in a plumbing system?",
     options: ["Increase pressure", "Prevent backflow", "Prevent smells", "Control flow rate"],
     correctAnswer: "Prevent smells",
@@ -36,7 +36,6 @@ const questions = [
   },
   {
     id: 'level2drain3',
-    topic: 'level2-drainage-sanitation',
     question: "Which fitting connects a vertical soil pipe to a horizontal branch?",
     options: ["Tee junction", "Straight connector", "Long radius bend", "Boss connector"],
     correctAnswer: "Long radius bend",
@@ -44,7 +43,6 @@ const questions = [
   },
   {
     id: 'level2drain4',
-    topic: 'level2-drainage-sanitation',
     question: "What is the minimum diameter for a WC discharge pipe?",
     options: ["32mm", "40mm", "50mm", "100mm"],
     correctAnswer: "100mm",
@@ -52,7 +50,6 @@ const questions = [
   },
   {
     id: 'level2drain5',
-    topic: 'level2-drainage-sanitation',
     question: "Which regulation covers foul drainage systems in the UK?",
     options: ["Part G", "Part H", "Part P", "Part L"],
     correctAnswer: "Part H",
@@ -60,7 +57,6 @@ const questions = [
   },
   {
     id: 'level2drain6',
-    topic: 'level2-drainage-sanitation',
     question: "What does a rodding eye allow?",
     options: ["Ventilation", "Inspection", "Cleaning access", "Pipe joining"],
     correctAnswer: "Cleaning access",
@@ -68,7 +64,6 @@ const questions = [
   },
   {
     id: 'level2drain7',
-    topic: 'level2-drainage-sanitation',
     question: "Which type of trap is built into the WC?",
     options: ["P-trap", "Bottle trap", "S-trap", "Integral trap"],
     correctAnswer: "Integral trap",
@@ -76,7 +71,6 @@ const questions = [
   },
   {
     id: 'level2drain8',
-    topic: 'level2-drainage-sanitation',
     question: "Which material is commonly used for underground drainage?",
     options: ["PVCu", "Copper", "MDPE", "ABS"],
     correctAnswer: "PVCu",
@@ -84,7 +78,6 @@ const questions = [
   },
   {
     id: 'level2drain9',
-    topic: 'level2-drainage-sanitation',
     question: "How is foul water from a kitchen usually discharged?",
     options: ["Open gulley", "Direct soakaway", "Rainwater pipe", "Waste pipe to soil stack"],
     correctAnswer: "Waste pipe to soil stack",
@@ -92,7 +85,6 @@ const questions = [
   },
   {
     id: 'level2drain10',
-    topic: 'level2-drainage-sanitation',
     question: "What does AAV stand for?",
     options: ["Air Access Valve", "Auto Air Valve", "Air Admittance Valve", "Air Absorption Valve"],
     correctAnswer: "Air Admittance Valve",
@@ -100,7 +92,6 @@ const questions = [
   },
   {
     id: 'level2drain11',
-    topic: 'level2-drainage-sanitation',
     question: "Which pipe carries greywater from a basin or bath?",
     options: ["Foul pipe", "Vent pipe", "Waste pipe", "Overflow pipe"],
     correctAnswer: "Waste pipe",
@@ -108,7 +99,6 @@ const questions = [
   },
   {
     id: 'level2drain12',
-    topic: 'level2-drainage-sanitation',
     question: "Why should waste pipes be clipped securely?",
     options: ["Prevent freezing", "Allow ventilation", "Support weight and maintain fall", "Ease replacement"],
     correctAnswer: "Support weight and maintain fall",
@@ -116,7 +106,6 @@ const questions = [
   },
   {
     id: 'level2drain13',
-    topic: 'level2-drainage-sanitation',
     question: "What is used to prevent sewer gases from entering the building?",
     options: ["Check valve", "Air break", "Trap seal", "Stopcock"],
     correctAnswer: "Trap seal",
@@ -124,7 +113,6 @@ const questions = [
   },
   {
     id: 'level2drain14',
-    topic: 'level2-drainage-sanitation',
     question: "Which test checks a soil stack for leaks?",
     options: ["Air test", "Polarity test", "Smoke test", "Flow test"],
     correctAnswer: "Air test",
@@ -132,7 +120,6 @@ const questions = [
   },
   {
     id: 'level2drain15',
-    topic: 'level2-drainage-sanitation',
     question: "Where should you NOT install an AAV?",
     options: ["Above WC branch", "In a sealed roof space", "In an accessible cupboard", "Inside ductwork with access"],
     correctAnswer: "In a sealed roof space",
@@ -140,7 +127,6 @@ const questions = [
   },
   {
     id: 'level2drain16',
-    topic: 'level2-drainage-sanitation',
     question: "Which pipe is used to vent a foul drainage system to the atmosphere?",
     options: ["Overflow pipe", "Soil pipe", "Vent stack", "Condensate pipe"],
     correctAnswer: "Vent stack",
@@ -148,7 +134,6 @@ const questions = [
   },
   {
     id: 'level2drain17',
-    topic: 'level2-drainage-sanitation',
     question: "What’s the main risk if a trap loses its water seal?",
     options: ["Slow flow", "Freezing", "Backflow", "Foul odours"],
     correctAnswer: "Foul odours",
@@ -156,7 +141,6 @@ const questions = [
   },
   {
     id: 'level2drain18',
-    topic: 'level2-drainage-sanitation',
     question: "What is the usual internal diameter of a bath waste pipe?",
     options: ["21.5mm", "32mm", "40mm", "50mm"],
     correctAnswer: "40mm",
@@ -164,7 +148,6 @@ const questions = [
   },
   {
     id: 'level2drain19',
-    topic: 'level2-drainage-sanitation',
     question: "Why is a long radius bend preferred over a 90° bend in waste?",
     options: ["Reduces cost", "Improves ventilation", "Improves flow", "Lowers pressure"],
     correctAnswer: "Improves flow",
@@ -172,7 +155,6 @@ const questions = [
   },
   {
     id: 'level2drain20',
-    topic: 'level2-drainage-sanitation',
     question: "Which component connects multiple waste pipes into a soil stack?",
     options: ["Bend", "Manifold", "Boss connector", "Junction"],
     correctAnswer: "Boss connector",
@@ -180,7 +162,6 @@ const questions = [
   },
   {
     id: 'level2drain21',
-    topic: 'level2-drainage-sanitation',
     question: "Where should a rodding eye be positioned?",
     options: ["At every joint", "Only underground", "Near bends or changes in direction", "Only inside buildings"],
     correctAnswer: "Near bends or changes in direction",
@@ -188,7 +169,6 @@ const questions = [
   },
   {
     id: 'level2drain22',
-    topic: 'level2-drainage-sanitation',
     question: "Which of these is NOT a suitable material for underground drainage?",
     options: ["PVCu", "Clay", "Lead", "Cast iron"],
     correctAnswer: "Lead",
@@ -196,7 +176,6 @@ const questions = [
   },
   {
     id: 'level2drain23',
-    topic: 'level2-drainage-sanitation',
     question: "What is the function of a gully trap?",
     options: ["Allow venting", "Catch debris", "Provide access", "Prevent sewer gases escaping"],
     correctAnswer: "Prevent sewer gases escaping",
@@ -204,7 +183,6 @@ const questions = [
   },
   {
     id: 'level2drain24',
-    topic: 'level2-drainage-sanitation',
     question: "What is backfall in a drainage pipe?",
     options: ["Fall away from appliance", "Fall towards appliance", "Incorrect venting", "Overflow from traps"],
     correctAnswer: "Fall towards appliance",
@@ -212,7 +190,6 @@ const questions = [
   },
   {
     id: 'level2drain25',
-    topic: 'level2-drainage-sanitation',
     question: "Why must plastic pipes be protected when entering masonry walls?",
     options: ["To prevent frost", "To prevent damage and expansion stress", "To stop smells", "To hold them in place"],
     correctAnswer: "To prevent damage and expansion stress",
@@ -220,6 +197,7 @@ const questions = [
   }
 ];
 
+// ✅ Upload function
 async function uploadQuestions() {
   for (const q of questions) {
     try {
