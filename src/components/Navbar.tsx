@@ -1,3 +1,4 @@
+// ✅ src/components/Navbar.tsx
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -37,6 +38,9 @@ const Navbar = () => {
                   <>
                     <Link href="/topics" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
                       Topics
+                    </Link>
+                    <Link href="/references" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
+                      References
                     </Link>
                     <Link href="/account" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
                       My Account
@@ -113,6 +117,9 @@ const Navbar = () => {
                   <>
                     <Link href="/topics" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
                       Topics
+                    </Link>
+                    <Link href="/references" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
+                      References
                     </Link>
                     <Link href="/account" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
                       My Account

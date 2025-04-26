@@ -1,10 +1,11 @@
-// ✅ EXPANDED: scripts/uploadReferences.ts with more reference categories
+// ✅ scripts/uploadReferences.ts
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
 
+// Safely initialize Firebase app
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -17,10 +18,9 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
+// ✅ Reference entries (expanded with more categories)
 const references = [
-  // Existing categories omitted for brevity...
-
-  // ✅ Fitting Types
+  // 🔵 Fitting Types
   {
     id: 'compression-fittings',
     category: 'fitting-types',
@@ -52,7 +52,7 @@ const references = [
     content: 'Screw-threaded joints for metal pipework. Often used with gas or industrial applications. Seal with PTFE or hemp.'
   },
 
-  // ✅ Boiler Fault Codes
+  // 🔵 Boiler Fault Codes
   {
     id: 'vaillant-f28',
     category: 'boiler-fault-codes',
@@ -84,7 +84,7 @@ const references = [
     content: 'Flame detection error. Commonly caused by faulty electrode or blocked flue.'
   },
 
-  // ✅ Water Regulations
+  // 🔵 Water Regulations
   {
     id: 'type-a-air-gap',
     category: 'water-regulations',
@@ -116,7 +116,7 @@ const references = [
     content: 'Cold Water = Blue, Hot Water = Red, Gas = Yellow, Heating Flow = Orange, Return = Brown.'
   },
 
-  // ✅ Conversion Tables
+  // 🔵 Conversion Tables
   {
     id: 'bar-to-psi',
     category: 'conversion-tables',
@@ -150,17 +150,21 @@ const references = [
 ];
 
 async function uploadReferences() {
-  for (const ref of references) {
-    try {
-      await setDoc(doc(db, 'references', ref.category, 'items', ref.id), {
+  try {
+    for (const ref of references) {
+      const refPath = doc(db, 'references', ref.category, 'items', ref.id);
+      await setDoc(refPath, {
         title: ref.title,
         content: ref.content,
         category: ref.category
       });
       console.log(`✅ Uploaded reference: ${ref.title}`);
-    } catch (err) {
-      console.error(`❌ Failed to upload ${ref.title}:`, err);
     }
+    console.log('✅✅✅ All references uploaded successfully!');
+    process.exit(0);
+  } catch (err) {
+    console.error('❌ Upload failed:', err);
+    process.exit(1);
   }
 }
 

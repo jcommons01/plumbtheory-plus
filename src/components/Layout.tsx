@@ -1,3 +1,4 @@
+// ✅ src/components/Layout.tsx
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -24,7 +25,7 @@ const Layout: FC<LayoutProps> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* ✅ Rewardful Scripts — must be outside <Head> */}
+      {/* ✅ Rewardful Scripts */}
       <Script
         src="https://r.wdfl.co/rw.js"
         data-rewardful="dbf7c1"
