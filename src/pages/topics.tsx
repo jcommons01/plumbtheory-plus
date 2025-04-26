@@ -115,20 +115,8 @@ export default function Topics() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8 text-center">Choose Your Level</h1>
 
-        {/* 📣 Tiny Marketing Banner */}
-        {showBanner && (
-          <div className="bg-yellow-100 border border-yellow-300 text-yellow-800 px-4 py-3 rounded-md mb-8 relative">
-            <button
-              onClick={() => setShowBanner(false)}
-              className="absolute top-2 right-3 text-yellow-600 hover:text-yellow-800"
-            >
-              ✕
-            </button>
-            <p className="font-semibold">
-              🆕 Now Live: <span className="font-bold">Level 2 Plumbing Topics</span>! Start revising today.
-            </p>
-          </div>
-        )}
+        
+        
 
         {/* 🚀 Level Toggle Switch */}
         <div className="flex justify-center mb-6">
