@@ -31,6 +31,7 @@ export default function App({ Component, pageProps, router }: AppProps & { route
         ></script>
       </Head>
 
+
       <AuthProvider>
         <AnimatePresence mode="wait">
           <motion.div
