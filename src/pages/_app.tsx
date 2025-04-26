@@ -3,8 +3,9 @@ import type { AppProps } from 'next/app';
 import { AuthProvider } from '@/contexts/AuthProvider';
 import Head from 'next/head';
 import Script from 'next/script';
+import { AnimatePresence, motion } from 'framer-motion';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps & { router: any }) {
   return (
     <>
       <Head>
@@ -33,7 +34,17 @@ export default function App({ Component, pageProps }: AppProps) {
       />
 
       <AuthProvider>
-        <Component {...pageProps} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={router.route}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <Component {...pageProps} />
+          </motion.div>
+        </AnimatePresence>
       </AuthProvider>
     </>
   );
