@@ -1,0 +1,43 @@
+import { useRouter } from 'next/router';
+import { ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+export default function BackflowProtectionReference() {
+  const router = useRouter();
+
+  return (
+    <motion.div
+      className="max-w-4xl mx-auto p-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Back Button */}
+      <div className="mb-6">
+        <button
+          onClick={() => router.push('/references')}
+          className="flex items-center text-blue-600 hover:underline text-sm"
+        >
+          <ArrowLeft size={16} className="mr-2" />
+          Back to Library
+        </button>
+      </div>
+
+      {/* Page Title */}
+      <h1 className="text-3xl font-bold mb-8 text-center">Backflow Protection Types</h1>
+
+      {/* Information Table */}
+      <div className="overflow-x-auto rounded-xl shadow">
+        <table className="min-w-full bg-white text-sm">
+          <thead>
+            <tr className="bg-gray-100 text-left">
+              <th className="py-3 px-4 font-semibold">Type</th>
+              <th className="py-3 px-4 font-semibold">Protection Description</th>
+              <th className="py-3 px-4 font-semibold">Example Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              {
+                type: 'Type AA',
+                protection: 'Complete air gap

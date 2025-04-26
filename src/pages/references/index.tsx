@@ -1,13 +1,15 @@
+// ✅ src/pages/references/index.tsx
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 
 const categories = [
-  { id: 'pipework', title: 'Pipework', description: 'Sizes, fittings, and materials.' },
-  { id: 'fluid-categories', title: 'Fluid Categories', description: 'Water risk categories 1–5.' },
-  { id: 'conversion-tables', title: 'Conversion Tables', description: 'Pressure, volume, temperature conversions.' },
-  { id: 'water-regulations', title: 'Water Regulations', description: 'Backflow prevention, valves.' },
-  { id: 'heating-systems', title: 'Heating Systems', description: 'S-Plan, Y-Plan, W-Plan setups.' },
+  { id: 'pipework', title: 'Pipework', description: 'Pipe sizes, clipping distances, and fitting methods.' },
+  { id: 'heating-systems', title: 'Heating Systems', description: 'S-Plan, S-Plan Plus, Y-Plan, W-Plan comparisons.' },
+  { id: 'electrical-zones', title: 'Electrical Zones in Bathrooms', description: 'Zones 0–2 and IP rating requirements.' },
+  { id: 'testing-pressures', title: 'Standard Test Pressures', description: 'Water and gas system testing pressures.' },
+  { id: 'pipe-falls', title: 'Minimum Pipe Falls', description: 'Correct falls for waste and soil pipe installations.' },
+  { id: 'backflow-protection', title: 'Backflow Protection Types', description: 'Type AA, AB, DC, and more explained.' },
 ];
 
 export default function ReferenceIndex() {
