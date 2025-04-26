@@ -27,18 +27,19 @@ export default function Topics() {
     const topicsData: Topic[] = [
       // Level 2 Topics
       { id: 'level2-cold-water', title: 'Cold Water (L2)', icon: '💧', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-health-safety', title: 'Health & Safety (L2)', icon: '⚠️', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-common-principles', title: 'Common Principles (L2)', icon: '🔧', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-central-heating', title: 'Central Heating (L2)', icon: '🔥', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-drainage-sanitation', title: 'Drainage & Sanitation (L2)', icon: '🚽', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-hot-water', title: 'Hot Water (L2)', icon: '♨️', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-electrical', title: 'Electrical (L2)', icon: '⚡', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-rainwater', title: 'Rainwater (L2)', icon: '🌧️', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-real-life-scenarios', title: 'Real Life Scenarios (L2)', icon: '🛠️', isPro: false, level: 2, totalQuestions: 25 },
-      { id: 'level2-scientific-principles', title: 'Scientific Principles (L2)', icon: '🔬', isPro: false, level: 2, totalQuestions: 25 },
+      { id: 'level2-health-safety', title: 'Health & Safety (L2)', icon: '⚠️', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-common-principles', title: 'Common Principles (L2)', icon: '🔧', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-central-heating', title: 'Central Heating (L2)', icon: '🔥', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-drainage-sanitation', title: 'Drainage & Sanitation (L2)', icon: '🚽', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-hot-water', title: 'Hot Water (L2)', icon: '♨️', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-electrical', title: 'Electrical (L2)', icon: '⚡', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-rainwater', title: 'Rainwater (L2)', icon: '🌧️', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-real-life-scenarios', title: 'Real Life Scenarios (L2)', icon: '🛠️', isPro: true, level: 2, totalQuestions: 25 },
+      { id: 'level2-scientific-principles', title: 'Scientific Principles (L2)', icon: '🔬', isPro: true, level: 2, totalQuestions: 25 },
+  
       // Level 3 Topics
       { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false, level: 3, totalQuestions: 50 },
-      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false, level: 3, totalQuestions: 50 },
+      { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: true, level: 3, totalQuestions: 50 },
       { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true, level: 3, totalQuestions: 50 },
       { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true, level: 3, totalQuestions: 50 },
       { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true, level: 3, totalQuestions: 50 },
@@ -49,6 +50,7 @@ export default function Topics() {
     ];
     setTopics(topicsData);
   }, []);
+  
 
   if (loading) {
     return (

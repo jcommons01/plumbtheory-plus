@@ -1,9 +1,10 @@
-// ✅ src/data/referenceData.ts (Professional Stats-Style Pipe Material Cards)
+// ✅ src/data/referenceData.ts (with Pro fields)
 
 export type ReferenceCategory = {
     id: string;
     title: string;
     description: string;
+    isPro: boolean;
     stats: {
       label: string;
       value: string;
@@ -15,6 +16,7 @@ export type ReferenceCategory = {
       id: 'copper',
       title: 'Copper Pipe',
       description: 'Widely used for hot and cold water systems, central heating, and gas.',
+      isPro: false, // ✅ Free
       stats: [
         { label: 'Typical Sizes', value: '15mm, 22mm, 28mm, 35mm, 42mm, 54mm' },
         { label: 'Clipping Distances', value: '1.2m horizontal, 1.8m vertical' },
@@ -27,6 +29,7 @@ export type ReferenceCategory = {
       id: 'plastic',
       title: 'Plastic Pipe (Push-Fit/Barrier)',
       description: 'Common in domestic plumbing for flexibility and ease of installation.',
+      isPro: true,
       stats: [
         { label: 'Typical Sizes', value: '15mm, 22mm, 28mm' },
         { label: 'Clipping Distances', value: '0.8m horizontal, 1.2m vertical' },
@@ -39,6 +42,7 @@ export type ReferenceCategory = {
       id: 'mdpe',
       title: 'MDPE Pipe',
       description: 'Used for underground mains water supply to buildings.',
+      isPro: true,
       stats: [
         { label: 'Typical Sizes', value: '20mm, 25mm, 32mm, 50mm, 63mm' },
         { label: 'Clipping Distances', value: 'Secured at key points, minimal above ground' },
@@ -51,6 +55,7 @@ export type ReferenceCategory = {
       id: 'waste-soil',
       title: 'Waste & Soil Pipes',
       description: 'Drainage and waste water systems inside and outside buildings.',
+      isPro: true,
       stats: [
         { label: 'Typical Sizes', value: '32mm, 40mm (waste), 110mm (soil)' },
         { label: 'Clipping Distances', value: '0.5m waste, 1.0m soil vertical/horizontal' },
@@ -63,6 +68,7 @@ export type ReferenceCategory = {
       id: 'overflow',
       title: 'Overflow Pipe',
       description: 'Small bore pipes for safely discharging excess water.',
+      isPro: true,
       stats: [
         { label: 'Typical Sizes', value: '21.5mm' },
         { label: 'Clipping Distances', value: '0.5m spacing recommended' },
