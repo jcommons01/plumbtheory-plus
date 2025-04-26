@@ -265,7 +265,6 @@ const references = [
   },
 ];
 
-
 async function uploadReferences() {
   try {
     for (const ref of references) {

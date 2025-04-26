@@ -1,10 +1,13 @@
-// ✅ src/data/referenceData.ts (Ordered Most Common ➔ Least Common)
+// ✅ src/data/referenceData.ts (Professional Stats-Style Pipe Material Cards)
 
 export type ReferenceCategory = {
     id: string;
     title: string;
     description: string;
-    stats: { label: string; value: string }[];
+    stats: {
+      label: string;
+      value: string;
+    }[];
   };
   
   export const referenceCategories: ReferenceCategory[] = [
@@ -33,6 +36,18 @@ export type ReferenceCategory = {
       ],
     },
     {
+      id: 'mdpe',
+      title: 'MDPE Pipe',
+      description: 'Used for underground mains water supply to buildings.',
+      stats: [
+        { label: 'Typical Sizes', value: '20mm, 25mm, 32mm, 50mm, 63mm' },
+        { label: 'Clipping Distances', value: 'Secured at key points, minimal above ground' },
+        { label: 'Fitting Method', value: 'Compression fittings or electrofusion welding' },
+        { label: 'Material Type', value: 'Plastic (Medium Density Polyethylene)' },
+        { label: 'Suitable For', value: 'Cold water mains (below ground)' },
+      ],
+    },
+    {
       id: 'waste-soil',
       title: 'Waste & Soil Pipes',
       description: 'Drainage and waste water systems inside and outside buildings.',
@@ -54,18 +69,6 @@ export type ReferenceCategory = {
         { label: 'Fitting Method', value: 'Push-fit or solvent weld' },
         { label: 'Material Type', value: 'PVCu (Polyvinyl Chloride Unplasticized)' },
         { label: 'Suitable For', value: 'Cisterns, tanks, boilers overflow' },
-      ],
-    },
-    {
-      id: 'mdpe',
-      title: 'MDPE Pipe',
-      description: 'Used for underground mains water supply to buildings.',
-      stats: [
-        { label: 'Typical Sizes', value: '20mm, 25mm, 32mm, 50mm, 63mm' },
-        { label: 'Clipping Distances', value: 'Secured at key points, minimal above ground' },
-        { label: 'Fitting Method', value: 'Compression fittings or electrofusion welding' },
-        { label: 'Material Type', value: 'Plastic (Medium Density Polyethylene)' },
-        { label: 'Suitable For', value: 'Cold water mains (below ground)' },
       ],
     },
   ];
