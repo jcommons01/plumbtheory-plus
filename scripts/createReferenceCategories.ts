@@ -18,13 +18,19 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
-// ✅ List of reference categories to create
+// ✅ Updated list of reference categories to create
 const categories = [
-  'fitting-types',
-  'boiler-fault-codes',
-  'water-regulations',
-  'pipe-labelling',
+  'pipe-clipping-distances',
+  'fluid-categories',
+  'pipe-sizes',
   'conversion-tables',
+  'water-regulations',
+  'boiler-fault-codes',
+  'heating-systems',
+  'testing-requirements',
+  'pipe-labelling',
+  'installation-guidelines',
+  'cylinder-safety',
 ];
 
 async function createCategories() {

@@ -20,134 +20,251 @@ const db = getFirestore(app);
 
 // ✅ Reference entries (expanded with more categories)
 const references = [
-  // 🔵 Fitting Types
+  // ✅ Clipping Distances
   {
-    id: 'compression-fittings',
-    category: 'fitting-types',
-    title: 'Compression Fittings',
-    content: 'Use a nut and olive to form a seal. No heat or soldering required. Suitable for copper or plastic with inserts.'
+    id: 'copper-horizontal-clipping',
+    category: 'pipe-clipping-distances',
+    title: 'Copper Pipe Clipping - Horizontal',
+    content: 'Copper pipes should be clipped every 1.2m horizontally to prevent sagging.',
   },
   {
-    id: 'pushfit-fittings',
-    category: 'fitting-types',
-    title: 'Push-Fit Fittings',
-    content: 'Quick-connect plumbing fittings ideal for plastic or copper pipes. Require pipe inserts and proper insertion depth.'
+    id: 'copper-vertical-clipping',
+    category: 'pipe-clipping-distances',
+    title: 'Copper Pipe Clipping - Vertical',
+    content: 'Copper pipes should be clipped every 1.8m vertically.',
   },
   {
-    id: 'solder-ring-fittings',
-    category: 'fitting-types',
-    title: 'Solder Ring Fittings',
-    content: 'Contain pre-applied solder. Heated until solder melts to create leak-proof joint. Used with copper pipe.'
+    id: 'plastic-horizontal-clipping',
+    category: 'pipe-clipping-distances',
+    title: 'Plastic Pipe Clipping - Horizontal',
+    content: 'Plastic pipes should be clipped every 0.8m horizontally due to flexibility.',
   },
   {
-    id: 'end-feed-fittings',
-    category: 'fitting-types',
-    title: 'End Feed Fittings',
-    content: 'Require external solder. Used with copper. Popular for neat installation and cost-effective bulk use.'
-  },
-  {
-    id: 'threaded-fittings',
-    category: 'fitting-types',
-    title: 'Threaded Fittings',
-    content: 'Screw-threaded joints for metal pipework. Often used with gas or industrial applications. Seal with PTFE or hemp.'
+    id: 'plastic-vertical-clipping',
+    category: 'pipe-clipping-distances',
+    title: 'Plastic Pipe Clipping - Vertical',
+    content: 'Plastic pipes should be clipped every 1.0m vertically.',
   },
 
-  // 🔵 Boiler Fault Codes
+  // ✅ Fluid Categories
   {
-    id: 'vaillant-f28',
-    category: 'boiler-fault-codes',
-    title: 'Vaillant F28',
-    content: 'Ignition fault — no gas or faulty electrode. Check gas supply, ignition cable, and spark electrode.'
+    id: 'fluid-category-1',
+    category: 'fluid-categories',
+    title: 'Fluid Category 1',
+    content: 'Potable water intended for human consumption from a wholesome supply.',
   },
   {
-    id: 'worcester-e9',
-    category: 'boiler-fault-codes',
-    title: 'Worcester E9',
-    content: 'Overheat error. Usually caused by faulty pump or blocked system. Check for circulation or airlock issues.'
+    id: 'fluid-category-2',
+    category: 'fluid-categories',
+    title: 'Fluid Category 2',
+    content: 'Water with slight changes in taste, odour, temperature (e.g., heated water not above 25°C).',
   },
   {
-    id: 'baxi-e133',
-    category: 'boiler-fault-codes',
-    title: 'Baxi E133',
-    content: 'No ignition. Similar to Vaillant F28. Check gas pressure and condensate trap.'
+    id: 'fluid-category-3',
+    category: 'fluid-categories',
+    title: 'Fluid Category 3',
+    content: 'Substances of low toxicity (e.g., disinfectants, food-grade materials).',
   },
   {
-    id: 'ideal-l2',
-    category: 'boiler-fault-codes',
-    title: 'Ideal L2',
-    content: 'Ignition lockout. Ensure condensate pipe isn’t frozen and electrode is clean.'
-  },
-  {
-    id: 'glowworm-f16',
-    category: 'boiler-fault-codes',
-    title: 'Glow-worm F16',
-    content: 'Flame detection error. Commonly caused by faulty electrode or blocked flue.'
-  },
-
-  // 🔵 Water Regulations
-  {
-    id: 'type-a-air-gap',
-    category: 'water-regulations',
-    title: 'Type AA Air Gap',
-    content: 'Non-mechanical backflow prevention. Open-to-air break above spill level to protect water supply.'
-  },
-  {
-    id: 'double-check-valve',
-    category: 'water-regulations',
-    title: 'Double Check Valve',
-    content: 'Required where backflow risk is low. Must be WRAS-approved. Not suitable for Category 5 fluids.'
+    id: 'fluid-category-4',
+    category: 'fluid-categories',
+    title: 'Fluid Category 4',
+    content: 'Significant health hazard due to concentrations of toxic substances (e.g., pesticides).',
   },
   {
     id: 'fluid-category-5',
-    category: 'water-regulations',
+    category: 'fluid-categories',
     title: 'Fluid Category 5',
-    content: 'High hazard fluids. Require Type AA, AB, or DC backflow protection. Includes toilets, bidets, garden taps.'
-  },
-  {
-    id: 'isolation-valves',
-    category: 'water-regulations',
-    title: 'Isolation Valves',
-    content: 'Must be fitted on the supply to appliances. Enables safe servicing and maintenance.'
-  },
-  {
-    id: 'pipe-labelling',
-    category: 'pipe-labelling',
-    title: 'Pipe Labelling Colours',
-    content: 'Cold Water = Blue, Hot Water = Red, Gas = Yellow, Heating Flow = Orange, Return = Brown.'
+    content: 'Serious health hazard, e.g., human waste, pathogens, garden taps without backflow protection.',
   },
 
-  // 🔵 Conversion Tables
+  // ✅ Pipe Sizes
+  {
+    id: 'standard-waste-sizes',
+    category: 'pipe-sizes',
+    title: 'Standard Waste Pipe Sizes',
+    content: '32mm (basins), 40mm (sinks, baths), 50mm (showers, multiple outlets).',
+  },
+  {
+    id: 'overflow-pipe-sizes',
+    category: 'pipe-sizes',
+    title: 'Overflow Pipe Sizes',
+    content: 'Typically 21.5mm for cisterns, tanks, and safety overflows.',
+  },
+  {
+    id: 'rainwater-pipe-sizes',
+    category: 'pipe-sizes',
+    title: 'Rainwater Pipe Sizes',
+    content: 'Typically 68mm downpipes and 112mm gutters for domestic properties.',
+  },
+
+  // ✅ Conversion Tables
   {
     id: 'bar-to-psi',
     category: 'conversion-tables',
     title: 'Pressure Conversion: Bar to PSI',
-    content: '1 bar = 14.5 PSI. Used to compare pressure readings in domestic and commercial plumbing.'
+    content: '1 bar = 14.5 PSI.',
   },
   {
     id: 'litres-to-gallons',
     category: 'conversion-tables',
     title: 'Litres to Gallons (UK)',
-    content: '1 Litre = 0.22 UK Gallons. Multiply litres by 0.22 to convert to gallons.'
+    content: '1 litre = 0.22 UK gallons.',
   },
   {
     id: 'mm-to-inches',
     category: 'conversion-tables',
     title: 'Millimetres to Inches',
-    content: '25.4mm = 1 inch. Divide mm by 25.4 for imperial conversion.'
+    content: '25.4mm = 1 inch.',
   },
   {
-    id: 'flowrate-calculation',
-    category: 'conversion-tables',
-    title: 'Flow Rate Calculation',
-    content: 'Flow (L/min) = Volume (L) ÷ Time (min). Used when testing outlets or appliances.'
-  },
-  {
-    id: 'temperature-conversion',
+    id: 'celsius-to-fahrenheit',
     category: 'conversion-tables',
     title: 'Celsius to Fahrenheit',
-    content: '°F = (°C × 1.8) + 32. Useful for comparing hot water limits or setting thermostats.'
-  }
+    content: '°F = (°C × 1.8) + 32.',
+  },
+
+  // ✅ Water Regulations
+  {
+    id: 'type-aa-air-gap',
+    category: 'water-regulations',
+    title: 'Type AA Air Gap',
+    content: 'Prevents backflow. Complete air break above spillover level, used where high risk exists.',
+  },
+  {
+    id: 'type-ab-air-gap',
+    category: 'water-regulations',
+    title: 'Type AB Air Gap',
+    content: 'Backflow prevention device with an air gap and non-return valves, for category 5 fluids.',
+  },
+  {
+    id: 'double-check-valve',
+    category: 'water-regulations',
+    title: 'Double Check Valve (DC)',
+    content: 'Used for low-risk backflow prevention. Not suitable for Fluid Category 5.',
+  },
+  {
+    id: 'pipework-insulation',
+    category: 'water-regulations',
+    title: 'Pipework Insulation Requirements',
+    content: 'Pipes in unheated spaces must be insulated to prevent freezing, minimum thickness varies.',
+  },
+
+  // ✅ Boiler Fault Codes
+  {
+    id: 'vaillant-f75',
+    category: 'boiler-fault-codes',
+    title: 'Vaillant F75',
+    content: 'Pressure sensor or pump fault. Check pump operation and pressure sensor.',
+  },
+  {
+    id: 'worcester-e9',
+    category: 'boiler-fault-codes',
+    title: 'Worcester E9',
+    content: 'Overheat protection activated. Common causes include faulty pump or blockage.',
+  },
+  {
+    id: 'ideal-f2',
+    category: 'boiler-fault-codes',
+    title: 'Ideal F2',
+    content: 'Flame loss during operation. Check ignition and gas supply.',
+  },
+  {
+    id: 'baxi-e119',
+    category: 'boiler-fault-codes',
+    title: 'Baxi E119',
+    content: 'Low water pressure. Check system pressure and refill if necessary.',
+  },
+
+  // ✅ Heating Systems
+  {
+    id: 's-plan-system',
+    category: 'heating-systems',
+    title: 'S-Plan Heating System',
+    content: 'Uses two 2-port motorised valves for separate heating and hot water control.',
+  },
+  {
+    id: 'y-plan-system',
+    category: 'heating-systems',
+    title: 'Y-Plan Heating System',
+    content: 'Uses a single 3-port valve to divert water between heating and hot water circuits.',
+  },
+  {
+    id: 'w-plan-system',
+    category: 'heating-systems',
+    title: 'W-Plan Heating System',
+    content: 'Two-port valves on heating and hot water circuits, allows better zoning control.',
+  },
+
+  // ✅ Testing Pressures
+  {
+    id: 'water-testing-pressure',
+    category: 'testing-requirements',
+    title: 'Water Testing Pressure',
+    content: 'Water pipes should be tested at 1.5 × working pressure, typically around 6 bar for 1 hour.',
+  },
+  {
+    id: 'gas-tightness-test',
+    category: 'testing-requirements',
+    title: 'Gas Tightness Test',
+    content: 'Domestic gas pipework should hold pressure with no drop over 2 minutes at 20mbar.',
+  },
+  {
+    id: 'gas-strength-test',
+    category: 'testing-requirements',
+    title: 'Gas Strength Test',
+    content: 'Strength test at 1.5 times working pressure (usually 40mbar) for at least 1 minute.',
+  },
+
+  // ✅ Pipe Label Colours
+  {
+    id: 'pipe-labelling-colours',
+    category: 'pipe-labelling',
+    title: 'Pipe Labelling Colours',
+    content: 'Gas = Yellow, Cold Water = Blue, Hot Water = Red, Heating Flow = Orange, Heating Return = Brown.',
+  },
+
+  // ✅ Installation Minimums
+  {
+    id: 'gas-meter-distance',
+    category: 'installation-guidelines',
+    title: 'Gas Meter Clearance',
+    content: 'Minimum 150mm clearance required around gas meters for maintenance access.',
+  },
+  {
+    id: 'trench-depth-water-pipe',
+    category: 'installation-guidelines',
+    title: 'Water Pipe Trench Depth',
+    content: 'Minimum 750mm deep to protect from freezing and damage.',
+  },
+  {
+    id: 'minimum-vent-pipe-length',
+    category: 'installation-guidelines',
+    title: 'Minimum Vent Pipe Length',
+    content: 'Vent pipe must rise at least 450mm above the cold water cistern.',
+  },
+
+  // ✅ Cylinder Safety (G3 Regs)
+  {
+    id: 'tundish-fall-requirement',
+    category: 'cylinder-safety',
+    title: 'Tundish Fall Requirement',
+    content: 'Pipe must fall at least 1:200 gradient from tundish to outlet.',
+  },
+  {
+    id: 'discharge-pipe-vertical-length',
+    category: 'cylinder-safety',
+    title: 'Vertical Discharge Pipe Length',
+    content: 'No more than 300mm vertical pipe below tundish before going horizontal.',
+  },
+  {
+    id: 'discharge-pipe-sizing',
+    category: 'cylinder-safety',
+    title: 'Discharge Pipe Sizing',
+    content: 'Minimum 22mm pipe for discharge pipes up to 9m length. Increase to 28mm if longer.',
+  },
 ];
+
 
 async function uploadReferences() {
   try {
