@@ -33,7 +33,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "src/components/UpgradeModal.tsx"  ],
   "exclude": [
     "node_modules"
   ]

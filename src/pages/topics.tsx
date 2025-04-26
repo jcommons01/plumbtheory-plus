@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import TopicCard from '@/components/TopicCard';
 import { useAuth } from '@/contexts/AuthProvider';
+import UpgradeModal from '../components/UpgradeModal';
 
 type Topic = {
   id: string;
@@ -19,8 +20,8 @@ export default function Topics() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [questionCount, setQuestionCount] = useState<number>(10);
-  const [showBanner, setShowBanner] = useState(true);
-  const [selectedLevel, setSelectedLevel] = useState<number>(2); // 🔥 Default to Level 2
+  const [selectedLevel, setSelectedLevel] = useState<number>(2);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
   useEffect(() => {
     const topicsData: Topic[] = [
@@ -35,7 +36,6 @@ export default function Topics() {
       { id: 'level2-rainwater', title: 'Rainwater (L2)', icon: '🌧️', isPro: false, level: 2, totalQuestions: 25 },
       { id: 'level2-real-life-scenarios', title: 'Real Life Scenarios (L2)', icon: '🛠️', isPro: false, level: 2, totalQuestions: 25 },
       { id: 'level2-scientific-principles', title: 'Scientific Principles (L2)', icon: '🔬', isPro: false, level: 2, totalQuestions: 25 },
-
       // Level 3 Topics
       { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false, level: 3, totalQuestions: 50 },
       { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: false, level: 3, totalQuestions: 50 },
@@ -61,9 +61,8 @@ export default function Topics() {
   }
 
   const openQuizOptions = (topic: Topic) => {
-    const hasAccess = !topic.isPro || userData?.isPro;
-    if (!hasAccess) {
-      router.push('/subscribe');
+    if (topic.isPro && !userData?.isPro) {
+      setIsUpgradeModalOpen(true);
     } else {
       setSelectedTopic(topic);
     }
@@ -115,10 +114,7 @@ export default function Topics() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8 text-center">Choose Your Level</h1>
 
-        
-        
-
-        {/* 🚀 Level Toggle Switch */}
+        {/* 🚀 Level Toggle */}
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center bg-gray-100 p-1 rounded-full">
             <button
@@ -140,7 +136,7 @@ export default function Topics() {
           </div>
         </div>
 
-        {/* 📚 NEW: Reference Library Button */}
+        {/* 📚 Visit Reference Library */}
         <div className="flex justify-center mb-8">
           <a
             href="/references"
@@ -150,10 +146,10 @@ export default function Topics() {
           </a>
         </div>
 
-        {/* 🔥 Render Topics for selected Level */}
+        {/* 🔥 Render Topics */}
         {renderTopics()}
 
-        {/* Question Amount Modal */}
+        {/* 🎯 Question Amount Modal */}
         {selectedTopic && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-md shadow-lg max-w-sm w-full text-center">
@@ -196,6 +192,16 @@ export default function Topics() {
             </div>
           </div>
         )}
+
+        {/* 🚀 Upgrade Modal */}
+        <UpgradeModal
+          isOpen={isUpgradeModalOpen}
+          onClose={() => setIsUpgradeModalOpen(false)}
+          onUpgrade={() => {
+            // Add your upgrade logic here
+            console.log('Upgrade action triggered');
+          }}
+        />
       </div>
     </Layout>
   );
