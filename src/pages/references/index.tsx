@@ -1,72 +1,43 @@
-// ✅ src/data/referenceData.ts (Ordered Most Common ➔ Least Common)
+import { useState } from 'react';
+import { referenceCategories } from '@/data/referenceData';
 
-export type ReferenceCategory = {
-    id: string;
-    title: string;
-    description: string;
-    stats: { label: string; value: string }[];
+export default function ReferenceLibrary() {
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+
+  const toggleCategory = (id: string) => {
+    setOpenCategory(openCategory === id ? null : id);
   };
-  
-  export const referenceCategories: ReferenceCategory[] = [
-    {
-      id: 'copper',
-      title: 'Copper Pipe',
-      description: 'Widely used for hot and cold water systems, central heating, and gas.',
-      stats: [
-        { label: 'Typical Sizes', value: '15mm, 22mm, 28mm, 35mm, 42mm, 54mm' },
-        { label: 'Clipping Distances', value: '1.2m horizontal, 1.8m vertical' },
-        { label: 'Fitting Method', value: 'Soldered (capillary), compression, or push-fit' },
-        { label: 'Material Type', value: 'Metal (Copper)' },
-        { label: 'Suitable For', value: 'Hot water, cold water, gas' },
-      ],
-    },
-    {
-      id: 'plastic',
-      title: 'Plastic Pipe (Push-Fit/Barrier)',
-      description: 'Common in domestic plumbing for flexibility and ease of installation.',
-      stats: [
-        { label: 'Typical Sizes', value: '15mm, 22mm, 28mm' },
-        { label: 'Clipping Distances', value: '0.8m horizontal, 1.2m vertical' },
-        { label: 'Fitting Method', value: 'Push-fit or mechanical fitting with inserts' },
-        { label: 'Material Type', value: 'Plastic (Polybutylene, PEX)' },
-        { label: 'Suitable For', value: 'Hot and cold water systems' },
-      ],
-    },
-    {
-      id: 'waste-soil',
-      title: 'Waste & Soil Pipes',
-      description: 'Drainage and waste water systems inside and outside buildings.',
-      stats: [
-        { label: 'Typical Sizes', value: '32mm, 40mm (waste), 110mm (soil)' },
-        { label: 'Clipping Distances', value: '0.5m waste, 1.0m soil vertical/horizontal' },
-        { label: 'Fitting Method', value: 'Solvent weld, push-fit, or compression' },
-        { label: 'Material Type', value: 'uPVC (Unplasticized Polyvinyl Chloride)' },
-        { label: 'Suitable For', value: 'Waste water and soil systems' },
-      ],
-    },
-    {
-      id: 'overflow',
-      title: 'Overflow Pipe',
-      description: 'Small bore pipes for safely discharging excess water.',
-      stats: [
-        { label: 'Typical Sizes', value: '21.5mm' },
-        { label: 'Clipping Distances', value: '0.5m spacing recommended' },
-        { label: 'Fitting Method', value: 'Push-fit or solvent weld' },
-        { label: 'Material Type', value: 'PVCu (Polyvinyl Chloride Unplasticized)' },
-        { label: 'Suitable For', value: 'Cisterns, tanks, boilers overflow' },
-      ],
-    },
-    {
-      id: 'mdpe',
-      title: 'MDPE Pipe',
-      description: 'Used for underground mains water supply to buildings.',
-      stats: [
-        { label: 'Typical Sizes', value: '20mm, 25mm, 32mm, 50mm, 63mm' },
-        { label: 'Clipping Distances', value: 'Secured at key points, minimal above ground' },
-        { label: 'Fitting Method', value: 'Compression fittings or electrofusion welding' },
-        { label: 'Material Type', value: 'Plastic (Medium Density Polyethylene)' },
-        { label: 'Suitable For', value: 'Cold water mains (below ground)' },
-      ],
-    },
-  ];
-  
+
+  return (
+    <div className="max-w-4xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6 text-center">Reference Library</h1>
+      <div className="space-y-4">
+        {referenceCategories.map((category) => (
+          <div
+            key={category.id}
+            className="border rounded-2xl shadow p-4 cursor-pointer hover:bg-gray-100"
+            onClick={() => toggleCategory(category.id)}
+          >
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold">{category.title}</h2>
+              <span className="text-2xl">{openCategory === category.id ? '−' : '+'}</span>
+            </div>
+            {openCategory === category.id && (
+              <div className="mt-4 space-y-2">
+                <p className="text-gray-700 mb-4">{category.description}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {category.stats.map((stat, index) => (
+                    <div key={index} className="bg-gray-100 p-3 rounded-lg shadow-inner">
+                      <p className="font-bold">{stat.label}</p>
+                      <p>{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
