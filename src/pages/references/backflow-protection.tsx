@@ -1,16 +1,17 @@
-// ✅ src/pages/references/test-pressures.tsx
+// ✅ src/pages/references/backflow-protection.tsx
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 
-const testPressures = [
-  { system: 'Water Pipework', standard: 'Test at 1.5 × working pressure for 1 hour (usually ~6 bar).' },
-  { system: 'Gas Tightness Test', standard: '20 mbar for 2 minutes (domestic low-pressure gas systems).' },
-  { system: 'Gas Strength Test', standard: '1.5 × working pressure (usually 40 mbar) for 1 minute.' },
+const backflowProtections = [
+  { type: 'Type AA', description: 'Air gap with no risk of contamination; highest protection (e.g., storage cisterns).' },
+  { type: 'Type AB', description: 'Air gap with weir overflow; protects against Fluid Category 5 (very high risk).' },
+  { type: 'Type DC', description: 'Double check valve for low-risk applications (NOT suitable for Category 5 fluids).' },
+  { type: 'Type CA', description: 'Verifiable reduced pressure zone device (RPZ valve); protects against higher risk contamination.' },
 ];
 
-export default function TestPressures() {
+export default function BackflowProtection() {
   const router = useRouter();
 
   return (
@@ -33,22 +34,22 @@ export default function TestPressures() {
         </div>
 
         {/* Page Title */}
-        <h1 className="text-3xl font-bold mb-8 text-center">Standard Test Pressures</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">Backflow Protection Types</h1>
 
         {/* Table */}
         <div className="overflow-x-auto rounded-xl shadow">
           <table className="min-w-full bg-white text-sm">
             <thead className="bg-gray-100">
               <tr>
-                <th className="py-3 px-4 text-left font-semibold">System</th>
-                <th className="py-3 px-4 text-left font-semibold">Testing Standard</th>
+                <th className="py-3 px-4 text-left font-semibold">Type</th>
+                <th className="py-3 px-4 text-left font-semibold">Description</th>
               </tr>
             </thead>
             <tbody>
-              {testPressures.map((item) => (
-                <tr key={item.system} className="border-t hover:bg-gray-50 transition">
-                  <td className="py-3 px-4">{item.system}</td>
-                  <td className="py-3 px-4">{item.standard}</td>
+              {backflowProtections.map((item) => (
+                <tr key={item.type} className="border-t hover:bg-gray-50 transition">
+                  <td className="py-3 px-4">{item.type}</td>
+                  <td className="py-3 px-4">{item.description}</td>
                 </tr>
               ))}
             </tbody>
