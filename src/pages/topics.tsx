@@ -20,7 +20,7 @@ export default function Topics() {
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [questionCount, setQuestionCount] = useState<number>(10);
   const [showBanner, setShowBanner] = useState(true);
-  const [selectedLevel, setSelectedLevel] = useState<number>(2); // 🔥 NEW: default to Level 2
+  const [selectedLevel, setSelectedLevel] = useState<number>(2); // 🔥 Default to Level 2
 
   useEffect(() => {
     const topicsData: Topic[] = [
@@ -124,7 +124,7 @@ export default function Topics() {
         )}
 
         {/* 🚀 Level Toggle Switch */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-6">
           <div className="inline-flex items-center bg-gray-100 p-1 rounded-full">
             <button
               className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
@@ -143,6 +143,16 @@ export default function Topics() {
               Level 3
             </button>
           </div>
+        </div>
+
+        {/* 📚 NEW: Reference Library Button */}
+        <div className="flex justify-center mb-8">
+          <a
+            href="/references"
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full shadow-md transition"
+          >
+            📚 Visit Reference Library
+          </a>
         </div>
 
         {/* 🔥 Render Topics for selected Level */}
