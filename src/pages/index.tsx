@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
-import Head from 'next/head'; // ✅ Add Head import
+import Head from 'next/head';
 
 export default function Home() {
   const router = useRouter();
@@ -17,7 +17,6 @@ export default function Home() {
 
   return (
     <>
-      {/* ✅ Add Head metadata here */}
       <Head>
         <title>PlumbTheory+ | Plumb Theory | UK Plumbing Exam Preparation</title>
         <meta name="description" content="Prepare for your Level 2 and Level 3 Plumbing exams with PlumbTheory+. Practice quizzes, detailed explanations, and reference tools." />
@@ -34,19 +33,22 @@ export default function Home() {
         <meta name="twitter:image" content="https://plumbtheory.co.uk/og-image.png" />
       </Head>
 
-      {/* Your page layout */}
       <Layout>
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
           <div className="container mx-auto px-4 py-12">
             <div className="max-w-4xl mx-auto text-center">
-              {/* Hero Section */}
-              <h1 className="text-4xl font-bold text-blue-600 mb-4">PlumbTheory+</h1>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                Prepare for Your Plumbing Exams with Confidence
-              </h2>
+              {/* Updated Hero Section */}
+              <h1 className="text-4xl font-bold text-blue-600 mb-4">
+                Pass Your UK Plumbing Exams With Confidence
+              </h1>
               <p className="text-lg text-gray-700 mb-8">
-                PlumbTheory+ helps UK plumbing students revise smarter for their Level 2 and Level 3 exams with interactive quizzes, real-life scenarios, detailed explanations, and essential reference tools.
+                PlumbTheory+ gives you instant access to over <strong>700+ professional Level 2 and Level 3 questions</strong>, full mock exams, real-life scenario training, and essential reference guides.
               </p>
+              <ul className="text-gray-700 text-lg list-none space-y-2 mb-8">
+                <li>🚿 Designed for serious students.</li>
+                <li>🚰 Built by real plumbing professionals.</li>
+                <li>🎯 Smash your exams with focused, smart revision.</li>
+              </ul>
               <button
                 onClick={handleStartLearning}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md shadow-md transition-all"
@@ -55,7 +57,7 @@ export default function Home() {
               </button>
             </div>
 
-            {/* New SEO Text Section */}
+            {/* SEO Text Section */}
             <section className="py-12 px-4 text-center max-w-3xl mx-auto">
               <h2 className="text-2xl font-bold mb-6">Welcome to PlumbTheory+</h2>
               <p className="text-lg mb-4">
