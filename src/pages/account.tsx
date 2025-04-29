@@ -1,9 +1,8 @@
-// ✅ src/pages/account.tsx
-import { useState } from "react";
-import { useAuth } from "../contexts/AuthProvider";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../lib/firebase";
-import Layout from "@/components/Layout";
+import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthProvider';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import Layout from '@/components/Layout';
 
 export default function AccountPage() {
   const { user, userData } = useAuth();
@@ -17,25 +16,25 @@ export default function AccountPage() {
     setSuccess(false);
 
     try {
-      const res = await fetch("/api/cancel-subscription", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/cancel-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ uid: user.uid }),
       });
 
       const data = await res.json();
 
       if (data.success) {
-        await updateDoc(doc(db, "users", user.uid), {
+        await updateDoc(doc(db, 'users', user.uid), {
           isPro: false,
           stripeSubscriptionId: null,
         });
         setSuccess(true);
       } else {
-        alert(data.error || "Something went wrong.");
+        alert(data.error || 'Something went wrong.');
       }
     } catch (err) {
-      console.error("Cancel error:", err);
+      console.error('Cancel error:', err);
     }
 
     setLoading(false);
@@ -43,23 +42,25 @@ export default function AccountPage() {
 
   return (
     <Layout title="Account | PlumbTheory+">
-      <div className="max-w-xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-6">Account Settings</h1>
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center justify-center px-4 py-12">
+        <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center">
+          <h1 className="text-3xl font-bold text-blue-700 mb-6">Account Settings</h1>
 
-        <div className="bg-white shadow-md rounded-2xl p-6 border text-center">
-          <p className="mb-3">
-            <span className="font-semibold">Email:</span>{" "}
-            {user?.email || "Not logged in"}
-          </p>
+          <div className="space-y-4 text-gray-700 mb-8">
+            <div>
+              <span className="font-semibold">Email:</span>{' '}
+              {user?.email || 'Not logged in'}
+            </div>
 
-          <p className="mb-5">
-            <span className="font-semibold">Status:</span>{" "}
-            {userData?.isPro ? (
-              <span className="text-green-600 font-medium">✅ Pro User</span>
-            ) : (
-              <span className="text-gray-500">Free User</span>
-            )}
-          </p>
+            <div>
+              <span className="font-semibold">Status:</span>{' '}
+              {userData?.isPro ? (
+                <span className="text-green-600 font-semibold">✅ Pro User</span>
+              ) : (
+                <span className="text-gray-500 font-semibold">🔒 Free User</span>
+              )}
+            </div>
+          </div>
 
           {userData?.isPro && (
             <>
@@ -67,23 +68,38 @@ export default function AccountPage() {
                 <button
                   onClick={handleCancel}
                   disabled={loading}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded font-semibold transition disabled:opacity-50"
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition-all disabled:opacity-50"
                 >
-                  {loading ? "Cancelling..." : "Cancel Subscription"}
+                  {loading ? 'Cancelling...' : 'Cancel Subscription'}
                 </button>
               ) : (
                 <p className="text-sm text-red-500">
-                  Warning: No Stripe subscription ID found. You may need to contact support.
+                  ⚠️ No Stripe subscription ID found. Please{' '}
+                  <a
+                    href="mailto:plumbtheory@gmail.com"
+                    className="underline hover:text-red-700"
+                  >
+                    contact support
+                  </a>
+                  .
                 </p>
               )}
             </>
           )}
 
           {success && (
-            <p className="text-green-600 mt-4 font-medium">
-              ✅ Subscription cancelled
-            </p>
+            <p className="text-green-600 font-medium mt-4">✅ Subscription successfully cancelled.</p>
           )}
+
+          <div className="mt-10 text-sm text-gray-500">
+            Need help?{' '}
+            <a
+              href="mailto:plumbtheory@gmail.com"
+              className="underline hover:text-blue-600"
+            >
+              Contact Support
+            </a>
+          </div>
         </div>
       </div>
     </Layout>
