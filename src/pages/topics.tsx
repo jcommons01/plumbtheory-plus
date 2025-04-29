@@ -49,6 +49,9 @@ export default function Topics() {
       { id: 'electrical', title: 'Electrical', icon: '⚡', isPro: true, level: 3, totalQuestions: 50 },
       { id: 'domestic-fuels', title: 'Domestic Fuels', icon: '⛽', isPro: true, level: 3, totalQuestions: 50 },
       { id: 'calculation-questions', title: 'Calculation Questions', icon: '🧮', isPro: true, level: 3, totalQuestions: 50 },
+
+      // Gas (new section, treated as its own level)
+      { id: 'gas', title: 'Gas', icon: '🔥', isPro: true, level: 99, totalQuestions: 250 },
     ];
 
     setTopics(topicsData);
@@ -140,6 +143,14 @@ export default function Topics() {
               onClick={() => setSelectedLevel(3)}
             >
               Level 3
+            </button>
+            <button
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
+                selectedLevel === 99 ? 'bg-red-600 text-white' : 'text-gray-700'
+              }`}
+              onClick={() => setSelectedLevel(99)}
+            >
+              Gas
             </button>
           </div>
         </div>
