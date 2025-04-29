@@ -51,16 +51,16 @@ export default function Topics() {
       { id: 'calculation-questions', title: 'Calculation Questions', icon: '🧮', isPro: true, level: 3, totalQuestions: 50 },
 
       // Gas (new section, treated as its own level)
-      { id: 'domestic-gas-safety', title: 'Domestic Gas Safety', icon: '🏠', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'gas-pipe-sizing', title: 'Gas Pipe Sizing', icon: '📏', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'ventilation-requirements', title: 'Ventilation Requirements', icon: '🌬️', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'flueing-requirements', title: 'Flueing Requirements', icon: '🏭', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'gas-appliance-types', title: 'Gas Appliance Types', icon: '🔥', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'tightness-testing-purging', title: 'Tightness Testing & Purging', icon: '🧪', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'combustion-analysis', title: 'Combustion Analysis', icon: '🧯', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'building-regulations', title: 'Building Regulations (Part J)', icon: '🏢', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'unsafe-situations', title: 'Unsafe Situations', icon: '⚠️', isPro: true, level: 99, totalQuestions: 25 },
-{ id: 'emergency-procedures', title: 'Emergency Procedures', icon: '🚨', isPro: true, level: 99, totalQuestions: 25 },
+      { id: 'gas-domestic-safety', title: 'Domestic Gas Safety', icon: '🏠', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-pipe-sizing', title: 'Gas Pipe Sizing', icon: '📏', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-ventilation-requirements', title: 'Ventilation Requirements', icon: '🌬️', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-flueing-requirements', title: 'Flueing Requirements', icon: '🏭', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-appliance-types', title: 'Gas Appliance Types', icon: '🔥', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-tightness-purging', title: 'Tightness Testing & Purging', icon: '🧪', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-combustion-analysis', title: 'Combustion Analysis', icon: '🧯', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-building-regulations', title: 'Building Regulations (Part J)', icon: '🏢', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-unsafe-situations', title: 'Unsafe Situations', icon: '⚠️', isPro: true, level: 99, totalQuestions: 25 },
+  { id: 'gas-emergency-procedures', title: 'Emergency Procedures', icon: '🚨', isPro: true, level: 99, totalQuestions: 25 },
 
     ];
 
