@@ -1,103 +1,71 @@
-import { useRouter } from 'next/router';
-import { ArrowLeft } from 'lucide-react';
-import { motion } from 'framer-motion';
+import Layout from '@/components/Layout';
 
 export default function HeatingSystemsReference() {
-  const router = useRouter();
-
   return (
-    <motion.div
-      className="max-w-4xl mx-auto p-4"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* Back Button */}
-      <div className="mb-6">
-        <button
-          onClick={() => router.push('/references')}
-          className="flex items-center text-blue-600 hover:underline text-sm"
-        >
-          <ArrowLeft size={16} className="mr-2" />
-          Back to Library
-        </button>
-      </div>
+    <Layout title="Heating System Types | PlumbTheory+">
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        <h1 className="text-3xl font-bold mb-6">Summary of Heating Systems</h1>
 
-      {/* Page Title */}
-      <h1 className="text-3xl font-bold mb-8 text-center">Heating Systems Reference</h1>
-
-      {/* Heating Systems Table */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Summary of Heating Systems</h2>
-        <div className="overflow-x-auto rounded-xl shadow">
-          <table className="min-w-full bg-white text-sm">
-            <thead>
-              <tr className="bg-gray-100 text-left">
-                <th className="py-3 px-4 font-semibold">System</th>
-                <th className="py-3 px-4 font-semibold">Valve Setup</th>
-                <th className="py-3 px-4 font-semibold">Notes</th>
+        {/* Summary Table */}
+        <table className="w-full table-auto border border-gray-300 text-sm mb-8">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border px-3 py-2">System</th>
+              <th className="border px-3 py-2">Valve Setup</th>
+              <th className="border px-3 py-2">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['S-Plan', 'Two 2-port valves', 'Heating and hot water controlled independently.'],
+              ['S-Plan Plus', 'Three or more 2-port valves', 'Multiple heating zones and hot water.'],
+              ['Y-Plan', 'Single 3-port mid-position valve', 'Heating, hot water, or both. Common in older systems.'],
+              ['W-Plan', 'Single 3-port diverter valve', 'Switches between heating or hot water only.'],
+            ].map(([system, valves, notes]) => (
+              <tr key={system}>
+                <td className="border px-3 py-2 font-semibold">{system}</td>
+                <td className="border px-3 py-2">{valves}</td>
+                <td className="border px-3 py-2">{notes}</td>
               </tr>
-            </thead>
-            <tbody>
-              {[
-                { system: 'S-Plan', valve: 'Two 2-port valves', notes: 'Heating and hot water controlled independently. Modern and flexible.' },
-                { system: 'S-Plan Plus', valve: 'Three or more 2-port valves', notes: 'Used for multiple heating zones and hot water. Very flexible zoning.' },
-                { system: 'Y-Plan', valve: 'Single 3-port mid-position valve', notes: 'Can supply heating only, hot water only, or both simultaneously.' },
-                { system: 'W-Plan', valve: 'Single 3-port diverter valve', notes: 'Switches fully between heating or hot water — no simultaneous supply.' },
-              ].map((item) => (
-                <tr key={item.system} className="border-t hover:bg-gray-50 transition">
-                  <td className="py-3 px-4 font-semibold text-gray-800">{item.system}</td>
-                  <td className="py-3 px-4">{item.valve}</td>
-                  <td className="py-3 px-4">{item.notes}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Detailed Summaries */}
+        {[
+          {
+            title: 'S-Plan',
+            text: `Uses two separate 2-port motorised valves to control heating and hot water independently. Common in modern systems.`,
+            pros: 'Simple, reliable, easy to zone.',
+            cons: 'More pipework and wiring than Y-Plan.',
+          },
+          {
+            title: 'S-Plan Plus',
+            text: `Same principle as S-Plan, but with three or more 2-port valves for multi-zone control.`,
+            pros: 'Highly flexible zoning, energy efficient.',
+            cons: 'More complex wiring and controls.',
+          },
+          {
+            title: 'Y-Plan',
+            text: `Uses a single 3-port mid-position valve. Can supply hot water only, heating only, or both.`,
+            pros: 'Fewer valves and wiring needed.',
+            cons: 'Valve failure affects both systems.',
+          },
+          {
+            title: 'W-Plan',
+            text: `Uses a diverter valve with two positions: heating or hot water only.`,
+            pros: 'Simple and easy to control.',
+            cons: 'Cannot supply both at once.',
+          },
+        ].map(({ title, text, pros, cons }) => (
+          <div key={title} className="mb-6">
+            <h2 className="text-xl font-semibold mb-1">{title}</h2>
+            <p className="text-sm text-gray-700 mb-1">{text}</p>
+            <p className="text-sm text-green-600"><strong>Pros:</strong> {pros}</p>
+            <p className="text-sm text-red-500"><strong>Cons:</strong> {cons}</p>
+          </div>
+        ))}
       </div>
-
-      {/* Detailed Cards */}
-      <div className="grid gap-8">
-        {/* S-Plan */}
-        <motion.div whileHover={{ scale: 1.02 }} className="p-6 rounded-xl shadow bg-white">
-          <h3 className="text-xl font-bold mb-2 text-blue-600">S-Plan</h3>
-          <p>Uses two separate 2-port motorised valves to control heating and hot water independently. Common in modern systems. Offers flexible control.</p>
-          <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
-            <li><strong>Pros:</strong> Simple, reliable, easy to zone.</li>
-            <li><strong>Cons:</strong> More pipework and wiring than Y-Plan.</li>
-          </ul>
-        </motion.div>
-
-        {/* S-Plan Plus */}
-        <motion.div whileHover={{ scale: 1.02 }} className="p-6 rounded-xl shadow bg-white">
-          <h3 className="text-xl font-bold mb-2 text-blue-600">S-Plan Plus</h3>
-          <p>Same principle as S-Plan, but with three or more 2-port valves to create multiple heating zones (e.g., upstairs, downstairs, hot water).</p>
-          <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
-            <li><strong>Pros:</strong> Highly flexible zoning, energy efficient.</li>
-            <li><strong>Cons:</strong> More complex wiring and controls.</li>
-          </ul>
-        </motion.div>
-
-        {/* Y-Plan */}
-        <motion.div whileHover={{ scale: 1.02 }} className="p-6 rounded-xl shadow bg-white">
-          <h3 className="text-xl font-bold mb-2 text-blue-600">Y-Plan</h3>
-          <p>Uses a single 3-port mid-position valve that can provide hot water only, heating only, or both at the same time. Common in older systems.</p>
-          <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
-            <li><strong>Pros:</strong> Fewer valves and wiring needed.</li>
-            <li><strong>Cons:</strong> Valve failure can affect both heating and hot water simultaneously.</li>
-          </ul>
-        </motion.div>
-
-        {/* W-Plan */}
-        <motion.div whileHover={{ scale: 1.02 }} className="p-6 rounded-xl shadow bg-white">
-          <h3 className="text-xl font-bold mb-2 text-blue-600">W-Plan</h3>
-          <p>Uses a 3-port diverter valve with two positions: heating only or hot water only. It does not allow simultaneous heating and hot water delivery.</p>
-          <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
-            <li><strong>Pros:</strong> Simple and easy to control.</li>
-            <li><strong>Cons:</strong> Cannot supply heating and hot water at the same time.</li>
-          </ul>
-        </motion.div>
-      </div>
-    </motion.div>
+    </Layout>
   );
 }
