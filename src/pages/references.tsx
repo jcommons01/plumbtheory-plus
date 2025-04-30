@@ -48,7 +48,6 @@ export default function References() {
             >
               <div className="flex items-center space-x-3 mb-2">
                 <span className="text-2xl">
-                  {/* Optional: You could add specific icons per reference here */}
                   📚
                 </span>
                 <h3 className="text-lg font-semibold capitalize">{category.title}</h3>
@@ -64,7 +63,7 @@ export default function References() {
         <UpgradeModal
           isOpen={isUpgradeModalOpen}
           onClose={() => setIsUpgradeModalOpen(false)}
-          onUpgrade={() => console.log('Upgrade triggered')}
+          onUpgrade={() => router.push('/subscribe')}
         />
       </div>
     </Layout>
