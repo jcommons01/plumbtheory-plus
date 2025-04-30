@@ -1,98 +1,83 @@
-export type ReferenceCategory = {
-    id: string;
-    title: string;
-    description: string;
-    isPro: boolean;
-    stats: {
-      label: string;
-      value: string;
-    }[];
-  };
-  
-  export const referenceCategories: ReferenceCategory[] = [
+// src/data/referenceData.ts
+
+export const referenceCategories = [
     {
-      id: 'pipe-falls',
-      title: 'Minimum Pipe Falls',
-      description: 'Correct falls for waste and soil pipe installations.',
+      id: 'pipework',
+      title: 'Pipework',
+      description: 'Pipe sizes, clipping distances, and fitting methods.',
       isPro: false,
-      stats: [
-        { label: '1.25" Waste Pipe', value: 'Minimum fall 18mm/m (1:56)' },
-        { label: '1.5" Waste Pipe', value: 'Minimum fall 12mm/m (1:83)' },
-        { label: '4" Soil Pipe', value: 'Minimum fall 9mm/m (1:110)' },
-      ],
     },
     {
       id: 'heating-systems',
       title: 'Heating Systems',
       description: 'S-Plan, S-Plan Plus, Y-Plan, W-Plan comparisons.',
       isPro: false,
-      stats: [
-        { label: 'S-Plan', value: '2-port motorised valves for heating and hot water' },
-        { label: 'Y-Plan', value: '3-port diverter valve for heating and hot water' },
-        { label: 'W-Plan', value: 'Separate flow and return circuits for each zone' },
-      ],
     },
     {
-      id: 'clipping-distances',
-      title: 'Clipping Distances',
-      description: 'Typical spacing for securing various pipe types.',
-      isPro: true, // 🔒 Pro only
-      stats: [
-        { label: 'Copper', value: '1.2m horizontal, 1.8m vertical' },
-        { label: 'Plastic', value: '0.8m horizontal, 1.2m vertical' },
-        { label: 'Soil', value: '1.0m spacing, all directions' },
-      ],
-    },
-    {
-      id: 'copper',
-      title: 'Copper Pipe',
-      description: 'Used for hot/cold water, central heating, and gas.',
+      id: 'minimum-pipe-falls',
+      title: 'Minimum Pipe Falls',
+      description: 'Correct falls for waste and soil pipe installations.',
       isPro: false,
-      stats: [
-        { label: 'Sizes', value: '15mm, 22mm, 28mm, 35mm, 42mm, 54mm' },
-        { label: 'Clipping', value: '1.2m horizontal, 1.8m vertical' },
-        { label: 'Fitting', value: 'Solder, compression, push-fit' },
-      ],
     },
     {
-      id: 'plastic',
-      title: 'Plastic Pipe',
-      description: 'Flexible piping used in domestic plumbing.',
+      id: 'electrical-zones-in-bathrooms',
+      title: 'Electrical Zones in Bathrooms',
+      description: 'Zones 0–2 and IP rating requirements.',
       isPro: true,
-      stats: [
-        { label: 'Sizes', value: '15mm, 22mm, 28mm' },
-        { label: 'Clipping', value: '0.8m horizontal, 1.2m vertical' },
-      ],
     },
     {
-      id: 'mdpe',
-      title: 'MDPE Pipe',
-      description: 'Used for underground mains water.',
+      id: 'standard-test-pressures',
+      title: 'Standard Test Pressures',
+      description: 'Water and gas system testing pressures.',
       isPro: true,
-      stats: [
-        { label: 'Sizes', value: '20mm to 63mm' },
-        { label: 'Use', value: 'Underground cold mains' },
-      ],
     },
     {
-      id: 'waste-soil',
-      title: 'Waste & Soil Pipes',
-      description: 'Drainage and soil systems.',
+      id: 'backflow-protection-types',
+      title: 'Backflow Protection Types',
+      description: 'Type AA, AB, DC, and more explained.',
       isPro: true,
-      stats: [
-        { label: 'Sizes', value: '32mm, 40mm, 110mm' },
-        { label: 'Clipping', value: '0.5m (waste), 1.0m (soil)' },
-      ],
     },
     {
-      id: 'overflow',
-      title: 'Overflow Pipe',
-      description: 'Discharges excess water from systems.',
+      id: 'toilets',
+      title: 'Toilets',
+      description: 'Close-coupled, back-to-wall, wall-hung, and concealed cistern toilets.',
       isPro: true,
-      stats: [
-        { label: 'Size', value: '21.5mm' },
-        { label: 'Clipping', value: '0.5m spacing' },
-      ],
+    },
+    {
+      id: 'basins',
+      title: 'Basins',
+      description: 'Full pedestal, semi-pedestal, wall-hung, and countertop basin types.',
+      isPro: true,
+    },
+    {
+      id: 'sinks',
+      title: 'Sinks',
+      description: 'Kitchen, utility, Belfast, inset, undermount, and more.',
+      isPro: true,
+    },
+    {
+      id: 'taps',
+      title: 'Taps',
+      description: 'Mixer, pillar, non-concussive, sensor, and thermostatic taps.',
+      isPro: true,
+    },
+    {
+      id: 'fittings',
+      title: 'Fittings',
+      description: 'Compression, push-fit, solder, capillary, and more.',
+      isPro: true,
+    },
+    {
+      id: 'boiler-types',
+      title: 'Boiler Types',
+      description: 'Combi, system, heat-only, condensing, and biomass boilers.',
+      isPro: true,
+    },
+    {
+      id: 'pipe-clips-and-fixings',
+      title: 'Pipe Clips & Fixings',
+      description: 'Single clip, double clip, saddle, pipe collar, and brackets.',
+      isPro: true,
     },
   ];
   
