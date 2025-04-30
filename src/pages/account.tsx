@@ -91,7 +91,8 @@ export default function AccountPage() {
             <p className="text-green-600 font-medium mt-4">✅ Subscription successfully cancelled.</p>
           )}
 
-          <div className="mt-10 text-sm text-gray-500">
+          {/* ✅ Contact Support with fallback email */}
+          <div className="mt-10 text-sm text-gray-500 relative z-10">
             Need help?{' '}
             <a
               href="mailto:plumbtheory@gmail.com"
@@ -99,6 +100,11 @@ export default function AccountPage() {
             >
               Contact Support
             </a>
+            <br />
+            <span className="text-xs text-gray-400">
+              (If the link doesn’t work, email us directly at{' '}
+              <code className="font-mono text-gray-600">plumbtheory@gmail.com</code>)
+            </span>
           </div>
         </div>
       </div>
