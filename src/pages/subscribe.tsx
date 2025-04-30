@@ -102,26 +102,26 @@ export default function SubscribePage() {
             {loading ? 'Redirecting…' : 'Subscribe for £9.99/month'}
           </button>
 
-          {/* ✅ Show referral if detected */}
           {referral && (
             <p className="mt-4 text-sm text-green-600">
               Referral detected: <span className="font-mono">{referral}</span>
             </p>
           )}
 
-          {/* ✅ Fix for Contact Support link overlap */}
           <p className="text-sm text-gray-500 mt-6 relative z-10">
-  Cancel anytime. Questions?{' '}
-  <a
-    href="mailto:plumbtheory@gmail.com"
-    className="underline hover:text-indigo-700"
-  >
-    Contact Support
-  </a>
-  <br />
-  <span className="text-xs text-gray-400">(If the link doesn’t work, email us at <code className="font-mono text-gray-600">plumbtheory@gmail.com</code>)</span>
-</p>
-
+            Cancel anytime. Questions?{' '}
+            <a
+              href="mailto:plumbtheory@gmail.com"
+              className="underline hover:text-indigo-700"
+            >
+              Contact Support
+            </a>
+            <br />
+            <span className="text-xs text-gray-400">
+              (If the link doesn’t work, email us directly at{' '}
+              <code className="font-mono text-gray-600">plumbtheory@gmail.com</code>)
+            </span>
+          </p>
         </div>
       </div>
     </Layout>
