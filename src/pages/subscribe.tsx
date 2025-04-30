@@ -99,7 +99,7 @@ export default function SubscribePage() {
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition-all"
             disabled={loading}
           >
-            {loading ? 'Redirecting…' : 'Subscribe for £4.99/month'}
+            {loading ? 'Redirecting…' : 'Subscribe for £9.99/month'}
           </button>
 
           {/* ✅ Show referral if detected */}
