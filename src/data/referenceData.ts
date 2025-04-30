@@ -14,25 +14,25 @@ export const referenceCategories = [
       isPro: false,
     },
     {
-      id: 'minimum-pipe-falls',
+      id: 'pipe-falls',
       title: 'Minimum Pipe Falls',
       description: 'Correct falls for waste and soil pipe installations.',
       isPro: false,
     },
     {
-      id: 'electrical-zones-in-bathrooms',
+      id: 'electrical-zones',
       title: 'Electrical Zones in Bathrooms',
       description: 'Zones 0–2 and IP rating requirements.',
       isPro: true,
     },
     {
-      id: 'standard-test-pressures',
+      id: 'testing-requirements',
       title: 'Standard Test Pressures',
       description: 'Water and gas system testing pressures.',
       isPro: true,
     },
     {
-      id: 'backflow-protection-types',
+      id: 'backflow-protection',
       title: 'Backflow Protection Types',
       description: 'Type AA, AB, DC, and more explained.',
       isPro: true,
@@ -74,7 +74,7 @@ export const referenceCategories = [
       isPro: true,
     },
     {
-      id: 'pipe-clips-and-fixings',
+      id: 'pipe-clips',
       title: 'Pipe Clips & Fixings',
       description: 'Single clip, double clip, saddle, pipe collar, and brackets.',
       isPro: true,
