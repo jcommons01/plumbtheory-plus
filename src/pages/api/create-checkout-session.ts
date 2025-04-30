@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       mode: 'subscription',
       payment_method_types: ['card'],
       customer_email: userEmail,
-      client_reference_id: userId,
+      client_reference_id: referral || userId, // ✅ Give Rewardful first priority
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
       line_items: [
@@ -35,12 +35,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
       metadata: {
         userId,
-        ...(referral && { referral }), // ✅ Add referral to metadata if it exists
+        ...(referral && { referral }),
       },
       subscription_data: {
         metadata: {
           userId,
-          ...(referral && { referral }), // ✅ Also add it here for subscription tracking
+          ...(referral && { referral }),
         },
       },
       expand: ['subscription'],

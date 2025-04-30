@@ -1,8 +1,12 @@
-// ✅ Add Rewardful global declarations for TypeScript
-declare const rewardful: any;
-declare const Rewardful: {
-  referral: string;
-};
+// ✅ Rewardful TypeScript global declarations
+declare global {
+  interface Window {
+    rewardful: any;
+    Rewardful: {
+      referral: string;
+    };
+  }
+}
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthProvider';
@@ -11,22 +15,38 @@ import Layout from '@/components/Layout';
 export default function SubscribePage() {
   const { userData } = useAuth();
   const [referral, setReferral] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
+  // ✅ Capture Rewardful referral ID from browser
   useEffect(() => {
-    if (typeof window !== 'undefined' && typeof rewardful !== 'undefined') {
-      rewardful('ready', function () {
-        if (typeof Rewardful !== 'undefined' && Rewardful.referral) {
-          setReferral(Rewardful.referral);
+    if (typeof window !== 'undefined') {
+      const tryGetReferral = () => {
+        try {
+          if (window.rewardful) {
+            window.rewardful('ready', () => {
+              if (window.Rewardful?.referral) {
+                setReferral(window.Rewardful.referral);
+                console.log('✅ Referral detected:', window.Rewardful.referral);
+              }
+            });
+          }
+        } catch (err) {
+          console.warn('⚠️ Rewardful referral fetch failed:', err);
         }
-      });
+      };
+
+      tryGetReferral();
     }
   }, []);
 
+  // ✅ Handle Subscribe button click
   const handleSubscribe = async () => {
     if (!userData?.uid || !userData?.email) {
       alert('You must be logged in to subscribe.');
       return;
     }
+
+    setLoading(true);
 
     try {
       const res = await fetch('/api/create-checkout-session', {
@@ -49,6 +69,8 @@ export default function SubscribePage() {
     } catch (error: any) {
       console.error('❌ Subscription error:', error.message);
       alert('Subscription failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,11 +97,19 @@ export default function SubscribePage() {
           <button
             onClick={handleSubscribe}
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition-all"
+            disabled={loading}
           >
-            Subscribe for £4.99/month
+            {loading ? 'Redirecting…' : 'Subscribe for £4.99/month'}
           </button>
 
-          <p className="text-sm text-gray-500 mt-4">
+          {/* ✅ Show referral if detected */}
+          {referral && (
+            <p className="mt-4 text-sm text-green-600">
+              Referral detected: <span className="font-mono">{referral}</span>
+            </p>
+          )}
+
+          <p className="text-sm text-gray-500 mt-6">
             Cancel anytime. Questions?{' '}
             <a href="mailto:plumbtheory@gmail.com" className="underline hover:text-indigo-700">
               Contact Support
