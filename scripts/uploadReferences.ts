@@ -263,6 +263,214 @@ const references = [
     title: 'Discharge Pipe Sizing',
     content: 'Minimum 22mm pipe for discharge pipes up to 9m length. Increase to 28mm if longer.',
   },
+    // ✅ Toilets
+  {
+    id: 'close-coupled-toilet',
+    category: 'toilets',
+    title: 'Close-Coupled Toilet',
+    content: 'Common in modern homes, cistern sits directly on the toilet pan.',
+  },
+  {
+    id: 'back-to-wall-toilet',
+    category: 'toilets',
+    title: 'Back-to-Wall Toilet',
+    content: 'Cistern concealed inside the wall or unit for a cleaner look.',
+  },
+  {
+    id: 'wall-hung-toilet',
+    category: 'toilets',
+    title: 'Wall-Hung Toilet',
+    content: 'Mounted on the wall with concealed cistern and floating appearance.',
+  },
+  {
+    id: 'high-level-toilet',
+    category: 'toilets',
+    title: 'High-Level Toilet',
+    content: 'Cistern mounted high up with a pull chain, found in traditional styles.',
+  },
+
+  // ✅ Taps
+  {
+    id: 'pillar-tap',
+    category: 'taps',
+    title: 'Pillar Tap',
+    content: 'Separate hot and cold taps, commonly found on basins.',
+  },
+  {
+    id: 'mixer-tap',
+    category: 'taps',
+    title: 'Mixer Tap',
+    content: 'Combines hot and cold water in a single spout.',
+  },
+  {
+    id: 'monobloc-tap',
+    category: 'taps',
+    title: 'Monobloc Tap',
+    content: 'Single spout tap with one or two levers for mixing, requires 1 tap hole.',
+  },
+  {
+    id: 'non-concussive-tap',
+    category: 'taps',
+    title: 'Non-Concussive Tap',
+    content: 'Self-closing tap used in commercial or public washrooms.',
+  },
+  {
+    id: 'sensor-tap',
+    category: 'taps',
+    title: 'Sensor Tap',
+    content: 'Activated by motion sensors to improve hygiene and conserve water.',
+  },
+
+  // ✅ Boiler Types
+  {
+    id: 'combi-boiler',
+    category: 'boiler-types',
+    title: 'Combi Boiler',
+    content: 'Provides hot water on demand and central heating without needing tanks.',
+  },
+  {
+    id: 'system-boiler',
+    category: 'boiler-types',
+    title: 'System Boiler',
+    content: 'Requires a cylinder for hot water but no cold water tank. Ideal for larger homes.',
+  },
+  {
+    id: 'regular-boiler',
+    category: 'boiler-types',
+    title: 'Regular (Heat-Only) Boiler',
+    content: 'Works with hot water cylinder and cold water storage tank. Good for homes with traditional setups.',
+  },
+  {
+    id: 'electric-boiler',
+    category: 'boiler-types',
+    title: 'Electric Boiler',
+    content: 'Uses electricity for heating water. Suitable for homes without a gas supply.',
+  },
+
+  // ✅ Pipe Clips
+  {
+    id: 'saddle-clip',
+    category: 'pipe-clips',
+    title: 'Saddle Clip',
+    content: 'Simple clip for securing pipes to walls or joists.',
+  },
+  {
+    id: 'hinged-clip',
+    category: 'pipe-clips',
+    title: 'Hinged Clip',
+    content: 'Clip with a hinge and snap-on cover for secure pipe fixing.',
+  },
+  {
+    id: 'munsen-ring',
+    category: 'pipe-clips',
+    title: 'Munsen Ring',
+    content: 'Metal ring bracket that clamps around the pipe, often used for copper and steel.',
+  },
+    // ✅ Toilets
+    {
+      id: 'close-coupled-toilet',
+      category: 'toilets',
+      title: 'Close-Coupled Toilet',
+      content: 'Common in modern homes, cistern sits directly on the toilet pan.',
+    },
+    {
+      id: 'back-to-wall-toilet',
+      category: 'toilets',
+      title: 'Back-to-Wall Toilet',
+      content: 'Cistern concealed inside the wall or unit for a cleaner look.',
+    },
+    {
+      id: 'wall-hung-toilet',
+      category: 'toilets',
+      title: 'Wall-Hung Toilet',
+      content: 'Mounted on the wall with concealed cistern and floating appearance.',
+    },
+    {
+      id: 'high-level-toilet',
+      category: 'toilets',
+      title: 'High-Level Toilet',
+      content: 'Cistern mounted high up with a pull chain, found in traditional styles.',
+    },
+  
+    // ✅ Taps
+    {
+      id: 'pillar-tap',
+      category: 'taps',
+      title: 'Pillar Tap',
+      content: 'Separate hot and cold taps, commonly found on basins.',
+    },
+    {
+      id: 'mixer-tap',
+      category: 'taps',
+      title: 'Mixer Tap',
+      content: 'Combines hot and cold water in a single spout.',
+    },
+    {
+      id: 'monobloc-tap',
+      category: 'taps',
+      title: 'Monobloc Tap',
+      content: 'Single spout tap with one or two levers for mixing, requires 1 tap hole.',
+    },
+    {
+      id: 'non-concussive-tap',
+      category: 'taps',
+      title: 'Non-Concussive Tap',
+      content: 'Self-closing tap used in commercial or public washrooms.',
+    },
+    {
+      id: 'sensor-tap',
+      category: 'taps',
+      title: 'Sensor Tap',
+      content: 'Activated by motion sensors to improve hygiene and conserve water.',
+    },
+  
+    // ✅ Boiler Types
+    {
+      id: 'combi-boiler',
+      category: 'boiler-types',
+      title: 'Combi Boiler',
+      content: 'Provides hot water on demand and central heating without needing tanks.',
+    },
+    {
+      id: 'system-boiler',
+      category: 'boiler-types',
+      title: 'System Boiler',
+      content: 'Requires a cylinder for hot water but no cold water tank. Ideal for larger homes.',
+    },
+    {
+      id: 'regular-boiler',
+      category: 'boiler-types',
+      title: 'Regular (Heat-Only) Boiler',
+      content: 'Works with hot water cylinder and cold water storage tank. Good for homes with traditional setups.',
+    },
+    {
+      id: 'electric-boiler',
+      category: 'boiler-types',
+      title: 'Electric Boiler',
+      content: 'Uses electricity for heating water. Suitable for homes without a gas supply.',
+    },
+  
+    // ✅ Pipe Clips
+    {
+      id: 'saddle-clip',
+      category: 'pipe-clips',
+      title: 'Saddle Clip',
+      content: 'Simple clip for securing pipes to walls or joists.',
+    },
+    {
+      id: 'hinged-clip',
+      category: 'pipe-clips',
+      title: 'Hinged Clip',
+      content: 'Clip with a hinge and snap-on cover for secure pipe fixing.',
+    },
+    {
+      id: 'munsen-ring',
+      category: 'pipe-clips',
+      title: 'Munsen Ring',
+      content: 'Metal ring bracket that clamps around the pipe, often used for copper and steel.',
+    },
+  
+
 ];
 
 async function uploadReferences() {
