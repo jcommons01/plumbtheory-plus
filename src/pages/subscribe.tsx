@@ -111,12 +111,17 @@ export default function SubscribePage() {
 
           {/* ✅ Fix for Contact Support link overlap */}
           <p className="text-sm text-gray-500 mt-6 relative z-10">
-            Cancel anytime. Questions?{' '}
-            <a href="mailto:plumbtheory@gmail.com" className="underline hover:text-indigo-700">
-              Contact Support
-            </a>
-            .
-          </p>
+  Cancel anytime. Questions?{' '}
+  <a
+    href="mailto:plumbtheory@gmail.com"
+    className="underline hover:text-indigo-700"
+  >
+    Contact Support
+  </a>
+  <br />
+  <span className="text-xs text-gray-400">(If the link doesn’t work, email us at <code className="font-mono text-gray-600">plumbtheory@gmail.com</code>)</span>
+</p>
+
         </div>
       </div>
     </Layout>
