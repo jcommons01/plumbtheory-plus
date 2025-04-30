@@ -109,7 +109,8 @@ export default function SubscribePage() {
             </p>
           )}
 
-          <p className="text-sm text-gray-500 mt-6">
+          {/* ✅ Fix for Contact Support link overlap */}
+          <p className="text-sm text-gray-500 mt-6 relative z-10">
             Cancel anytime. Questions?{' '}
             <a href="mailto:plumbtheory@gmail.com" className="underline hover:text-indigo-700">
               Contact Support
