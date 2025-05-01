@@ -5,6 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil',
 });
 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -24,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       mode: 'subscription',
       payment_method_types: ['card'],
       customer_email: userEmail,
-      client_reference_id: referral || userId, // ✅ Give Rewardful first priority
+      client_reference_id: referral || userId,
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
       line_items: [
@@ -43,6 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           ...(referral && { referral }),
         },
       },
+      allow_promotion_codes: true, // ✅ Enables manual entry of promo code at checkout
       expand: ['subscription'],
     });
 
