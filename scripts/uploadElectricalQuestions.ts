@@ -340,10 +340,10 @@ const electricalQuestions = [
   {
     id: 'electricalQ41',
     topic: 'electrical',
-    question: 'What class of protection is required for electrical equipment in bathrooms?',
+    question: 'What class of electrical equipment is allowed in Zone 0 of a bathroom (e.g. inside a bath or shower)?',
     options: ['Class I', 'Class II', 'Class III', 'Class IV'],
     correctAnswer: 'Class III',
-    explanation: 'Only SELV (Safety Extra Low Voltage) equipment is permitted in Zone 0.'
+    explanation: 'Only SELV (Safety Extra Low Voltage) equipment is allowed in Zone 0, as it operates at very low voltage and is safe for use in wet areas.'
   },
   {
     id: 'electricalQ42',
