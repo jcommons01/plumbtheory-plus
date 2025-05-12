@@ -1,3 +1,4 @@
+import Footer from './Footer';
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -60,6 +61,7 @@ const Layout: FC<LayoutProps> = ({
 
       <Navbar />
       <main>{children}</main>
+      <Footer />
     </>
   );
 };

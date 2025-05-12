@@ -47,15 +47,17 @@ export default function GasTopicsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {gasTopics.map((topic) => (
             <TopicCard
-              key={topic.id}
-              title={topic.title}
-              icon={topic.icon}
-              progress={0}
-              caption="No attempts yet"
-              isPro={true}
-              isUserPro={!!userData?.isPro}
-              onClick={() => openQuizOptions(topic.id)}
-            />
+            key={topic.id}
+            title={topic.title}
+            icon={topic.icon}
+            progress={0}
+            caption="No attempts yet"
+            isPro={true}
+            isUserPro={!!userData?.isPro}
+            level={99} // ✅ Add this line
+            onClick={() => openQuizOptions(topic.id)}
+          />
+          
           ))}
         </div>
 

@@ -5,4 +5,5 @@
 /* Optional global styles */
 body {
   font-family: system-ui, sans-serif;
+  @apply bg-[#0a0f1a] text-white; /* Add dark background and white text */
 }

@@ -22,14 +22,18 @@ export default function RegisterPage() {
 
   return (
     <Layout>
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="w-full max-w-md bg-white p-6 rounded shadow">
-          <h1 className="text-2xl font-bold text-center mb-6">Create Account</h1>
+      {/* Changed background color to match other pages */}
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        {/* Updated card background color */}
+        <div className="w-full max-w-md bg-gray-800 p-6 rounded shadow">
+          {/* Updated text color */}
+          <h1 className="text-2xl font-bold text-center mb-6 text-white">Create Account</h1>
           <form onSubmit={handleRegister} className="space-y-4">
+            {/* Updated input styles */}
             <input
               type="email"
               placeholder="Email"
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-700 bg-gray-700 text-white placeholder-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -37,12 +41,12 @@ export default function RegisterPage() {
             <input
               type="password"
               placeholder="Password"
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-700 bg-gray-700 text-white placeholder-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-400 text-sm">{error}</p>}
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
@@ -51,9 +55,10 @@ export default function RegisterPage() {
             </button>
           </form>
 
+          {/* Updated text and link colors */}
           <div className="text-center mt-4">
-            <span className="text-sm">Already have an account?</span>{' '}
-            <a href="/login" className="text-sm text-blue-600 hover:underline font-medium">
+            <span className="text-sm text-gray-300">Already have an account?</span>{' '}
+            <a href="/login" className="text-sm text-blue-400 hover:underline font-medium">
               Login
             </a>
           </div>

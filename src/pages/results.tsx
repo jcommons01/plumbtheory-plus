@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
+import { topicTitles } from '@/utils/topicTitles';
 
 type QuestionResult = {
   topic: string;
@@ -35,49 +36,144 @@ export default function Results() {
   }
 
   const { topic, questions, answers, score } = results;
+  
+  // Calculate percentage score
+  const percentage = Math.round((score / questions.length) * 100);
+  
+  // Determine result message and color based on score
+  let resultMessage = '';
+  let resultColor = '';
+  
+  if (percentage >= 80) {
+    resultMessage = 'Excellent!';
+    resultColor = 'text-green-400';
+  } else if (percentage >= 60) {
+    resultMessage = 'Good effort!';
+    resultColor = 'text-blue-400';
+  } else if (percentage >= 40) {
+    resultMessage = 'Almost there!';
+    resultColor = 'text-yellow-400';
+  } else {
+    resultMessage = 'Keep practicing!';
+    resultColor = 'text-red-400';
+  }
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-6">
-          {topic} Quiz Results
-        </h1>
-        <p className="text-center text-lg mb-4">
-          You scored <strong>{score}</strong> out of {questions.length}
-        </p>
-
-        <div className="space-y-6">
-          {questions.map((q, index) => {
-            const userAnswer = answers[index];
-            const isCorrect = userAnswer === q.correctAnswer;
-
-            return (
-              <div key={index} className="border rounded-lg p-4 shadow-sm">
-                <h2 className="text-lg font-semibold">{q.question}</h2>
-                <p className="mt-1">
-                  Your answer: <strong>{userAnswer || 'No answer'}</strong>
-                </p>
-                <p className="text-sm">
-                  Correct answer: <strong>{q.correctAnswer}</strong>
-                </p>
-                <p className="mt-2 text-gray-700">
-                  <strong>Explanation:</strong> {q.explanation}
-                </p>
-                <p className={`mt-1 font-medium ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                  {isCorrect ? '✅ Correct' : '❌ Incorrect'}
-                </p>
+      {/* Updated background to match dark theme */}
+      <div className="min-h-screen bg-gray-900 py-6 px-4 text-white">
+        <div className="max-w-4xl mx-auto">
+          {/* Enhanced header section - reduced vertical padding */}
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold mb-3">
+              Quiz Results: {topic.replace(/-/g, ' ')}
+            </h1>
+            
+            {/* Score summary with visual indicator - reduced padding */}
+            <div className="bg-gray-800 rounded-xl p-4 inline-block">
+              <div className="flex items-center justify-center mb-2">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center border-4 border-blue-600 mr-4">
+                  <span className="text-xl font-bold">{percentage}%</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-sm mb-1">
+                    You scored <span className="font-bold text-blue-400">{score}</span> out of <span className="font-bold">{questions.length}</span>
+                  </p>
+                  <p className={`text-lg font-bold ${resultColor}`}>
+                    {resultMessage}
+                  </p>
+                </div>
               </div>
-            );
-          })}
-        </div>
+              
+              {/* Visual score bar */}
+              <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  className={`h-full rounded-full ${
+                    percentage >= 80 ? 'bg-green-500' : 
+                    percentage >= 60 ? 'bg-blue-600' : 
+                    percentage >= 40 ? 'bg-yellow-500' : 
+                    'bg-red-500'
+                  }`}
+                  style={{ width: `${percentage}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
 
-        <div className="mt-8 text-center">
-          <button
-            onClick={() => router.push('/topics')}
-            className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600"
-          >
-            Back to Topics
-          </button>
+          {/* Results breakdown title - smaller margin */}
+          <h2 className="text-lg font-semibold mb-3 text-center text-gray-300">Results Breakdown</h2>
+          
+          {/* Question review cards - reduced spacing between cards */}
+          <div className="space-y-3 mb-6">
+            {questions.map((q, index) => {
+              const userAnswer = answers[index];
+              const isCorrect = userAnswer?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase();
+
+              return (
+                <div key={index} className="bg-gray-800 rounded-lg p-3 shadow-lg">
+                  {/* Question header with status icon - compact layout */}
+                  <div className="flex items-start">
+                    <div className={`mt-1 mr-2 flex-shrink-0 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                      {isCorrect ? (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                    <h3 className="text-base font-medium flex-1">{q.question}</h3>
+                  </div>
+                  
+                  {/* Answers section - tighter layout with less indentation */}
+                  <div className="ml-6 mt-2 text-sm">
+                    <div className="flex">
+                      <span className="text-gray-400 w-24 flex-shrink-0">Your answer:</span>
+                      <span className={`font-medium ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                        {userAnswer || 'No answer provided'}
+                      </span>
+                    </div>
+                    
+                    {/* Correct answer - only show if incorrect */}
+                    {!isCorrect && (
+                      <div className="flex mt-1">
+                        <span className="text-gray-400 w-24 flex-shrink-0">Correct answer:</span>
+                        <span className="font-medium text-green-400">{q.correctAnswer}</span>
+                      </div>
+                    )}
+                    
+                    {/* Explanation - more compact */}
+                    <div className="bg-gray-700 bg-opacity-50 p-2 rounded mt-2 border-l-2 border-blue-600">
+                      <span className="font-medium text-blue-400">Explanation:</span>{' '}
+                      <span className="text-gray-300">{q.explanation}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Actions - smaller buttons */}
+          <div className="text-center space-x-3">
+            <button
+              onClick={() => router.push('/topics')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition-colors font-medium"
+            >
+              Back to Topics
+            </button>
+            
+            <button
+              onClick={() => {
+                sessionStorage.removeItem('quizResults');
+                window.location.href = `/quiz/${topic}?amount=${questions.length}`;
+              }}
+              className="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-lg transition-colors font-medium"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
     </Layout>

@@ -39,9 +39,12 @@ const Navbar = () => {
                     <Link href="/topics" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
                       Topics
                     </Link>
-                    <Link href="/references" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
-                      References
+
+                    <Link href="/trade-guide" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
+                    Trade Guide
                     </Link>
+
+                    
                     <Link href="/account" className="text-white hover:bg-blue-500 px-3 py-2 rounded">
                       My Account
                     </Link>
@@ -118,9 +121,12 @@ const Navbar = () => {
                     <Link href="/topics" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
                       Topics
                     </Link>
-                    <Link href="/references" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
-                      References
+                    
+                    <Link href="/trade-guide" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
+                      Trade Guide
                     </Link>
+
+
                     <Link href="/account" className="text-white block px-3 py-2 rounded hover:bg-blue-600">
                       My Account
                     </Link>
