@@ -375,12 +375,16 @@ const questions = [
 async function uploadQuestions() {
   for (const q of questions) {
     try {
-      await setDoc(doc(db, 'questions', 'bricklaying-l3-building-regulations-compliance', 'items', q.id), {
-        question: q.question,
-        options: q.options,
-        correctAnswer: q.correctAnswer,
-        explanation: q.explanation,
-      });
+        await setDoc(
+            doc(db, 'questions', 'bricklaying-l3-building-regs', 'items', q.id),
+            {
+              question: q.question,
+              options: q.options,
+              correctAnswer: q.correctAnswer,
+              explanation: q.explanation,
+            }
+          );
+          
       console.log(`✅ Uploaded: ${q.id}`);
     } catch (err) {
       console.error(`❌ Error uploading ${q.id}:`, err);

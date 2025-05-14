@@ -41,10 +41,10 @@ export default function Topics() {
 
   useEffect(() => {
     const level2JoineryTopics: Topic[] = [
-      { id: 'joinery-l2-health-safety', title: 'Health & Safety in Construction', icon: '⚠️', isPro: false, level: 2, totalQuestions: 25, trade: 'Joinery' },
-      { id: 'joinery-l2-building-construction', title: 'Building Construction Principles', icon: '🏗️', isPro: false, level: 2, totalQuestions: 25, trade: 'Joinery' },
-      { id: 'joinery-l2-communication', title: 'Communication & Documentation', icon: '📋', isPro: false, level: 2, totalQuestions: 25, trade: 'Joinery' },
-      { id: 'joinery-l2-timber-technology', title: 'Timber Technology', icon: '🌲', isPro: false, level: 2, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l2-health-safety', title: 'Health & Safety in Construction', icon: '⚠️', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l2-building-construction', title: 'Building Construction Principles', icon: '🏗️', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l2-communication', title: 'Communication & Documentation', icon: '📋', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l2-timber-technology', title: 'Timber Technology', icon: '🌲', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
       { id: 'joinery-l2-tools-equipment', title: 'Tools & Equipment', icon: '🛠️', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
       { id: 'joinery-l2-materials', title: 'Materials Knowledge', icon: '🔩', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
       { id: 'joinery-l2-work-planning', title: 'Work Planning & Preparation', icon: '📆', isPro: true, level: 2, totalQuestions: 25, trade: 'Joinery' },
@@ -64,9 +64,9 @@ export default function Topics() {
   
     const level2BricklayingTopics: Topic[] = [
       { id: 'bricklaying-l2-health-safety', title: 'Health & Safety in Construction', icon: '⚠️', isPro: false, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
-      { id: 'bricklaying-l2-building-construction', title: 'Building Construction Principles', icon: '🏗️', isPro: false, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
-      { id: 'bricklaying-l2-communication', title: 'Communication & Documentation', icon: '📋', isPro: false, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
-      { id: 'bricklaying-l2-materials', title: 'Materials Science & Properties', icon: '🔬', isPro: false, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l2-building-construction', title: 'Building Construction Principles', icon: '🏗️', isPro: true, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l2-communication', title: 'Communication & Documentation', icon: '📋', isPro: true, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l2-materials', title: 'Materials Science & Properties', icon: '🔬', isPro: true, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
       { id: 'bricklaying-l2-blockwork-cavity', title: 'Blockwork, Brickwork & Cavity Walls', icon: '🧱', isPro: true, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
       { id: 'bricklaying-l2-setting-out', title: 'Setting Out Masonry Structures', icon: '📐', isPro: true, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
       { id: 'bricklaying-l2-mortars', title: 'Mixing & Using Mortars', icon: '⚗️', isPro: true, level: 2, totalQuestions: 25, trade: 'Bricklaying' },
@@ -89,10 +89,10 @@ export default function Topics() {
     ];
 
     const buildingRegsTopics: Topic[] = [
-      { id: 'regs-part-a', title: 'Part A – Structure', icon: '🏗️', isPro: false, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
-      { id: 'regs-part-b', title: 'Part B – Fire Safety', icon: '🔥', isPro: false, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
-      { id: 'regs-part-c', title: 'Part C – Site Preparation & Moisture', icon: '🌧️', isPro: false, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
-      { id: 'regs-part-e', title: 'Part E – Sound Insulation', icon: '🎧', isPro: false, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
+      { id: 'regs-part-a', title: 'Part A – Structure', icon: '🏗️', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
+      { id: 'regs-part-b', title: 'Part B – Fire Safety', icon: '🔥', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
+      { id: 'regs-part-c', title: 'Part C – Site Preparation & Moisture', icon: '🌧️', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
+      { id: 'regs-part-e', title: 'Part E – Sound Insulation', icon: '🎧', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
       { id: 'regs-part-f', title: 'Part F – Ventilation', icon: '🌬️', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
       { id: 'regs-part-g', title: 'Part G – Sanitation & Hot Water', icon: '🚿', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
       { id: 'regs-part-h', title: 'Part H – Drainage & Waste', icon: '🚽', isPro: true, level: 0, totalQuestions: 25, trade: 'Building Regulations' },
@@ -107,9 +107,9 @@ export default function Topics() {
     ];
     
     const level2ElectricalTopics: Topic[] = [
-      { id: 'electrical-l2-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: false, level: 2, totalQuestions: 25, trade: 'Electrical' },
-      { id: 'electrical-l2-science-principles', title: 'Electrical Science & Principles', icon: '🔬', isPro: false, level: 2, totalQuestions: 25, trade: 'Electrical' },
-      { id: 'electrical-l2-installation-techniques', title: 'Installation Methods & Techniques', icon: '🛠️', isPro: false, level: 2, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l2-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: true, level: 2, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l2-science-principles', title: 'Electrical Science & Principles', icon: '🔬', isPro: true, level: 2, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l2-installation-techniques', title: 'Installation Methods & Techniques', icon: '🛠️', isPro: true, level: 2, totalQuestions: 25, trade: 'Electrical' },
       { id: 'electrical-l2-wiring-systems', title: 'Wiring Systems & Enclosures', icon: '📦', isPro: true, level: 2, totalQuestions: 25, trade: 'Electrical' },
       { id: 'electrical-l2-building-regs', title: 'Building Regulations (Part P)', icon: '🏠', isPro: true, level: 2, totalQuestions: 25, trade: 'Electrical' },
       { id: 'electrical-l2-circuit-design', title: 'Basic Circuit Design', icon: '💡', isPro: true, level: 2, totalQuestions: 25, trade: 'Electrical' },
@@ -119,25 +119,25 @@ export default function Topics() {
     ];
   
     const level3ElectricalTopics: Topic[] = [
-      { id: 'electrical-l3-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-design', title: 'Installation Design', icon: '🧠', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-science-principles', title: 'Electrical Science & Principles', icon: '📘', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-fault-diagnosis', title: 'Fault Diagnosis & Rectification', icon: '🔧', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-inspection-testing', title: 'Inspection & Testing', icon: '✅', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-bs7671', title: 'BS 7671 (18th Edition)', icon: '📖', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-earthing-bonding', title: 'Earthing & Bonding', icon: '🌐', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-three-phase', title: 'Three-Phase Systems & Motors', icon: '⚙️', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-circuit-calcs', title: 'Circuit Design & Calculations', icon: '➗', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-building-regs', title: 'Building Regulations & Legal Compliance', icon: '🏠', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-renewables', title: 'Renewables & Microgeneration', icon: '☀️', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-ev-charging', title: 'EV Charging Installations', icon: '🚗', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
-      { id: 'electrical-l3-smart-tech', title: 'Smart Technology Integration', icon: '📲', isPro: true, level: 3, totalQuestions: 50, trade: 'Electrical' },
+      { id: 'electrical-l3-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-design', title: 'Installation Design', icon: '🧠', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-science-principles', title: 'Electrical Science & Principles', icon: '📘', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-fault-diagnosis', title: 'Fault Diagnosis & Rectification', icon: '🔧', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-inspection-testing', title: 'Inspection & Testing', icon: '✅', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-bs7671', title: 'BS 7671 (18th Edition)', icon: '📖', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-earthing-bonding', title: 'Earthing & Bonding', icon: '🌐', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-three-phase', title: 'Three-Phase Systems & Motors', icon: '⚙️', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-circuit-calcs', title: 'Circuit Design & Calculations', icon: '➗', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-building-regs', title: 'Building Regulations & Legal Compliance', icon: '🏠', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-renewables', title: 'Renewables & Microgeneration', icon: '☀️', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-ev-charging', title: 'EV Charging Installations', icon: '🚗', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
+      { id: 'electrical-l3-smart-tech', title: 'Smart Technology Integration', icon: '📲', isPro: true, level: 3, totalQuestions: 25, trade: 'Electrical' },
     ];
   
     const level2HVACTopics: Topic[] = [
-      { id: 'hvac-l2-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: false, level: 2, totalQuestions: 25, trade: 'HVAC' },
-      { id: 'hvac-l2-refrigeration', title: 'Basic Refrigeration Principles', icon: '❄️', isPro: false, level: 2, totalQuestions: 25, trade: 'HVAC' },
-      { id: 'hvac-l2-ventilation', title: 'Ventilation Fundamentals', icon: '🌬️', isPro: false, level: 2, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l2-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: true, level: 2, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l2-refrigeration', title: 'Basic Refrigeration Principles', icon: '❄️', isPro: true, level: 2, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l2-ventilation', title: 'Ventilation Fundamentals', icon: '🌬️', isPro: true, level: 2, totalQuestions: 25, trade: 'HVAC' },
       { id: 'hvac-l2-controls', title: 'Controls & Instrumentation', icon: '🎛️', isPro: true, level: 2, totalQuestions: 25, trade: 'HVAC' },
       { id: 'hvac-l2-pipework', title: 'Pipework & Insulation', icon: '🧵', isPro: true, level: 2, totalQuestions: 25, trade: 'HVAC' },
       { id: 'hvac-l2-regulations', title: 'Building Regulations', icon: '🏢', isPro: true, level: 2, totalQuestions: 25, trade: 'HVAC' },
@@ -155,9 +155,9 @@ export default function Topics() {
     
     const cscsTopics: Topic[] = [
       { id: 'cscs-hs-environment', title: 'Health, Safety & Environment', icon: '⚠️', isPro: false, level: 0, totalQuestions: 25, trade: 'CSCS' },
-      { id: 'cscs-fire-prevention', title: 'Fire Prevention & Control', icon: '🔥', isPro: false, level: 0, totalQuestions: 25, trade: 'CSCS' },
-      { id: 'cscs-manual-handling', title: 'Manual Handling', icon: '💪', isPro: false, level: 0, totalQuestions: 25, trade: 'CSCS' },
-      { id: 'cscs-hazardous-substances', title: 'Hazardous Substances (COSHH)', icon: '☣️', isPro: false, level: 0, totalQuestions: 25, trade: 'CSCS' },
+      { id: 'cscs-fire-prevention', title: 'Fire Prevention & Control', icon: '🔥', isPro: true, level: 0, totalQuestions: 25, trade: 'CSCS' },
+      { id: 'cscs-manual-handling', title: 'Manual Handling', icon: '💪', isPro: true, level: 0, totalQuestions: 25, trade: 'CSCS' },
+      { id: 'cscs-hazardous-substances', title: 'Hazardous Substances (COSHH)', icon: '☣️', isPro: true, level: 0, totalQuestions: 25, trade: 'CSCS' },
       { id: 'cscs-working-height', title: 'Working at Height', icon: '🪜', isPro: true, level: 0, totalQuestions: 25, trade: 'CSCS' },
       { id: 'cscs-ppe', title: 'Personal Protective Equipment (PPE)', icon: '🦺', isPro: true, level: 0, totalQuestions: 25, trade: 'CSCS' },
       { id: 'cscs-signage', title: 'Safety Signs & Symbols', icon: '🚧', isPro: true, level: 0, totalQuestions: 25, trade: 'CSCS' },
@@ -183,10 +183,10 @@ export default function Topics() {
       // Plumbing Level 2
       { id: 'level2-cold-water', title: 'Cold Water', icon: '💧', isPro: false, level: 2, totalQuestions: 25, trade: 'Plumbing' },
       { id: 'level2-health-safety', title: 'Health & Safety', icon: '⚠️', isPro: false, level: 2, totalQuestions: 25, trade: 'Plumbing' },
-      { id: 'level2-common-principles', title: 'Common Principles', icon: '🔧', isPro: false, level: 2, totalQuestions: 25, trade: 'Plumbing' },
+      { id: 'level2-common-principles', title: 'Common Principles', icon: '🔧', isPro: true, level: 2, totalQuestions: 25, trade: 'Plumbing' },
       { id: 'level2-central-heating', title: 'Central Heating', icon: '🔥', isPro: false, level: 2, totalQuestions: 25, trade: 'Plumbing' },
-      { id: 'level2-drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚽', isPro: false, level: 2, totalQuestions: 25, trade: 'Plumbing' },
-      { id: 'level2-hot-water', title: 'Hot Water', icon: '♨️', isPro: false, level: 2, totalQuestions: 25, trade: 'Plumbing' },
+      { id: 'level2-drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚽', isPro: true, level: 2, totalQuestions: 25, trade: 'Plumbing' },
+      { id: 'level2-hot-water', title: 'Hot Water', icon: '♨️', isPro: true, level: 2, totalQuestions: 25, trade: 'Plumbing' },
       { id: 'level2-electrical', title: 'Electrical', icon: '⚡', isPro: true, level: 2, totalQuestions: 25, trade: 'Plumbing' },
       { id: 'level2-rainwater', title: 'Rainwater', icon: '🌧️', isPro: true, level: 2, totalQuestions: 25, trade: 'Plumbing' },
       { id: 'level2-real-life-scenarios', title: 'Real Life Scenarios', icon: '🛠️', isPro: true, level: 2, totalQuestions: 25, trade: 'Plumbing' },
@@ -194,9 +194,9 @@ export default function Topics() {
   
       // Plumbing Level 3
       { id: 'cold-water', title: 'Cold Water', icon: '💧', isPro: false, level: 3, totalQuestions: 50, trade: 'Plumbing' },
-      { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: false, level: 3, totalQuestions: 50, trade: 'Plumbing' },
-      { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: false, level: 3, totalQuestions: 50, trade: 'Plumbing' },
-      { id: 'environmental-technologies', title: 'Environmental Technologies', icon: '🌱', isPro: false, level: 3, totalQuestions: 50, trade: 'Plumbing' },
+      { id: 'drainage-sanitation', title: 'Drainage & Sanitation', icon: '🚿', isPro: true, level: 3, totalQuestions: 50, trade: 'Plumbing' },
+      { id: 'rainwater', title: 'Rainwater', icon: '☔', isPro: true, level: 3, totalQuestions: 50, trade: 'Plumbing' },
+      { id: 'environmental-technologies', title: 'Environmental Technologies', icon: '🌱', isPro: true, level: 3, totalQuestions: 50, trade: 'Plumbing' },
       { id: 'hot-water', title: 'Hot Water', icon: '🔥', isPro: true, level: 3, totalQuestions: 50, trade: 'Plumbing' },
       { id: 'central-heating', title: 'Central Heating', icon: '🔥', isPro: true, level: 3, totalQuestions: 50, trade: 'Plumbing' },
       { id: 'electrical', title: 'Electrical', icon: '⚡', isPro: true, level: 3, totalQuestions: 50, trade: 'Plumbing' },
@@ -322,25 +322,22 @@ export default function Topics() {
           <h1 className="text-3xl font-bold mb-8 text-center text-white">Choose Your Trade & Level</h1>
           
           {/* Trade Selection - UPDATED with consistent blue */}
-          <div className="flex justify-center mb-4 flex-wrap gap-2">
-          {TRADE_LEVELS.map(({ name, color }) => (
-  <button
-    key={name}
-    className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${
-      selectedTrade === name 
-        ? `${color} text-white shadow` 
-        : 'bg-gray-800 text-gray-300 border border-gray-700 hover:border-blue-500'
-    }`}
-    onClick={() => setSelectedTrade(name)}
-  >
-    {name}
-  </button>
-))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6 px-2">
+  {TRADE_LEVELS.map(({ name, color }) => (
+    <button
+      key={name}
+      className={`w-full py-3 rounded-xl text-sm font-semibold transition text-center ${
+        selectedTrade === name 
+          ? `${color} text-white shadow` 
+          : 'bg-gray-800 text-gray-300 border border-gray-700 hover:border-blue-500'
+      }`}
+      onClick={() => setSelectedTrade(name)}
+    >
+      {name}
+    </button>
+  ))}
+</div>
 
-
-
-
-          </div>
           
           {/* Level Selection (hide for trades without levels) */}
 {(() => {

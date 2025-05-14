@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 
+
 // Define proper TypeScript interfaces for your data
 interface QuizProgress {
   bestScore?: number;
@@ -27,6 +28,8 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  const [billingDate, setBillingDate] = useState<string | null>(null);
+
   
   // Simple quiz stats with no references to missing properties
   const quizStats = {
@@ -350,16 +353,19 @@ export default function AccountPage() {
                           <span className="text-gray-300">Status</span>
                           <span className="text-green-400 font-semibold">Active</span>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-300">Next Billing Date</span>
-                          <span className="text-white">{getRenewalDate()}</span>
-                        </div>
+                        <div>
+  <span className="text-gray-300 block">Next Billing Date</span>
+  <span className="text-white">{billingDate || 'Loading...'}</span>
+
+</div>
+
                         {userData?.stripeSubscriptionId && (
                           <div className="flex justify-between items-center">
                             <span className="text-gray-300">Subscription ID</span>
-                            <span className="text-white text-sm font-mono">
-                              {userData.stripeSubscriptionId}
+                            <span className="text-xs text-gray-400 font-mono break-words max-w-[200px] text-right">
+                         {userData.stripeSubscriptionId}
                             </span>
+
                           </div>
                         )}
                         

@@ -373,20 +373,22 @@ const questions = [
 
 // ✅ Upload function
 async function uploadQuestions() {
-  for (const q of questions) {
-    try {
-      await setDoc(doc(db, 'questions', 'bricklaying-l3-complex-masonry-structures', 'items', q.id), {
-        question: q.question,
-        options: q.options,
-        correctAnswer: q.correctAnswer,
-        explanation: q.explanation,
-      });
-      console.log(`✅ Uploaded: ${q.id}`);
-    } catch (err) {
-      console.error(`❌ Error uploading ${q.id}:`, err);
+    for (const q of questions) {
+      try {
+        await setDoc(doc(db, 'questions', 'bricklaying-l3-masonry-structures', 'items', q.id), {
+          question: q.question,
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+          explanation: q.explanation,
+        });
+        console.log(`✅ Uploaded: ${q.id}`);
+      } catch (err) {
+        console.error(`❌ Error uploading ${q.id}:`, err);
+      }
     }
   }
-}
-
+  
+  uploadQuestions();
+  
 // Execute the upload function
 uploadQuestions();

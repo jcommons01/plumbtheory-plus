@@ -24,177 +24,177 @@ const questions = [
   {
     id: 'joinery-l2-communication1',
     question: "What information would typically be found on a drawing title block?",
-    options: ["Only the drafter's personal contact information", "Only the materials required for the project", "Project name, drawing title, scale, date, revision number, and drafter's details", "Only the cost breakdown of the project"],
-    correctAnswer: "Project name, drawing title, scale, date, revision number, and drafter's details",
-    explanation: "A drawing title block typically contains comprehensive project identification information including the project name, drawing title, scale, date, revision number, and drafter's details. It may also include the client's name, project number, drawing number, company logo, and approval signatures. This standardized information block, usually located in the bottom right corner of the drawing, ensures proper identification and version control of drawings. For joiners, checking the title block before starting work is essential to confirm they're working from the most current revision, understand the drawing scale, and can identify who to contact for clarifications."
+    options: ["Project details, drawing title, scale, date and drafter information", "Designer details, construction timeline and site access information", "Material specifications, assembly sequence and quality standards", "Contractor contact details, pricing schedule and payment terms"],
+    correctAnswer: "Project details, drawing title, scale, date and drafter information",
+    explanation: "Title blocks contain key project identification details for proper drawing management."
   },
   {
     id: 'joinery-l2-communication2',
     question: "What does the scale 1:50 on an architectural drawing mean?",
-    options: ["The drawing shows 1 meter for every 50 meters of the actual object", "The drawing is 50 times larger than the actual object", "The drawing shows 1 unit for every 50 units of the actual object", "The drawing can only be used for 50 days after issue"],
-    correctAnswer: "The drawing shows 1 unit for every 50 units of the actual object",
-    explanation: "A scale of 1:50 on an architectural drawing means that 1 unit on the drawing represents 50 units of the actual object. For example, 1cm on the drawing equals 50cm (0.5m) in reality. This scale is commonly used for floor plans and building sections in UK architectural drawings. Understanding drawing scales is crucial for joiners to take accurate measurements, plan materials, and ensure components will fit correctly during installation. When working from scaled drawings, joiners should always use measuring devices (scale rules) appropriate to the drawing scale or convert dimensions carefully to avoid costly errors."
+    options: ["The drawing must be viewed from 50 centimetres away", "The drawing uses 50 millimetre grid spacing", "One unit on drawing equals 50 units of actual object", "The object is drawn at 50% of its actual size"],
+    correctAnswer: "One unit on drawing equals 50 units of actual object",
+    explanation: "1:50 scale means 1cm on drawing represents 50cm in reality."
   },
   {
     id: 'joinery-l2-communication3',
     question: "Which of the following is the primary purpose of a Method Statement in joinery projects?",
-    options: ["To list all materials and their costs", "To provide a step-by-step procedure for carrying out specific work safely", "To record time spent on each task", "To assign blame if something goes wrong"],
-    correctAnswer: "To provide a step-by-step procedure for carrying out specific work safely",
-    explanation: "The primary purpose of a Method Statement in joinery projects is to provide a step-by-step procedure for carrying out specific work safely. This document outlines how a job will be executed, detailing the sequence of work, required resources, specific precautions, and control measures needed to complete the task safely and effectively. Method Statements are often used alongside Risk Assessments and form part of a safe system of work, particularly for higher-risk activities. For joiners, understanding and following Method Statements is crucial for ensuring consistent, safe working practices and demonstrates compliance with health and safety requirements to clients and site managers."
+    options: ["To document all material costs and quantities", "To establish payment schedules and contract terms", "To record work hours and productivity metrics", "To outline a step-by-step procedure for safe work execution"],
+    correctAnswer: "To outline a step-by-step procedure for safe work execution",
+    explanation: "Method Statements detail safe work procedures for specific joinery tasks."
   },
   {
     id: 'joinery-l2-communication4',
     question: "What information should be recorded when there is a variation to the original specification of joinery work?",
-    options: ["Only verbal agreement is needed", "Only the cost implications need to be recorded", "Description of change, reason, date, cost implications, and authorisation", "Only the client's permission is required without documentation"],
-    correctAnswer: "Description of change, reason, date, cost implications, and authorisation",
-    explanation: "When there is a variation to the original specification of joinery work, comprehensive documentation should record the description of the change, reason for the variation, date of approval, cost implications, and proper authorisation from the client or contract administrator. This creates a clear audit trail that protects all parties if disputes arise later. Documentation might take the form of a variation order, architect's instruction, or site instruction, depending on the contract type. Joiners should ensure all variations are properly documented and approved before proceeding with changes to avoid payment disputes or unauthorised work issues."
+    options: ["Simply the client's verbal approval and updated completion date", "Change description, reasons, date, costs and proper authorisation", "Only the financial impact and additional time required", "Just verbal confirmation from the site manager"],
+    correctAnswer: "Change description, reasons, date, costs and proper authorisation",
+    explanation: "Variation documentation must include all critical details and proper approval."
   },
   {
     id: 'joinery-l2-communication5',
     question: "In construction drawings, what does a broken line consisting of long dashes with intermittent dots typically represent?",
-    options: ["Existing walls to remain", "Center line of an element", "Hidden or concealed features", "Items to be demolished"],
-    correctAnswer: "Hidden or concealed features",
-    explanation: "In construction drawings, a broken line consisting of long dashes with intermittent dots (dash-dot-dash pattern) typically represents hidden or concealed features - elements that exist but are not visible in the current view because they are behind other objects or below a cutting plane. This is a standard convention in technical drawing. Understanding drawing conventions is essential for joiners to correctly interpret construction information. For example, when installing a window, hidden lintels might be shown with this line type on an elevation drawing, indicating structural elements that need to be considered but aren't directly visible in that view."
+    options: ["Temporary structures during construction", "Property boundary lines and easements", "Proposed new construction elements", "Hidden or concealed building features"],
+    correctAnswer: "Hidden or concealed building features",
+    explanation: "Dash-dot lines represent elements that exist but aren't visible in current view."
   },
   {
     id: 'joinery-l2-communication6',
     question: "Which of the following are typically included in a project specification for joinery work?",
-    options: ["Only measurements for each component", "Only the installation timeline", "Materials, workmanship standards, finishes, and fixing methods", "Only the contractor's profit margin"],
-    correctAnswer: "Materials, workmanship standards, finishes, and fixing methods",
-    explanation: "A project specification for joinery work typically includes detailed information about materials, workmanship standards, finishes, and fixing methods. It may also cover required quality standards, relevant British Standards to be followed, preparation methods, treatment of joints, hardware requirements, and tolerance limits. The specification complements the drawings by providing information that can't be easily conveyed graphically. For joiners, the specification is a crucial document that must be followed precisely, as it forms part of the contractual agreement and ensures the finished work meets the client's and designer's expectations for quality and performance."
+    options: ["Health insurance details, staff training and equipment warranties", "Staff qualifications, tool requirements and workshop facilities", "Materials, workmanship standards, finishes and installation methods", "Labour costs, profit margins and payment schedules"],
+    correctAnswer: "Materials, workmanship standards, finishes and installation methods",
+    explanation: "Joinery specifications detail quality expectations for materials and workmanship."
   },
   {
     id: 'joinery-l2-communication7',
     question: "What is the purpose of a snagging list in joinery projects?",
-    options: ["To list materials required for the job", "To identify and record defects or incomplete work that needs to be addressed", "To schedule delivery of materials", "To list employee working hours"],
-    correctAnswer: "To identify and record defects or incomplete work that needs to be addressed",
-    explanation: "A snagging list is used to identify and record defects or incomplete work that needs to be addressed before a joinery project can be considered complete. It's typically created during an inspection near the end of a project and serves as a checklist for final corrections and finishing touches. The list usually details each issue, its location, the required remedy, and sometimes a deadline for completion. For joiners, addressing snagging items efficiently and to a high standard is important for client satisfaction, final payment release, and professional reputation. Well-managed projects minimize snagging by implementing quality checks throughout the work rather than just at completion."
+    options: ["To track employee performance and productivity", "To document tools required for project completion", "To list materials ordered but not yet delivered", "To record defects or incomplete work needing correction"],
+    correctAnswer: "To record defects or incomplete work needing correction",
+    explanation: "Snagging lists identify issues requiring attention before project completion."
   },
   {
     id: 'joinery-l2-communication8',
     question: "What is the primary purpose of a site diary in construction projects?",
-    options: ["To record personal thoughts and feelings about the job", "To keep track of daily activities, issues encountered, and decisions made", "To schedule coffee breaks and lunches", "To record only financial transactions"],
-    correctAnswer: "To keep track of daily activities, issues encountered, and decisions made",
-    explanation: "The primary purpose of a site diary in construction projects is to keep track of daily activities, issues encountered, and decisions made on site. It creates a chronological record of events including work completed, deliveries received, subcontractors on site, weather conditions, delays experienced, instructions received, and any other significant occurrences. This documentation can be invaluable for resolving disputes, supporting extension of time claims, and providing evidence for variations. For joiners, maintaining a site diary (or contributing to one) provides protection when circumstances beyond their control affect work progress and helps demonstrate professional project management approach."
+    options: ["To record daily events, issues and decisions on site", "To plan future material deliveries and labour requirements", "To calculate overtime hours and additional payments", "To schedule upcoming inspections and quality checks"],
+    correctAnswer: "To record daily events, issues and decisions on site",
+    explanation: "Site diaries create chronological records of all significant project events."
   },
   {
     id: 'joinery-l2-communication9',
     question: "What does NBS stand for in UK construction documentation?",
-    options: ["National Building Society", "New Building Standards", "National Building Specification", "Natural Building Systems"],
+    options: ["Networked Building Solutions", "National Building Standards", "National Building Specification", "New Building Systems"],
     correctAnswer: "National Building Specification",
-    explanation: "NBS stands for National Building Specification, which is the UK's standard specification system for the construction industry. Developed by RIBA Enterprises, NBS provides a library of clauses that architects and specifiers use to create accurate, legally sound specifications for building projects. The system covers all aspects of construction, including joinery work, with standardized sections and clauses that define required materials, standards, execution methods, and quality control. For joiners, understanding how to interpret NBS specifications is important as they define the contractual requirements for joinery components and installations in a structured, consistent format across the industry."
+    explanation: "NBS is the UK's standard specification system for construction projects."
   },
   {
     id: 'joinery-l2-communication10',
     question: "Which of the following is the most appropriate way to communicate a significant safety concern on a construction site?",
-    options: ["Wait until the weekly site meeting to mention it", "Send an email and take no further action", "Verbally notify the responsible person immediately and follow up with written documentation", "Post about it on social media to raise awareness"],
-    correctAnswer: "Verbally notify the responsible person immediately and follow up with written documentation",
-    explanation: "The most appropriate way to communicate a significant safety concern on a construction site is to verbally notify the responsible person (supervisor, site manager, or health and safety officer) immediately and then follow up with written documentation. This approach ensures the issue is addressed without delay while also creating a formal record of the notification. Under health and safety legislation, workers have a duty to report hazards, and proper documentation can be crucial if incidents occur later. For joiners, understanding the correct communication protocols for safety concerns is essential for maintaining a safe working environment and complying with legal responsibilities under the Health and Safety at Work Act."
+    options: ["Email all project stakeholders with detailed photographs", "Contact the Health and Safety Executive directly", "Immediately notify responsible person and follow up in writing", "Document the issue and discuss at next scheduled meeting"],
+    correctAnswer: "Immediately notify responsible person and follow up in writing",
+    explanation: "Safety concerns require immediate verbal notification with written follow-up."
   },
   {
     id: 'joinery-l2-communication11',
     question: "What is the purpose of a Request for Information (RFI) in construction projects?",
-    options: ["To order additional materials", "To request permission to take time off work", "To obtain clarification or additional information about project details", "To request payment for completed work"],
-    correctAnswer: "To obtain clarification or additional information about project details",
-    explanation: "A Request for Information (RFI) is a formal process used to obtain clarification or additional information about project details when the existing documentation is insufficient, unclear, or contains apparent contradictions. RFIs are typically submitted in writing to the architect, project manager, or client's representative, creating a documented trail of questions and responses. For joiners, properly formulated RFIs are essential when drawings or specifications are ambiguous or when unforeseen site conditions require design decisions. The RFI process helps prevent errors, delays, and disputes by ensuring all parties have a clear understanding of requirements before work proceeds."
+    options: ["To schedule additional inspection appointments", "To obtain clarification on unclear project details", "To formally request additional payment for extra work", "To order replacement materials for damaged items"],
+    correctAnswer: "To obtain clarification on unclear project details",
+    explanation: "RFIs seek clarification when project documentation is insufficient or unclear."
   },
   {
     id: 'joinery-l2-communication12',
     question: "Which drawing projection shows objects as they appear to the human eye, with lines converging to vanishing points?",
-    options: ["Orthographic projection", "Isometric projection", "Perspective projection", "Oblique projection"],
-    correctAnswer: "Perspective projection",
-    explanation: "Perspective projection shows objects as they appear to the human eye, with lines converging to vanishing points, creating a realistic three-dimensional representation. This differs from orthographic projections (which show 2D views without perspective distortion), isometric projections (which show 3D views with consistent scale), and oblique projections (which show 3D objects with parallel rather than converging lines). In joinery documentation, perspective drawings are often used to show how finished elements will look in their context, helping clients visualize the completed work. While perspective drawings are valuable for visualization, joiners typically work from orthographic projections (plans, elevations, sections) for actual construction due to their dimensional accuracy."
+    options: ["Isometric projection with consistent scale", "Perspective projection with converging lines", "Orthographic projection with multiple views", "Exploded projection with separated components"],
+    correctAnswer: "Perspective projection with converging lines",
+    explanation: "Perspective drawings show realistic views with lines converging to vanishing points."
   },
   {
     id: 'joinery-l2-communication13',
     question: "What does the term 'elevation' refer to in architectural drawings?",
-    options: ["The height of a building above sea level", "A side view showing the vertical surfaces of a building or component", "A plan view showing the layout of a floor", "A 3D projection of a structure"],
-    correctAnswer: "A side view showing the vertical surfaces of a building or component",
-    explanation: "In architectural drawings, an elevation refers to a side view showing the vertical surfaces of a building or component as seen from a particular direction (typically north, south, east, or west for buildings). Elevations are orthographic projections that maintain true proportions without perspective distortion. For joiners, elevations are crucial for understanding the appearance, dimensions, and positioning of elements like doors, windows, built-in furniture, and exterior finishes. When making items like custom cabinetry, joiners will often work from elevation drawings that show the front view of the unit, complete with dimensions, shelf positions, and door arrangements."
+    options: ["Three-dimensional representation of the structure", "Top-down view showing the building layout", "Side view showing vertical building surfaces", "Height measurement from ground level to ceiling"],
+    correctAnswer: "Side view showing vertical building surfaces",
+    explanation: "Elevations show side views of vertical surfaces from specific directions."
   },
   {
     id: 'joinery-l2-communication14',
     question: "Which of the following is NOT typically part of a tender document package for joinery work?",
-    options: ["Drawings and specifications", "Bill of quantities or schedule of work", "Form of tender", "The joiner's personal tax return"],
-    correctAnswer: "The joiner's personal tax return",
-    explanation: "The joiner's personal tax return is NOT typically part of a tender document package for joinery work. A tender package generally includes drawings and specifications (detailing what is to be built and to what standard), bill of quantities or schedule of work (listing the items and quantities to be priced), form of tender (the formal offer document), contract conditions, pre-tender health and safety plan, and sometimes preliminaries (general project requirements). For joiners submitting tenders, understanding each component of the tender package is essential for accurate pricing and identifying potential risks or clarifications needed before submitting a bid."
+    options: ["Contract conditions and form of tender", "The contractor's previous project portfolio", "Project drawings and detailed specifications", "Bill of quantities or schedule of work"],
+    correctAnswer: "The contractor's previous project portfolio",
+    explanation: "Contractor portfolios aren't standard in tender packages, unlike specifications and quantities."
   },
   {
     id: 'joinery-l2-communication15',
-    question: "What information should be included when labeling a joinery sample or mock-up?",
-    options: ["Only the joiner's personal contact information", "Only the cost of production", "Project name, date, material specifications, finish details, and manufacturer/supplier information", "Only the weight of the sample"],
-    correctAnswer: "Project name, date, material specifications, finish details, and manufacturer/supplier information",
-    explanation: "When labeling a joinery sample or mock-up, comprehensive information should be included: project name, date, material specifications, finish details, and manufacturer/supplier information. Additional useful information might include the specific location where the item will be used, sample reference number, approval status, and the name of the person who created it. Proper labeling ensures samples can be correctly referenced during approval processes and accurately replicated during production. For joiners, maintaining well-documented samples is crucial for quality control, especially in projects with multiple similar but slightly different elements or when work is completed over extended periods."
+    question: "What information should be included when labelling a joinery sample or mock-up?",
+    options: ["Workshop environmental policy and waste disposal methods", "Project details, date, materials, finishes and supplier information", "Joiner's home address and personal contact details", "Full manufacturing cost breakdown and profit margin"],
+    correctAnswer: "Project details, date, materials, finishes and supplier information",
+    explanation: "Sample labels should include all details needed for proper reference and replication."
   },
   {
     id: 'joinery-l2-communication16',
     question: "What does a 'schedule' typically refer to in joinery documentation?",
-    options: ["Only the timeline for completing work", "A table listing components of the same type with their specifications and locations", "Only the payment schedule for the project", "Only the daily working hours"],
-    correctAnswer: "A table listing components of the same type with their specifications and locations",
-    explanation: "In joinery documentation, a 'schedule' typically refers to a table listing components of the same type (such as doors, windows, or ironmongery) with their specifications and locations. For example, a door schedule might list each door's reference number, location, size, material, fire rating, ironmongery requirements, and finish details. Schedules complement drawings by organizing detailed information in a systematic way that would be difficult to include on the drawings themselves. For joiners, schedules are essential reference documents that ensure the correct specification is applied to each component, particularly in projects with numerous similar but slightly different elements."
+    options: ["Labour allocation showing worker assignments", "Project timeline showing completion deadlines", "Table listing components with specifications and locations", "Payment structure showing staged financial releases"],
+    correctAnswer: "Table listing components with specifications and locations",
+    explanation: "Schedules systematically tabulate similar components with their detailed specifications."
   },
   {
     id: 'joinery-l2-communication17',
     question: "What is the primary purpose of a pre-start meeting in a joinery project?",
-    options: ["To negotiate payment terms", "To introduce team members and clarify project requirements before work begins", "To celebrate the award of the contract", "To inspect tools and equipment only"],
-    correctAnswer: "To introduce team members and clarify project requirements before work begins",
-    explanation: "The primary purpose of a pre-start meeting in a joinery project is to introduce team members and clarify project requirements before work begins. This meeting typically brings together key stakeholders (client, contractor, subcontractors, designers) to review project scope, specifications, timelines, quality expectations, health and safety requirements, and communication protocols. It provides an opportunity to address any questions or concerns before work commences. For joiners, the pre-start meeting is valuable for understanding project priorities, confirming access arrangements, identifying potential challenges, and establishing relationships with other team members, setting the foundation for successful project delivery."
+    options: ["Negotiate final contract price adjustments", "Review previous similar projects for lessons learned", "Establish team roles and clarify project requirements", "Inspect all tools and equipment for safety"],
+    correctAnswer: "Establish team roles and clarify project requirements",
+    explanation: "Pre-start meetings align understanding of project requirements before work begins."
   },
   {
     id: 'joinery-l2-communication18',
     question: "In technical drawings, what does the abbreviation 'NTS' stand for?",
-    options: ["New Technical Standard", "Not To Scale", "National Testing Service", "Notice To Supplier"],
+    options: ["National Technical Standard", "Not To Scale", "New Technical Specification", "Needs Technical Supervision"],
     correctAnswer: "Not To Scale",
-    explanation: "In technical drawings, the abbreviation 'NTS' stands for 'Not To Scale.' This notation indicates that the drawing or a particular detail cannot be measured directly using a scale rule, and dimensions should be taken only from the stated dimension figures. NTS might be used for schematic diagrams, concept sketches, or when a detail has been enlarged for clarity without using a standard scale. For joiners, seeing NTS on a drawing serves as an important warning not to measure directly from the drawing, as doing so could result in significant errors. When working from NTS drawings, all required dimensions must be explicitly stated on the drawing or in accompanying documentation."
+    explanation: "NTS warns that drawing measurements cannot be taken with a scale rule."
   },
   {
     id: 'joinery-l2-communication19',
     question: "What would a joiner use a transmittal form for?",
-    options: ["To request annual leave", "To document the transfer of drawings, documents, or samples between parties", "To order tools and equipment", "To record working hours"],
-    correctAnswer: "To document the transfer of drawings, documents, or samples between parties",
-    explanation: "A joiner would use a transmittal form to document the transfer of drawings, documents, or samples between parties. This form creates a record of what was sent, when it was sent, who sent it, who received it, and the purpose of the transmission. It typically includes a list of the items transmitted, their revision numbers or dates, and sometimes requires acknowledgment of receipt. Using transmittal forms is a professional practice that creates an audit trail of information exchange, which can be crucial if disputes arise about whether particular documents were received. For joiners submitting shop drawings or samples for approval, proper transmittal documentation helps track the approval process and prevent miscommunication."
+    options: ["Recording material wastage percentages", "Tracking tool and equipment usage", "Requesting additional working time", "Documenting transfer of drawings or samples"],
+    correctAnswer: "Documenting transfer of drawings or samples",
+    explanation: "Transmittal forms record what documents were sent, when and to whom."
   },
   {
     id: 'joinery-l2-communication20',
     question: "What is a 'shop drawing' in joinery work?",
-    options: ["A drawing of the joinery workshop layout", "A detailed manufacturing drawing prepared by the joiner based on the architect's design intent", "A sketch made in a retail shop", "A drawing showing only the shop front of a building"],
-    correctAnswer: "A detailed manufacturing drawing prepared by the joiner based on the architect's design intent",
-    explanation: "A shop drawing in joinery work is a detailed manufacturing drawing prepared by the joiner based on the architect's design intent. These drawings translate conceptual design drawings into precise fabrication documents, showing exact dimensions, materials, construction methods, jointing details, hardware locations, and finishing specifications. Shop drawings typically require approval from the architect or designer before fabrication begins, ensuring the joiner's interpretation meets the design intent. Creating accurate shop drawings is a critical skill for joiners undertaking bespoke work, as they bridge the gap between design concept and practical manufacturing, identifying potential issues before fabrication and serving as the primary reference during production."
+    options: ["A pricing document for custom joinery items", "A detailed manufacturing drawing based on design intent", "A sketch showing workshop layout and equipment", "A drawing showing retail joinery display units"],
+    correctAnswer: "A detailed manufacturing drawing based on design intent",
+    explanation: "Shop drawings translate design concepts into precise fabrication instructions."
   },
   {
     id: 'joinery-l2-communication21',
     question: "Which of the following best describes the purpose of a Critical Path Method (CPM) in project scheduling?",
-    options: ["To identify only the cheapest way to complete a project", "To identify the sequence of tasks that determines the minimum project duration", "To create a list of materials needed", "To assign blame for delays"],
-    correctAnswer: "To identify the sequence of tasks that determines the minimum project duration",
-    explanation: "The Critical Path Method (CPM) in project scheduling identifies the sequence of tasks that determines the minimum project duration - the 'critical path.' Any delay to tasks on this path will delay the entire project, while tasks not on the critical path have 'float' (flexibility in their start times). CPM analysis helps project managers prioritize resources, identify schedule risks, and make informed decisions when changes occur. For joiners, understanding where their work fits within the critical path helps them appreciate the wider impact of potential delays and prioritize their activities accordingly. On larger projects, joiners may need to provide accurate duration estimates for their work to contribute to CPM schedule development."
+    options: ["Creating risk assessment priorities for dangerous activities", "Establishing material delivery sequences from suppliers", "Identifying the most cost-effective construction route", "Determining the task sequence that defines minimum project duration"],
+    correctAnswer: "Determining the task sequence that defines minimum project duration",
+    explanation: "CPM identifies sequential tasks that determine the shortest possible project duration."
   },
   {
     id: 'joinery-l2-communication22',
     question: "What does the term 'as-built drawings' refer to?",
-    options: ["Preliminary sketches made during the design phase", "Drawings that record the exact way a project was actually constructed, including any changes from the original design", "Drawings of historical buildings as they were originally built", "Artistic impressions of how a building might look"],
-    correctAnswer: "Drawings that record the exact way a project was actually constructed, including any changes from the original design",
-    explanation: "As-built drawings record the exact way a project was actually constructed, including any changes from the original design. These drawings reflect all the modifications, adjustments, and deviations that occurred during construction, providing an accurate record of the completed work. As-built documentation is particularly important for elements that will be concealed (such as in-wall services) and for future maintenance, alterations, or troubleshooting. For joiners, contributing to as-built documentation by recording significant changes to joinery elements (such as relocated fixings or modified dimensions due to site conditions) ensures that accurate information is available for future reference, particularly important for components that may need maintenance or replacement."
+    options: ["Construction drawings with cost information added", "Original concept sketches from design phase", "Records showing how the project was actually constructed", "Historical documentation of heritage buildings"],
+    correctAnswer: "Records showing how the project was actually constructed",
+    explanation: "As-built drawings document the actual construction including all site modifications."
   },
   {
     id: 'joinery-l2-communication23',
     question: "What information would be typically found in a job card system for a joinery workshop?",
-    options: ["Only the customer's contact details", "Only the cost of materials", "Job number, customer details, product description, materials, specifications, timeframe, and status", "Only the workshop address"],
-    correctAnswer: "Job number, customer details, product description, materials, specifications, timeframe, and status",
-    explanation: "A job card system for a joinery workshop typically includes comprehensive information: job number, customer details, product description, materials, specifications, timeframe, and status. Additional information might include drawings or sketches, specific machining requirements, finishing details, hardware specifications, and quality check records. Job cards create a standardized system for tracking work through the production process, ensuring consistency and accountability. For workshop joiners, the job card serves as the primary reference document for each project, containing all the information needed to manufacture items correctly and efficiently while maintaining a record of progress for management purposes."
+    options: ["Employee personal details and qualifications", "Tool inventory and replacement schedules", "Job details, customer information, specifications and status", "Only machinery maintenance schedules"],
+    correctAnswer: "Job details, customer information, specifications and status",
+    explanation: "Job cards contain all information needed to track and complete workshop projects."
   },
   {
     id: 'joinery-l2-communication24',
     question: "What is the primary purpose of a technical submittal in construction projects?",
-    options: ["To submit a request for payment", "To propose design changes", "To provide detailed information about products or systems for approval before installation", "To report health and safety incidents"],
-    correctAnswer: "To provide detailed information about products or systems for approval before installation",
-    explanation: "The primary purpose of a technical submittal in construction projects is to provide detailed information about products or systems for approval before installation. Submittals typically include manufacturer's data sheets, samples, shop drawings, test certificates, warranties, and installation instructions that demonstrate compliance with the specification requirements. The approval process confirms that proposed materials and methods meet the project requirements before ordering or installation begins. For joiners, preparing comprehensive submittals for items like custom cabinetry, specialized hardware, or timber species is crucial for gaining timely approval and avoiding rework if materials are rejected later. The submittal process creates a documented approval trail that protects all parties."
+    options: ["Scheduling delivery of materials to site", "Requesting additional payment for variations", "Providing product details for approval before installation", "Reporting health and safety compliance"],
+    correctAnswer: "Providing product details for approval before installation",
+    explanation: "Submittals seek approval by demonstrating products meet specifications before installation."
   },
   {
     id: 'joinery-l2-communication25',
     question: "What is the purpose of a handover file at the completion of a joinery project?",
-    options: ["To record only snags that weren't completed", "To provide sales information for future projects", "To document warranty information, maintenance instructions, and as-built information for the client", "To store payment records only"],
-    correctAnswer: "To document warranty information, maintenance instructions, and as-built information for the client",
-    explanation: "The purpose of a handover file at the completion of a joinery project is to document warranty information, maintenance instructions, and as-built information for the client. This comprehensive file typically includes product information, caring for wood guidance, hardware details, finish specifications, supplier contacts for replacements, cleaning recommendations, and certificates of compliance where applicable. Some projects might also include operational manuals for moving parts or mechanisms. For joiners, creating a thorough handover file demonstrates professionalism, reduces post-completion queries, and provides clients with the information needed to maintain joinery elements correctly, potentially extending their lifespan and preserving warranty validity."
+    options: ["To advertise additional services to the client", "To transfer liability for defects to the client", "To request final payment from the client", "To document warranties, maintenance information and as-builts"],
+    correctAnswer: "To document warranties, maintenance information and as-builts",
+    explanation: "Handover files provide clients with information for proper maintenance and future reference."
   }
 ];
 
