@@ -49,29 +49,28 @@ export default function Quiz() {
     }
 
     try {
-  setIsLoading(true);
-  const amountNumber = parseInt(amount as string) || 10;
-  const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
+      setIsLoading(true);
+      const amountNumber = parseInt(amount as string) || 10;
+      const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
 
-  // Shuffle the answer options for each question
-  const shuffledQuestions = fetchedQuestions.map((q) => ({
-    ...q,
-    options: shuffleArray(q.options),
-  }));
+      const shuffledQuestions = fetchedQuestions.map((q) => ({
+        ...q,
+        options: shuffleArray(q.options),
+      }));
 
-  setQuestions(shuffledQuestions);
-  setAnswers(new Array(shuffledQuestions.length).fill(null));
-} catch (err) {
-  console.error('Error fetching questions:', err);
-  setError('Failed to load quiz questions');
-} finally {
-  setIsLoading(false);
-}
-
+      setQuestions(shuffledQuestions);
+      setAnswers(new Array(shuffledQuestions.length).fill(null));
+    } catch (err) {
+      console.error('Error fetching questions:', err);
+      setError('Failed to load quiz questions');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   fetchQuestions();
 }, [topic, amount, user?.uid, router.query.retryLast]);
+
 
 
 
