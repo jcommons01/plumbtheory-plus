@@ -36,17 +36,22 @@ export default function Quiz() {
     const retry = router.query.retryLast;
 
     if (retry === "true") {
-      const saved = sessionStorage.getItem("quizResults");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed?.topic === topic && parsed?.questions) {
-          setQuestions(parsed.questions);
-          setAnswers(new Array(parsed.questions.length).fill(null));
-          setIsLoading(false);
-          return;
-        }
-      }
+  const saved = sessionStorage.getItem("quizResults");
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (parsed?.topic === topic && parsed?.questions) {
+      const shuffled = parsed.questions.map((q: any) => ({
+        ...q,
+        options: shuffleArray(q.options),
+      }));
+      setQuestions(shuffled);
+      setAnswers(new Array(shuffled.length).fill(null));
+      setIsLoading(false);
+      return;
     }
+  }
+}
+
 
     try {
       setIsLoading(true);
