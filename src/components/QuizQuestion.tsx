@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // 🆕 import motion
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthProvider';
 import { toggleBookmark } from '@/lib/bookmark';
 
@@ -22,6 +22,7 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
 }) => {
   const { user } = useAuth();
   const [bookmarked, setBookmarked] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
 
   const handleBookmark = async () => {
     if (!user || !question.id) return;
@@ -30,6 +31,16 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
   };
 
   const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
+
+  useEffect(() => {
+    // Shuffle options every time the question changes
+    const shuffled = [...question.options];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setShuffledOptions(shuffled);
+  }, [question.id]);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg relative">
@@ -49,7 +60,7 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
       <h2 className="text-xl font-bold mb-4">{question.text}</h2>
 
       <div className="space-y-3 mb-4">
-        {question.options.map((option, index) => {
+        {shuffledOptions.map((option, index) => {
           const normalizedOption = option.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
           const isCorrect = normalizedOption === normalizedCorrect;
