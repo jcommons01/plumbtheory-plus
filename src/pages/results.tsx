@@ -189,15 +189,14 @@ export default function Results() {
             </button>
             
             <button
-              onClick={() => {
-                sessionStorage.removeItem('quizResults');
-                window.location.href = `/quiz/${topic}?amount=${questions.length}&retryLast=true`;
+  onClick={() => {
+    window.location.href = `/quiz/${topic}?amount=${questions.length}&retryLast=true`;
+  }}
+  className="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-lg transition-colors font-medium"
+>
+  Try Again
+</button>
 
-              }}
-              className="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-lg transition-colors font-medium"
-            >
-              Try Again
-            </button>
           </div>
         </div>
       </div>
