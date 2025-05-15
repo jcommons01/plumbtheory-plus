@@ -8,6 +8,15 @@ import QuizQuestion from '@/components/QuizQuestion';
 import ProgressBar from '@/components/ProgressBar';
 import { topicTitles } from '@/utils/topicTitles';
 
+function shuffleArray<T>(array: T[]): T[] {
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 export default function Quiz() {
   const router = useRouter();
   const { topic, amount } = router.query;
@@ -40,17 +49,25 @@ export default function Quiz() {
     }
 
     try {
-      setIsLoading(true);
-      const amountNumber = parseInt(amount as string) || 10;
-      const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
-      setQuestions(fetchedQuestions);
-      setAnswers(new Array(fetchedQuestions.length).fill(null));
-    } catch (err) {
-      console.error('Error fetching questions:', err);
-      setError('Failed to load quiz questions');
-    } finally {
-      setIsLoading(false);
-    }
+  setIsLoading(true);
+  const amountNumber = parseInt(amount as string) || 10;
+  const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
+
+  // Shuffle the answer options for each question
+  const shuffledQuestions = fetchedQuestions.map((q) => ({
+    ...q,
+    options: shuffleArray(q.options),
+  }));
+
+  setQuestions(shuffledQuestions);
+  setAnswers(new Array(shuffledQuestions.length).fill(null));
+} catch (err) {
+  console.error('Error fetching questions:', err);
+  setError('Failed to load quiz questions');
+} finally {
+  setIsLoading(false);
+}
+
   };
 
   fetchQuestions();
