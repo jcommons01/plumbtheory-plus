@@ -58,11 +58,7 @@ export default function Quiz() {
   fetchQuestions();
 }, [topic, amount, user?.uid]);
 
-useEffect(() => {
-  if (currentQuestion === 0 && answers[0] !== null) {
-    sessionStorage.removeItem("quizResults");
-  }
-}, [answers[0]]);
+
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
