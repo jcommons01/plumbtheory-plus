@@ -24,11 +24,9 @@ export default function Quiz() {
   const fetchQuestions = async () => {
     if (!topic || Array.isArray(topic) || !user?.uid) return;
 
-    const params = new URLSearchParams(window.location.search);
-    const retry = params.get("retryLast");
+    const retry = router.query.retryLast;
 
     if (retry === "true") {
-      // Load previous questions from sessionStorage
       const saved = sessionStorage.getItem("quizResults");
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -56,7 +54,8 @@ export default function Quiz() {
   };
 
   fetchQuestions();
-}, [topic, amount, user?.uid]);
+}, [topic, amount, user?.uid, router.query.retryLast]);
+
 
 
 
