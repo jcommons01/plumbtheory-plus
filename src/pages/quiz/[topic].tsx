@@ -21,25 +21,48 @@ export default function Quiz() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      if (!topic || Array.isArray(topic) || !user?.uid) return;
+  const fetchQuestions = async () => {
+    if (!topic || Array.isArray(topic) || !user?.uid) return;
 
-      try {
-        setIsLoading(true);
-        const amountNumber = parseInt(amount as string) || 10;
-        const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
-        setQuestions(fetchedQuestions);
-        setAnswers(new Array(fetchedQuestions.length).fill(null));
-      } catch (err) {
-        console.error('Error fetching questions:', err);
-        setError('Failed to load quiz questions');
-      } finally {
-        setIsLoading(false);
+    const params = new URLSearchParams(window.location.search);
+    const retry = params.get("retryLast");
+
+    if (retry === "true") {
+      // Load previous questions from sessionStorage
+      const saved = sessionStorage.getItem("quizResults");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed?.topic === topic && parsed?.questions) {
+          setQuestions(parsed.questions);
+          setAnswers(new Array(parsed.questions.length).fill(null));
+          setIsLoading(false);
+          return;
+        }
       }
-    };
+    }
 
-    fetchQuestions();
-  }, [topic, amount, user?.uid]);
+    try {
+      setIsLoading(true);
+      const amountNumber = parseInt(amount as string) || 10;
+      const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
+      setQuestions(fetchedQuestions);
+      setAnswers(new Array(fetchedQuestions.length).fill(null));
+    } catch (err) {
+      console.error('Error fetching questions:', err);
+      setError('Failed to load quiz questions');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchQuestions();
+}, [topic, amount, user?.uid]);
+
+useEffect(() => {
+  if (currentQuestion === 0 && answers[0] !== null) {
+    sessionStorage.removeItem("quizResults");
+  }
+}, [answers[0]]);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];

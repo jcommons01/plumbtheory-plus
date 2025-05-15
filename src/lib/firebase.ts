@@ -135,9 +135,15 @@ export const getQuizQuestions = async (
 
     const seenQuestionIds = userData?.quizProgress?.[topic]?.seenIds || [];
 
-    const unseenQuestions = allQuestions.filter(
-      (q) => !seenQuestionIds.includes(q.id)
-    );
+    let seenIds = seenQuestionIds;
+let unseenQuestions = allQuestions.filter(q => !seenIds.includes(q.id));
+
+// ✅ If all questions have been seen, reset the seen list
+if (unseenQuestions.length === 0) {
+  seenIds = [];
+  unseenQuestions = allQuestions;
+}
+
 
     const questionsToUse = [];
 
@@ -155,8 +161,9 @@ export const getQuizQuestions = async (
     }
 
     const updatedSeenIds = Array.from(
-      new Set([...seenQuestionIds, ...questionsToUse.map((q) => q.id)])
-    );
+  new Set([...seenIds, ...questionsToUse.map((q) => q.id)])
+);
+
 
     await updateDoc(userRef, {
       [`quizProgress.${topic}.seenIds`]: updatedSeenIds,

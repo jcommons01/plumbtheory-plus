@@ -3,6 +3,29 @@ import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
 import { topicTitles } from '@/utils/topicTitles';
 
+const formatTopicTitle = (id: string) => {
+  let label = id;
+
+  // Extract level if present
+  let levelSuffix = '';
+  if (id.startsWith('level2-')) {
+    label = id.replace('level2-', '');
+    levelSuffix = ' (Level 2)';
+  } else if (id.startsWith('level3-')) {
+    label = id.replace('level3-', '');
+    levelSuffix = ' (Level 3)';
+  }
+
+  // Capitalise words
+  const capitalised = label
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  return capitalised + levelSuffix;
+};
+
+
 type QuestionResult = {
   topic: string;
   question: string;
@@ -66,8 +89,9 @@ export default function Results() {
           {/* Enhanced header section - reduced vertical padding */}
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold mb-3">
-              Quiz Results: {topic.replace(/-/g, ' ')}
-            </h1>
+  Quiz Results: {topicTitles[topic] || formatTopicTitle(topic)}
+</h1>
+
             
             {/* Score summary with visual indicator - reduced padding */}
             <div className="bg-gray-800 rounded-xl p-4 inline-block">
@@ -167,7 +191,8 @@ export default function Results() {
             <button
               onClick={() => {
                 sessionStorage.removeItem('quizResults');
-                window.location.href = `/quiz/${topic}?amount=${questions.length}`;
+                window.location.href = `/quiz/${topic}?amount=${questions.length}&retryLast=true`;
+
               }}
               className="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-lg transition-colors font-medium"
             >
