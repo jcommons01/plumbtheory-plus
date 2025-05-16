@@ -12,12 +12,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { userId, userEmail, referral } = req.body;
+    const { userId, userEmail, referral, planType } = req.body;
 
-    if (!userId || !userEmail) {
-      console.warn('❌ Missing userId or userEmail in request body');
-      return res.status(400).json({ error: 'Missing user info' });
-    }
+if (!userId || !userEmail || !planType) {
+  console.warn('❌ Missing userId, userEmail, or planType in request body');
+  return res.status(400).json({ error: 'Missing user info or plan type' });
+}
+
 
     console.log('✅ Creating checkout session for:', { userId, userEmail, referral });
 
@@ -30,7 +31,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscribe`,
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID!,
+          price: planType === 'annual'
+  ? process.env.STRIPE_ANNUAL_PRICE_ID!
+  : process.env.STRIPE_MONTHLY_PRICE_ID!,
+
           quantity: 1,
         },
       ],

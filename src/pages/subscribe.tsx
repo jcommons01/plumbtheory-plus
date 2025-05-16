@@ -131,10 +131,10 @@ export default function SubscribePage() {
                       </>
                     ) : (
                       <>
-                        <span className="text-4xl font-bold">£95.88</span>
+                        <span className="text-4xl font-bold">£47.90</span>
                         <span className="text-lg ml-1">/year</span>
                         <span className="ml-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full">
-                          SAVE £23.88
+                          SAVE £12.98
                         </span>
                       </>
                     )}
