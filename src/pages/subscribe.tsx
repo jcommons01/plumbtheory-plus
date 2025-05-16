@@ -126,7 +126,7 @@ export default function SubscribePage() {
                   <div className="mt-4 flex items-baseline">
                     {selectedPlan === 'monthly' ? (
                       <>
-                        <span className="text-4xl font-bold">£9.99</span>
+                        <span className="text-4xl font-bold">£4.99</span>
                         <span className="text-lg ml-1">/month</span>
                       </>
                     ) : (
@@ -173,7 +173,7 @@ export default function SubscribePage() {
                         Redirecting to checkout...
                       </>
                     ) : (
-                      `Subscribe Now - ${selectedPlan === 'monthly' ? '£9.99/month' : '£95.88/year'}`
+                      `Subscribe Now - ${selectedPlan === 'monthly' ? '£4.99/month' : '£95.88/year'}`
                     )}
                   </button>
                   
