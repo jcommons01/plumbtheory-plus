@@ -173,7 +173,7 @@ export default function SubscribePage() {
                         Redirecting to checkout...
                       </>
                     ) : (
-                      `Subscribe Now - ${selectedPlan === 'monthly' ? '£4.99/month' : '£95.88/year'}`
+                      `Subscribe Now - ${selectedPlan === 'monthly' ? '£4.99/month' : '£47.90/year'}`
                     )}
                   </button>
                   
