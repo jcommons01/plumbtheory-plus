@@ -23,178 +23,178 @@ const db = getFirestore(app);
 const questions = [
   {
     id: 'joinery-l2-building-construction1',
-    question: "What is the primary purpose of a damp-proof course (DPC) in a building?",
-    options: ["To provide thermal insulation to the structure", "To strengthen the foundation and improve stability", "To prevent moisture rising from the ground into walls", "To provide a level surface for brickwork and blocks"],
-    correctAnswer: "To prevent moisture rising from the ground into walls",
-    explanation: "DPCs create a horizontal barrier in walls to stop rising damp through capillary action."
+    question: "What is the main purpose of a damp-proof course in a wall?",
+    options: ["To reduce fire spread", "To improve insulation", "To stop rising moisture", "To support masonry units"],
+    correctAnswer: "To stop rising moisture",
+    explanation: "A DPC prevents moisture from travelling upward through brick or blockwork by capillary action."
   },
   {
     id: 'joinery-l2-building-construction2',
-    question: "Which of the following best describes a 'cavity wall' construction?",
-    options: ["A wall with internal cavities filled with acoustic insulation materials", "A single-thickness wall with an air gap between interior panels", "A wall with alternating materials to improve insulation properties", "Two separate walls with a gap between them, connected with wall ties"],
-    correctAnswer: "Two separate walls with a gap between them, connected with wall ties",
-    explanation: "Cavity walls consist of two separate leaves with a gap between, connected with wall ties for structural integrity."
+    question: "Which type of wall has two leaves with a space between them?",
+    options: ["Solid wall", "Dry wall", "Cavity wall", "Stud wall"],
+    correctAnswer: "Cavity wall",
+    explanation: "Cavity walls consist of two skins with a gap that improves insulation and moisture control."
   },
   {
     id: 'joinery-l2-building-construction3',
-    question: "What is the standard thickness of plasterboard typically used for wall linings in UK domestic construction?",
-    options: ["18mm for improved sound and fire resistance", "9.5mm or 12.5mm depending on requirements", "6mm for all standard applications", "25mm for external wall insulation systems"],
-    correctAnswer: "9.5mm or 12.5mm depending on requirements",
-    explanation: "9.5mm or 12.5mm boards are standard, with thicker boards used for additional fire resistance or sound insulation."
+    question: "Which material is most commonly used for roof trusses in UK homes?",
+    options: ["Steel sections", "PVC struts", "Timber frames", "Concrete beams"],
+    correctAnswer: "Timber frames",
+    explanation: "Timber trusses are standard for domestic roofs due to strength, cost, and ease of handling."
   },
   {
     id: 'joinery-l2-building-construction4',
-    question: "What is the minimum depth of foundations typically required for a two-storey house in normal ground conditions in the UK?",
-    options: ["1.5m for all residential construction projects", "150mm for standard soil conditions", "450mm to ensure stability and load bearing", "900mm to reach below the frost line"],
-    correctAnswer: "900mm to reach below the frost line",
-    explanation: "900mm depth ensures foundations extend below the frost line and reach stable soil with adequate bearing capacity."
+    question: "What is the standard plasterboard thickness used on internal walls?",
+    options: ["6mm", "18mm", "25mm", "12.5mm"],
+    correctAnswer: "12.5mm",
+    explanation: "12.5mm plasterboard is the most common thickness for lining internal partitions."
   },
   {
     id: 'joinery-l2-building-construction5',
-    question: "Which of the following roof structures consists of factory-made triangular frames?",
-    options: ["Trussed rafter roof with nail plates", "Traditional cut roof with ridge boards", "Flat roof with timber joists", "Mansard roof with dormer windows"],
-    correctAnswer: "Trussed rafter roof with nail plates",
-    explanation: "Trussed rafter roofs use factory-made triangular frames connected with nail plates for efficient installation."
+    question: "What does a wall plate do in roof construction?",
+    options: ["Improves insulation", "Spreads roof loads", "Stops wind uplift", "Provides wall finish"],
+    correctAnswer: "Spreads roof loads",
+    explanation: "Wall plates distribute roof loads evenly onto the supporting masonry walls."
   },
   {
     id: 'joinery-l2-building-construction6',
-    question: "What is the purpose of a wall plate in traditional timber roof construction?",
-    options: ["To seal gaps between wall and ceiling surfaces", "To distribute roof weight evenly across the wall", "To provide fixing for decorative timber elements", "To create a waterproof barrier at wall junctions"],
-    correctAnswer: "To distribute roof weight evenly across the wall",
-    explanation: "Wall plates distribute roof loads evenly across walls and provide secure fixing points for rafters."
+    question: "Why are noggins fitted between floor joists?",
+    options: ["Add acoustic control", "Reduce floor bounce", "Stop joist twisting", "Support floorboards"],
+    correctAnswer: "Stop joist twisting",
+    explanation: "Noggins provide lateral support to prevent joists from rotating under load."
   },
   {
     id: 'joinery-l2-building-construction7',
-    question: "In a domestic timber floor construction, what is the primary purpose of noggins between joists?",
-    options: ["To improve thermal and acoustic insulation properties", "To create a secure fixing point for floorboards", "To prevent joist twisting and provide lateral stability", "To support concentrated loads from heavy furniture"],
-    correctAnswer: "To prevent joist twisting and provide lateral stability",
-    explanation: "Noggins prevent joists from twisting and provide lateral stability to the floor structure."
+    question: "What is the minimum headroom over a staircase?",
+    options: ["1.6m", "1.9m", "2.0m", "2.2m"],
+    correctAnswer: "2.0m",
+    explanation: "Building Regulations require a minimum 2.0m headroom to allow safe use of stairs."
   },
   {
     id: 'joinery-l2-building-construction8',
-    question: "What is the recommended minimum clear height between a stair tread and the ceiling according to UK Building Regulations?",
-    options: ["2.4m for all public access staircases", "2.0m measured from the pitch line", "1.5m for limited space situations", "1.8m for loft conversion staircases"],
-    correctAnswer: "2.0m measured from the pitch line",
-    explanation: "2.0m minimum headroom ensures safe passage without risk of head injury."
+    question: "Which component supports the load above a window opening?",
+    options: ["Tie bar", "Lintel", "Joist", "Plinth"],
+    correctAnswer: "Lintel",
+    explanation: "Lintels span over openings and transfer loads to the walls either side."
   },
   {
     id: 'joinery-l2-building-construction9',
-    question: "What is the purpose of a lintel in building construction?",
-    options: ["To join two wall sections at corner junctions", "To provide thermal breaks in continuous masonry", "To create a waterproof barrier on flat surfaces", "To support loads above door and window openings"],
-    correctAnswer: "To support loads above door and window openings",
-    explanation: "Lintels span openings and transfer structure weight to adjacent supporting walls."
+    question: "What is the vertical part of a step called?",
+    options: ["Riser", "Tread", "Going", "Nosing"],
+    correctAnswer: "Riser",
+    explanation: "The riser is the vertical section between two steps on a staircase."
   },
   {
     id: 'joinery-l2-building-construction10',
-    question: "What is the term for the vertical distance between consecutive steps in a staircase?",
-    options: ["Pitch - the staircase angle degree", "Nosing - the step edge projection", "Rise - the vertical step height", "Going - the horizontal step measurement"],
-    correctAnswer: "Rise - the vertical step height",
-    explanation: "Rise is the vertical height between consecutive steps, limited to 220mm maximum in domestic stairs."
+    question: "What is a purlin used for in roof construction?",
+    options: ["Support rafters", "Support ceiling", "Support wall ties", "Support insulation"],
+    correctAnswer: "Support rafters",
+    explanation: "Purlins are horizontal members that provide intermediate support to rafters."
   },
   {
     id: 'joinery-l2-building-construction11',
-    question: "Which of the following best describes the function of a purlin in a traditional cut roof?",
-    options: ["The central ridge beam at the roof apex", "A diagonal brace providing wind resistance", "A vertical post supporting the ridge beam", "A horizontal beam supporting rafters along their length"],
-    correctAnswer: "A horizontal beam supporting rafters along their length",
-    explanation: "Purlins are horizontal beams that support rafters along their length, reducing effective rafter span."
+    question: "What is the role of a breather membrane in timber frame walls?",
+    options: ["Stop all air", "Reflect heat", "Allow vapour out", "Act as finish layer"],
+    correctAnswer: "Allow vapour out",
+    explanation: "Breather membranes allow internal moisture to escape but block external water."
   },
   {
     id: 'joinery-l2-building-construction12',
-    question: "What is the minimum width for a domestic staircase according to UK Building Regulations?",
-    options: ["1000mm for multi-occupancy buildings", "850mm between walls or balustrades", "600mm for secondary access routes", "800mm for small residential dwellings"],
-    correctAnswer: "850mm between walls or balustrades",
-    explanation: "850mm minimum width ensures safe passage and space for furniture movement in domestic settings."
+    question: "What is the minimum width of a staircase in a house?",
+    options: ["600mm", "750mm", "850mm", "1000mm"],
+    correctAnswer: "850mm",
+    explanation: "Domestic stairs should be at least 850mm wide to meet Building Regulations."
   },
   {
     id: 'joinery-l2-building-construction13',
-    question: "In timber frame construction, what is the purpose of the breather membrane installed on the outside of the frame?",
-    options: ["To create an airtight construction envelope", "To increase fire resistance rating", "To allow vapour escape while preventing water ingress", "To provide additional thermal insulation"],
-    correctAnswer: "To allow vapour escape while preventing water ingress",
-    explanation: "Breather membranes prevent water penetration while allowing water vapour to escape from the structure."
+    question: "What are standard stud spacings in timber partitions?",
+    options: ["200mm", "400mm", "900mm", "1200mm"],
+    correctAnswer: "400mm",
+    explanation: "Studs are commonly spaced at 400mm to suit plasterboard and provide support."
   },
   {
     id: 'joinery-l2-building-construction14',
-    question: "What is the typical thickness of mortar joints in UK brickwork?",
-    options: ["15mm for irregular reclaimed bricks", "20mm for thermal block construction", "5mm for precision engineering brick", "10mm for standard brick construction"],
-    correctAnswer: "10mm for standard brick construction",
-    explanation: "10mm is standard for mortar joints, giving 75mm course height with standard 65mm bricks."
+    question: "What is used to join cavity wall leaves together?",
+    options: ["Damp trays", "Wall ties", "Bonding blocks", "Air bricks"],
+    correctAnswer: "Wall ties",
+    explanation: "Wall ties link the two leaves of cavity walls while keeping them structurally independent."
   },
   {
     id: 'joinery-l2-building-construction15',
-    question: "What is the purpose of a cavity tray in building construction?",
-    options: ["To enhance insulation at thermal bridges", "To distribute loads across different wall sections", "To channel rainwater that penetrates the outer wall", "To route services through cavity wall structures"],
-    correctAnswer: "To channel rainwater that penetrates the outer wall",
-    explanation: "Cavity trays collect and direct penetrating rainwater back outside through weep holes."
+    question: "What is the sole plate in timber wall framing?",
+    options: ["Top support", "Middle noggin", "Base timber", "Roof beam"],
+    correctAnswer: "Base timber",
+    explanation: "The sole plate is the horizontal timber at the base of a stud wall to which studs are fixed."
   },
   {
     id: 'joinery-l2-building-construction16',
-    question: "In a traditional cut roof, what is the name of the triangular framework at the gable end?",
-    options: ["Verge construction with extended tiles", "Truss arrangement with vertical ties", "Gable ladder with horizontal supports", "Gable end frame with exterior fixing points"],
-    correctAnswer: "Gable end frame with exterior fixing points",
-    explanation: "The gable end frame provides support for roof covering and may support the gable wall above ceiling level."
+    question: "Which element channels rainwater from inside a cavity back outside?",
+    options: ["Drip edge", "Wall tie", "Cavity tray", "Sill unit"],
+    correctAnswer: "Cavity tray",
+    explanation: "Cavity trays collect moisture and allow it to exit via weep holes above openings."
   },
   {
     id: 'joinery-l2-building-construction17',
-    question: "What is the purpose of a screed layer in a concrete floor construction?",
-    options: ["To create a smooth, level surface for flooring", "To provide essential thermal insulation properties", "To increase the structural strength capacity", "To prevent moisture penetration from ground"],
-    correctAnswer: "To create a smooth, level surface for flooring",
-    explanation: "Screed creates a level surface for floor finishes, typically 50-75mm thick."
+    question: "What is the U-value a measure of?",
+    options: ["Moisture rate", "Fire spread", "Heat loss", "Vapour flow"],
+    correctAnswer: "Heat loss",
+    explanation: "U-values measure how much heat passes through materials — lower is better."
   },
   {
     id: 'joinery-l2-building-construction18',
-    question: "What is the minimum depth (going) of a stair tread in a private domestic staircase according to UK Building Regulations?",
-    options: ["300mm for accessible stair designs", "180mm for space-saving designs", "250mm including the nosing projection", "220mm measured from nosing to nosing"],
-    correctAnswer: "220mm measured from nosing to nosing",
-    explanation: "220mm minimum going provides adequate foot support on domestic stairs."
+    question: "What is the horizontal part of a stair step called?",
+    options: ["Going", "Riser", "Pitch", "String"],
+    correctAnswer: "Going",
+    explanation: "The going is the depth of each step, measured from nosing to nosing."
   },
   {
     id: 'joinery-l2-building-construction19',
-    question: "What is the main advantage of engineered timber I-joists over traditional solid timber joists in floor construction?",
-    options: ["Simplified handling and installation process", "Superior acoustic isolation properties", "Greater span capability with less material", "Lower production and material costs"],
-    correctAnswer: "Greater span capability with less material",
-    explanation: "I-joists use material efficiently to span longer distances with less deflection than solid timber."
+    question: "What does a trimmer joist do?",
+    options: ["Add depth", "Reinforce ceiling", "Surround openings", "Support outer wall"],
+    correctAnswer: "Surround openings",
+    explanation: "Trimmers are fitted around stairwells or hatches to support shortened joists."
   },
   {
     id: 'joinery-l2-building-construction20',
-    question: "In building construction, what is meant by the term 'U-value'?",
-    options: ["The universal building material standard", "The ultraviolet radiation transmission rate", "The underground service access rating", "The heat transfer rate through materials"],
-    correctAnswer: "The heat transfer rate through materials",
-    explanation: "U-value measures heat transfer through materials, with lower values indicating better insulation."
+    question: "What thickness are standard mortar joints in brickwork?",
+    options: ["5mm", "8mm", "10mm", "15mm"],
+    correctAnswer: "10mm",
+    explanation: "Mortar joints are normally 10mm thick to give standard course heights."
   },
   {
     id: 'joinery-l2-building-construction21',
-    question: "What is the purpose of a wall tie in cavity wall construction?",
-    options: ["To connect inner and outer wall leaves", "To enhance thermal insulation properties", "To provide support for ceiling components", "To reinforce corners in brick structures"],
-    correctAnswer: "To connect inner and outer wall leaves",
-    explanation: "Wall ties connect the inner and outer leaves while maintaining the cavity between them."
+    question: "What is the typical depth of domestic foundations in stable UK soil?",
+    options: ["150mm", "300mm", "450mm", "900mm"],
+    correctAnswer: "900mm",
+    explanation: "A minimum depth of 900mm is required to reach below frost and ensure stability."
   },
   {
     id: 'joinery-l2-building-construction22',
-    question: "What is the primary purpose of a damp-proof membrane (DPM) in a ground floor construction?",
-    options: ["To create a smooth surface for finishing", "To add structural integrity to concrete", "To improve floor thermal efficiency", "To prevent ground moisture rising into floors"],
-    correctAnswer: "To prevent ground moisture rising into floors",
-    explanation: "DPMs block ground moisture and gases from penetrating into the floor structure."
+    question: "What does a screed layer do on a floor?",
+    options: ["Insulate base", "Add structure", "Level surface", "Block vapour"],
+    correctAnswer: "Level surface",
+    explanation: "Screeds provide a smooth, level surface for applying floor finishes."
   },
   {
     id: 'joinery-l2-building-construction23',
-    question: "What is the name of the horizontal timber member at the base of a partition wall to which vertical studs are fixed?",
-    options: ["Joist supporting the structure", "Head plate at the upper section", "Sole plate at the bottom edge", "Noggin between vertical supports"],
-    correctAnswer: "Sole plate at the bottom edge",
-    explanation: "The sole plate forms the base of stud walls and provides fixing for vertical studs."
+    question: "What is the main benefit of I-joists over solid joists?",
+    options: ["Lower weight", "Higher cost", "Shorter spans", "Less deflection"],
+    correctAnswer: "Less deflection",
+    explanation: "I-joists span greater distances without sagging compared to solid timber joists."
   },
   {
     id: 'joinery-l2-building-construction24',
-    question: "In timber frame construction, what is the typical spacing of vertical studs in load-bearing walls?",
-    options: ["1200mm centres with reinforced sections", "900mm centres for light partition walls", "400mm or 600mm centres as standard", "300mm centres for heavy load areas"],
-    correctAnswer: "400mm or 600mm centres as standard",
-    explanation: "Studs are typically spaced at 400mm or 600mm centres to align with standard sheet materials."
+    question: "What is the function of a gable ladder in roof construction?",
+    options: ["Insulate loft", "Support tiles", "Extend rafters", "Support gable wall"],
+    correctAnswer: "Extend rafters",
+    explanation: "Gable ladders support the roof overhang at gable ends and extend rafter lines."
   },
   {
     id: 'joinery-l2-building-construction25',
-    question: "What is the purpose of a trimmer joist in floor or roof construction?",
-    options: ["To provide additional acoustic insulation", "To support shortened joists around openings", "To create decorative ceiling frameworks", "To strengthen wall-floor connections"],
-    correctAnswer: "To support shortened joists around openings",
-    explanation: "Trimmers support shortened joists around openings such as stairwells or rooflights."
+    question: "What is a damp-proof membrane used for in floors?",
+    options: ["Resist fire", "Stop moisture", "Improve strength", "Create slope"],
+    correctAnswer: "Stop moisture",
+    explanation: "DPMs prevent ground moisture rising into concrete floor slabs."
   }
 ];
 

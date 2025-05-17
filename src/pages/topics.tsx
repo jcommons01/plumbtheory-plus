@@ -51,15 +51,15 @@ export default function Topics() {
     ];
   
     const level3JoineryTopics: Topic[] = [
-      { id: 'joinery-l3-health-safety', title: 'Advanced Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-planning', title: 'Planning & Organising Work', icon: '📋', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-building-tech', title: 'Advanced Building Technology', icon: '🏗️', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-advanced-timber', title: 'Advanced Timber Technology', icon: '🌳', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-surveying', title: 'Site Surveying & Setting Out', icon: '📐', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-joints-fixings', title: 'Complex Joints & Fixings', icon: '🔩', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-building-regs', title: 'Building Regulations & Standards', icon: '🏛️', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-technical-communication', title: 'Technical Communication', icon: '📑', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
-      { id: 'joinery-l3-sustainability', title: 'Environmental & Sustainability Awareness', icon: '🌱', isPro: true, level: 3, totalQuestions: 50, trade: 'Joinery' },
+      { id: 'joinery-l3-health-safety', title: 'Advanced Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-planning', title: 'Planning & Organising Work', icon: '📋', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-building-tech', title: 'Advanced Building Technology', icon: '🏗️', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-advanced-timber', title: 'Advanced Timber Technology', icon: '🌳', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-surveying', title: 'Site Surveying & Setting Out', icon: '📐', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-joints-fixings', title: 'Complex Joints & Fixings', icon: '🔩', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-building-regs', title: 'Building Regulations & Standards', icon: '🏛️', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-technical-communication', title: 'Technical Communication', icon: '📑', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
+      { id: 'joinery-l3-sustainability', title: 'Environmental & Sustainability Awareness', icon: '🌱', isPro: true, level: 3, totalQuestions: 25, trade: 'Joinery' },
     ];
   
     const level2BricklayingTopics: Topic[] = [
@@ -76,16 +76,16 @@ export default function Topics() {
     ];
 
     const level3BricklayingTopics: Topic[] = [
-      { id: 'bricklaying-l3-health-safety', title: 'Advanced Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-masonry-structures', title: 'Complex Masonry Structures', icon: '🧱', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-planning', title: 'Planning & Organising Work', icon: '📋', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-building-tech', title: 'Advanced Building Technology', icon: '🏗️', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-setting-out', title: 'Setting Out for Complex Projects', icon: '📐', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-structural-movement', title: 'Structural Movement & Control Joints', icon: '🏚️', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-conservation', title: 'Conservation & Restoration Techniques', icon: '🏛️', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-building-regs', title: 'Building Regulations & Compliance', icon: '📜', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-thermal-moisture', title: 'Thermal & Moisture Protection Systems', icon: '💧', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
-      { id: 'bricklaying-l3-sustainability', title: 'Sustainability & Environmental Awareness', icon: '🌱', isPro: true, level: 3, totalQuestions: 50, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-health-safety', title: 'Advanced Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-masonry-structures', title: 'Complex Masonry Structures', icon: '🧱', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-planning', title: 'Planning & Organising Work', icon: '📋', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-building-tech', title: 'Advanced Building Technology', icon: '🏗️', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-setting-out', title: 'Setting Out for Complex Projects', icon: '📐', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-structural-movement', title: 'Structural Movement & Control Joints', icon: '🏚️', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-conservation', title: 'Conservation & Restoration Techniques', icon: '🏛️', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-building-regs', title: 'Building Regulations & Compliance', icon: '📜', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-thermal-moisture', title: 'Thermal & Moisture Protection Systems', icon: '💧', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
+      { id: 'bricklaying-l3-sustainability', title: 'Sustainability & Environmental Awareness', icon: '🌱', isPro: true, level: 3, totalQuestions: 25, trade: 'Bricklaying' },
     ];
 
     const buildingRegsTopics: Topic[] = [
@@ -144,13 +144,13 @@ export default function Topics() {
     ];
   
     const level3HVACTopics: Topic[] = [
-      { id: 'hvac-l3-health-safety', title: 'Advanced Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
-      { id: 'hvac-l3-system-design', title: 'System Design & Planning', icon: '📐', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
-      { id: 'hvac-l3-f-gas', title: 'F-Gas Regulations', icon: '🧪', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
-      { id: 'hvac-l3-commissioning', title: 'Commissioning & Testing', icon: '✅', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
-      { id: 'hvac-l3-fault-finding', title: 'Fault Diagnosis & Rectification', icon: '🔍', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
-      { id: 'hvac-l3-efficiency', title: 'Energy Efficiency & Controls', icon: '⚙️', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
-      { id: 'hvac-l3-regulations', title: 'Environmental Regulations', icon: '📜', isPro: true, level: 3, totalQuestions: 50, trade: 'HVAC' },
+      { id: 'hvac-l3-health-safety', title: 'Advanced Health & Safety', icon: '⚠️', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l3-system-design', title: 'System Design & Planning', icon: '📐', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l3-f-gas', title: 'F-Gas Regulations', icon: '🧪', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l3-commissioning', title: 'Commissioning & Testing', icon: '✅', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l3-fault-finding', title: 'Fault Diagnosis & Rectification', icon: '🔍', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l3-efficiency', title: 'Energy Efficiency & Controls', icon: '⚙️', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
+      { id: 'hvac-l3-regulations', title: 'Environmental Regulations', icon: '📜', isPro: true, level: 3, totalQuestions: 25, trade: 'HVAC' },
     ];
     
     const cscsTopics: Topic[] = [

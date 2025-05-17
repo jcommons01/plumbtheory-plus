@@ -23,178 +23,178 @@ const db = getFirestore(app);
 const questions = [
   {
     id: 'joinery-l2-health-safety1',
-    question: "According to the Health and Safety at Work Act, who is primarily responsible for ensuring health and safety on a construction site?",
-    options: ["Only the site manager", "Only the health and safety officer", "Only individual workers", "Employers and employees, with the employer having the main responsibility"],
-    correctAnswer: "Employers and employees, with the employer having the main responsibility",
-    explanation: "Employers hold primary responsibility while employees must cooperate with safe working practices."
+    question: "Who is legally responsible for health and safety on site?",
+    options: ["Everyone including the employer and workers", "Only the health and safety officer", "Only the site manager", "Just the subcontractors"],
+    correctAnswer: "Everyone including the employer and workers",
+    explanation: "Employers hold overall responsibility, but workers must also follow safety rules."
   },
   {
     id: 'joinery-l2-health-safety2',
-    question: "What is the purpose of a risk assessment in joinery work?",
-    options: ["To identify hazards and determine appropriate control measures", "To calculate insurance premiums", "To assign blame after an accident occurs", "To determine how fast work can be completed"],
-    correctAnswer: "To identify hazards and determine appropriate control measures",
-    explanation: "Risk assessments identify potential hazards and establish appropriate controls to minimize risks."
+    question: "What is the aim of a risk assessment?",
+    options: ["To minimise hazards through control measures", "To select which staff are at fault", "To plan the job layout", "To price the job more accurately"],
+    correctAnswer: "To minimise hazards through control measures",
+    explanation: "Risk assessments identify hazards and outline how to reduce associated risks."
   },
   {
     id: 'joinery-l2-health-safety3',
-    question: "What does PPE stand for in construction health and safety?",
-    options: ["Preventative Project Evaluation", "Powered Processing Equipment", "Personal Protective Equipment", "Personal Protection Equipment"],
+    question: "What does PPE stand for?",
+    options: ["Personal Protective Equipment", "Planned Project Evaluation", "Pressure Powered Extractor", "Permanent Positioning Element"],
     correctAnswer: "Personal Protective Equipment",
-    explanation: "PPE includes safety items like gloves, eyewear and masks that protect workers from hazards."
+    explanation: "PPE includes protective clothing and equipment to reduce exposure to hazards."
   },
   {
     id: 'joinery-l2-health-safety4',
-    question: "What colour is a prohibition safety sign (e.g., 'No Entry') according to UK regulations?",
-    options: ["Blue circle with white symbol", "Red circle with diagonal line and black symbol on white background", "Green circle with white symbol", "Yellow triangle with black border and symbol"],
-    correctAnswer: "Red circle with diagonal line and black symbol on white background",
-    explanation: "Prohibition signs use red circles with diagonal lines to indicate forbidden actions."
+    question: "Which colour sign indicates a prohibition action?",
+    options: ["Red with a diagonal line", "Blue with a white symbol", "Green with a tick", "Yellow with black text"],
+    correctAnswer: "Red with a diagonal line",
+    explanation: "Red signs with diagonal lines signal actions that are forbidden on site."
   },
   {
     id: 'joinery-l2-health-safety5',
-    question: "Which of these is a critical control measure for managing wood dust exposure?",
-    options: ["Working faster to reduce exposure time", "Using water on electrical tools", "Using louder machinery to drown out noise concerns", "Using local exhaust ventilation (dust extraction)"],
-    correctAnswer: "Using local exhaust ventilation (dust extraction)",
-    explanation: "Local exhaust ventilation captures harmful wood dust at source before it can be inhaled."
+    question: "Which control best reduces wood dust exposure?",
+    options: ["Local extraction system", "Keeping the windows open", "Wearing sandals", "Using larger machines"],
+    correctAnswer: "Local extraction system",
+    explanation: "Dust extraction systems remove harmful particles at the source of creation."
   },
   {
     id: 'joinery-l2-health-safety6',
-    question: "What is the recommended maximum weight for a male to lift at waist height according to HSE manual handling guidelines?",
-    options: ["10kg", "5kg", "25kg", "20kg"],
-    correctAnswer: "20kg",
-    explanation: "HSE guidelines recommend 20kg maximum at waist height for men in ideal conditions."
+    question: "What does COSHH regulate?",
+    options: ["Hazardous substances", "Timber grades", "Employee taxes", "Shift lengths"],
+    correctAnswer: "Hazardous substances",
+    explanation: "COSHH ensures chemicals and dusts are used safely in the workplace."
   },
   {
     id: 'joinery-l2-health-safety7',
-    question: "What document must be consulted before using a hazardous substance such as a wood treatment chemical?",
-    options: ["COSHH safety data sheet", "Building regulations", "Tool manufacturer's warranty", "Invoice for the materials"],
-    correctAnswer: "COSHH safety data sheet",
-    explanation: "COSHH safety data sheets provide essential information about handling hazardous substances safely."
+    question: "What should be done with damaged equipment?",
+    options: ["Remove it from use and report it", "Use it until parts arrive", "Ignore the damage", "Pass it to the next worker"],
+    correctAnswer: "Remove it from use and report it",
+    explanation: "Defective tools must be taken out of service to prevent harm."
   },
   {
     id: 'joinery-l2-health-safety8',
-    question: "What does RIDDOR stand for?",
-    options: ["Risk Identification and Danger Detection on Request", "Regional Inspection of Directives and Daily Operational Reviews", "Regulation of Internal Development and Directional Operational Requirements", "Reporting of Injuries, Diseases and Dangerous Occurrences Regulations"],
-    correctAnswer: "Reporting of Injuries, Diseases and Dangerous Occurrences Regulations",
-    explanation: "RIDDOR requires reporting of specific workplace accidents, diseases and dangerous incidents."
+    question: "What does RIDDOR require?",
+    options: ["Reporting dangerous incidents", "Checking time sheets", "Recycling old plans", "Recording weather conditions"],
+    correctAnswer: "Reporting dangerous incidents",
+    explanation: "RIDDOR ensures accidents and near misses are properly recorded."
   },
   {
     id: 'joinery-l2-health-safety9',
-    question: "What is the primary purpose of a Method Statement in joinery work?",
-    options: ["To calculate project costs", "To advertise services to potential clients", "To detail how a task will be carried out safely", "To record employee working hours"],
-    correctAnswer: "To detail how a task will be carried out safely",
-    explanation: "Method Statements provide step-by-step instructions for completing tasks safely and effectively."
+    question: "What is the main fire risk in a joinery shop?",
+    options: ["Accumulated wood dust", "Fresh paint on walls", "Loud noise from tools", "Open doors in cold weather"],
+    correctAnswer: "Accumulated wood dust",
+    explanation: "Fine wood dust is flammable and must be managed safely."
   },
   {
     id: 'joinery-l2-health-safety10',
-    question: "Which of these is a common cause of fires in joinery workshops?",
-    options: ["Excessive ventilation", "Using hand tools", "Storing timber in vertical racks", "Wood dust accumulation near electrical equipment"],
-    correctAnswer: "Wood dust accumulation near electrical equipment",
-    explanation: "Wood dust is highly combustible and can ignite from electrical equipment heat or sparks."
+    question: "Which mask provides the best protection from fine dust?",
+    options: ["FFP3 disposable mask", "Paper towel wrap", "Surgical face mask", "Cotton scarf"],
+    correctAnswer: "FFP3 disposable mask",
+    explanation: "FFP3 masks offer high filtration, ideal for hazardous dust."
   },
   {
     id: 'joinery-l2-health-safety11',
-    question: "What is the minimum first aid provision required for a small joinery workshop with 10 employees?",
-    options: ["A trained doctor on site", "No provision is legally required", "An appointed person and a basic first aid kit", "A fully equipped medical room"],
-    correctAnswer: "An appointed person and a basic first aid kit",
-    explanation: "Small workshops require an appointed person and basic first aid kit as minimum provision."
+    question: "What sign is used to indicate a trip hazard?",
+    options: ["Yellow triangle with exclamation mark", "Red square with arrow", "Blue circle with flame", "Green square with footpath"],
+    correctAnswer: "Yellow triangle with exclamation mark",
+    explanation: "Warning signs use yellow triangles to alert to hazards like trips."
   },
   {
     id: 'joinery-l2-health-safety12',
-    question: "What document outlines the main health and safety requirements for a construction project with multiple contractors?",
-    options: ["Construction Phase Plan", "Building regulations approval", "Planning permission", "Architect's specification"],
-    correctAnswer: "Construction Phase Plan",
-    explanation: "The Construction Phase Plan documents safety arrangements for multi-contractor projects under CDM regulations."
+    question: "What is the preferred top-level safety control?",
+    options: ["Elimination of the hazard", "Using PPE", "Job rotation", "Working in silence"],
+    correctAnswer: "Elimination of the hazard",
+    explanation: "The most effective safety control is removing the hazard entirely."
   },
   {
     id: 'joinery-l2-health-safety13',
-    question: "What is the main hazard associated with using a circular saw in joinery work?",
-    options: ["Excessive noise only", "Electrocution from water contact", "Contact with the moving blade", "Overheating of the motor"],
-    correctAnswer: "Contact with the moving blade",
-    explanation: "Blade contact can cause severe cuts and requires proper guarding and safe working techniques."
+    question: "What is required before lifting heavy items?",
+    options: ["Risk assessment", "Back massage", "Company logo on boots", "Fancy gloves"],
+    correctAnswer: "Risk assessment",
+    explanation: "Manual handling tasks require proper assessment to avoid injury."
   },
   {
     id: 'joinery-l2-health-safety14',
-    question: "Which of the following is NOT a typical requirement when working at height as a joiner?",
-    options: ["Ensuring adequate edge protection where there is a risk of falling", "Working alone without supervision whenever possible", "Using appropriate access equipment such as ladders or platforms", "Conducting a risk assessment before starting work"],
-    correctAnswer: "Working alone without supervision whenever possible",
-    explanation: "Working alone at height is discouraged; proper supervision is essential for high-risk activities."
+    question: "What is a safe approach to repetitive tasks?",
+    options: ["Rotate duties and take breaks", "Work nonstop until finished", "Ask a friend to finish", "Take painkillers"],
+    correctAnswer: "Rotate duties and take breaks",
+    explanation: "Breaks and variety help reduce physical stress on the body."
   },
   {
     id: 'joinery-l2-health-safety15',
-    question: "What should you do if you discover damaged electrical equipment in a joinery workshop?",
-    options: ["Try to fix it yourself immediately", "Remove it from use, label it as defective, and report it to your supervisor", "Continue using it but with extra caution", "Ignore it as long as it still functions"],
-    correctAnswer: "Remove it from use, label it as defective, and report it to your supervisor",
-    explanation: "Damaged equipment must be removed from use immediately and reported to prevent accidents."
+    question: "What’s the safe action when unsure how to use a tool?",
+    options: ["Ask for training first", "Guess and try it", "Watch someone else", "Look for a shortcut"],
+    correctAnswer: "Ask for training first",
+    explanation: "Training ensures the tool is used safely and correctly."
   },
   {
     id: 'joinery-l2-health-safety16',
-    question: "Which type of dust mask is appropriate for protection against wood dust during machine sanding?",
-    options: ["A simple cloth face covering", "FFP1 disposable mask", "Any dust mask is sufficient", "FFP3 disposable mask"],
-    correctAnswer: "FFP3 disposable mask",
-    explanation: "FFP3 masks filter at least 99% of airborne particles, suitable for carcinogenic wood dust."
+    question: "When must hearing protection be worn?",
+    options: ["Over 85 decibels", "At lunchtime", "If it feels too quiet", "In bright sunlight"],
+    correctAnswer: "Over 85 decibels",
+    explanation: "UK law requires hearing protection where noise exceeds 85dB."
   },
   {
     id: 'joinery-l2-health-safety17',
-    question: "What is the purpose of a CSCS (Construction Skills Certification Scheme) card in the UK construction industry?",
-    options: ["To track working hours on construction projects", "To provide vehicle parking permissions on construction sites", "To prove the holder has the training and qualifications required for their job", "To prove identity when collecting materials from suppliers"],
-    correctAnswer: "To prove the holder has the training and qualifications required for their job",
-    explanation: "CSCS cards verify holders have the necessary training and qualifications for their construction role."
+    question: "What is the best way to prevent electrocution?",
+    options: ["Check tools before use", "Use wet hands", "Wear metal gloves", "Leave leads tangled"],
+    correctAnswer: "Check tools before use",
+    explanation: "Inspections help identify faulty equipment before use."
   },
   {
     id: 'joinery-l2-health-safety18',
-    question: "What is the most appropriate action when a job requires working in an awkward position that might cause back strain?",
-    options: ["Use painkillers before starting work", "Take regular breaks and rotate tasks", "Complete the job quickly to minimize exposure time", "Ignore any discomfort as it's part of the job"],
-    correctAnswer: "Take regular breaks and rotate tasks",
-    explanation: "Regular breaks and task rotation prevent musculoskeletal injuries from awkward working positions."
+    question: "Why are COSHH data sheets important?",
+    options: ["They explain handling and risks", "They help you get promoted", "They reduce product costs", "They replace PPE"],
+    correctAnswer: "They explain handling and risks",
+    explanation: "Data sheets inform safe use of chemicals and substances."
   },
   {
     id: 'joinery-l2-health-safety19',
-    question: "Under UK regulations, what is the maximum sound level above which hearing protection must be worn?",
-    options: ["75 decibels", "85 decibels", "80 decibels", "70 decibels"],
-    correctAnswer: "85 decibels",
-    explanation: "Hearing protection is mandatory at or above 85 decibels under Noise at Work Regulations."
+    question: "What makes a fire door effective?",
+    options: ["Correct installation and fire rating", "Being made from metal", "Painting it red", "Positioning it at the rear exit"],
+    correctAnswer: "Correct installation and fire rating",
+    explanation: "Fire doors must meet standards and be installed properly."
   },
   {
     id: 'joinery-l2-health-safety20',
-    question: "What information should be included on a safety sign indicating the presence of a trip hazard?",
-    options: ["Just a verbal warning is sufficient", "Only the company logo", "Only written text explaining the hazard", "A warning symbol (black exclamation mark in a yellow triangle) plus text if necessary"],
-    correctAnswer: "A warning symbol (black exclamation mark in a yellow triangle) plus text if necessary",
-    explanation: "Warning signs require a yellow triangle with black symbol and optional clarifying text."
+    question: "What is a Method Statement?",
+    options: ["Safe step-by-step procedure", "Wood cutting diagram", "Tool hire contract", "Project invoice"],
+    correctAnswer: "Safe step-by-step procedure",
+    explanation: "Method Statements explain how work will be done safely."
   },
   {
     id: 'joinery-l2-health-safety21',
-    question: "When installing a fire door, what is the primary safety consideration?",
-    options: ["Making sure it matches other doors in the building", "Ensuring it meets fire resistance specifications and is properly fitted", "The appearance of the door", "The cost of materials"],
-    correctAnswer: "Ensuring it meets fire resistance specifications and is properly fitted",
-    explanation: "Fire doors must meet specific resistance ratings and be correctly installed to save lives."
+    question: "Why should defective ladders be removed?",
+    options: ["To prevent falls or injury", "To save time", "So others can fix them", "To use later when quiet"],
+    correctAnswer: "To prevent falls or injury",
+    explanation: "Damaged ladders pose serious risks and must not be used."
   },
   {
     id: 'joinery-l2-health-safety22',
-    question: "What should a joiner do before operating an unfamiliar power tool on a construction site?",
-    options: ["Make adjustments to suit personal preferences", "Test it briefly without supervision", "Receive proper training and read the manufacturer's instructions", "Ask a colleague to demonstrate while watching from a distance"],
-    correctAnswer: "Receive proper training and read the manufacturer's instructions",
-    explanation: "Proper training and reading instructions are essential before using unfamiliar power tools."
+    question: "What does a CSCS card confirm?",
+    options: ["You are qualified for your role", "You own a vehicle", "You work late often", "You have loud tools"],
+    correctAnswer: "You are qualified for your role",
+    explanation: "CSCS cards show that you are trained and competent for site work."
   },
   {
     id: 'joinery-l2-health-safety23',
-    question: "What type of accident is most likely to occur when using a chisel incorrectly?",
-    options: ["Respiratory disease", "Cut to the hand or body", "Electric shock", "Eye injury from flying dust"],
-    correctAnswer: "Cut to the hand or body",
-    explanation: "Incorrect chisel use commonly results in cuts when not cutting away from the body."
+    question: "What causes most chisel injuries?",
+    options: ["Cutting towards the body", "Using rubber gloves", "Marking timber too lightly", "Sharpening too often"],
+    correctAnswer: "Cutting towards the body",
+    explanation: "Always cut away from yourself to avoid serious injury."
   },
   {
     id: 'joinery-l2-health-safety24',
-    question: "What is meant by the term 'competent person' in health and safety regulations?",
-    options: ["Someone who is physically strong enough to perform manual tasks", "Someone who has worked in the industry for at least 10 years", "Someone who has the necessary skills, knowledge, experience, and training to perform a task safely", "Only a formally qualified health and safety professional"],
-    correctAnswer: "Someone who has the necessary skills, knowledge, experience, and training to perform a task safely",
-    explanation: "Competent persons have appropriate skills, knowledge, experience and training for specific tasks."
+    question: "What is a 'competent person' under safety rules?",
+    options: ["Trained, skilled and experienced", "Physically strong", "Wearing a helmet", "Friendly and helpful"],
+    correctAnswer: "Trained, skilled and experienced",
+    explanation: "Competence means having the right training and understanding to carry out a task safely."
   },
   {
     id: 'joinery-l2-health-safety25',
-    question: "In terms of the 'hierarchy of control' for managing health and safety risks, which of these is the most preferable control measure?",
-    options: ["Engineering controls such as dust extraction", "Eliminating the hazard entirely", "Providing personal protective equipment", "Administrative controls such as job rotation"],
-    correctAnswer: "Eliminating the hazard entirely",
-    explanation: "Elimination is the most effective control measure as it completely removes the hazard."
+    question: "What must be done before working at height?",
+    options: ["Carry out a full risk assessment", "Wait for a sunny day", "Close all nearby windows", "Check your emails"],
+    correctAnswer: "Carry out a full risk assessment",
+    explanation: "Assessing risks ensures the correct access equipment and controls are used."
   }
 ];
 
