@@ -21,184 +21,179 @@ const db = getFirestore(app);
 const questions = [
   {
     id: 'installationdesign01',
-    question: "What is the first step in the electrical installation design process?",
-    options: ["Select cable sizes", "Choose protective devices", "Assess client requirements", "Calculate Zs values"],
-    correctAnswer: "Assess client requirements",
-    explanation: "Understanding the client's needs and installation purpose is essential before any technical calculations or component selection."
+    question: 'Which factor primarily determines the rating of a protective device?',
+    options: ['Cable type', 'Design current', 'Number of circuits', 'Voltage drop'],
+    correctAnswer: 'Design current',
+    explanation: 'Protective devices are chosen based on the design current to ensure effective protection against overload.'
   },
   {
     id: 'installationdesign02',
-    question: "Which document provides guidance on energy efficiency in electrical installations?",
-    options: ["Part P Building Regulations", "BS 7671 Section 8", "Wiring Matters", "IET CoP for Electricians"],
-    correctAnswer: "BS 7671 Section 8",
-    explanation: "Section 8 of BS 7671 introduces recommendations for improving the energy efficiency of electrical designs."
+    question: 'What is the typical maximum voltage drop for lighting circuits in the UK?',
+    options: ['5%', '3%', '1%', '7%'],
+    correctAnswer: '3%',
+    explanation: 'Lighting circuits should not exceed 3% voltage drop to ensure proper performance and compliance.'
   },
   {
     id: 'installationdesign03',
-    question: "What factor determines the selection of a protective device rating?",
-    options: ["Voltage drop", "Cable armouring", "Design current (Ib)", "Maximum demand"],
-    correctAnswer: "Design current (Ib)",
-    explanation: "The protective device rating must be at least equal to the design current and less than or equal to the cable’s current capacity."
+    question: 'What is the correct formula for power in a three-phase balanced system?',
+    options: ['P = V × I', 'P = I²R', 'P = √3 × V × I × cos φ', 'P = V × I × sin φ'],
+    correctAnswer: 'P = √3 × V × I × cos φ',
+    explanation: 'This is the standard formula used to calculate total power in three-phase systems with a power factor.'
   },
   {
     id: 'installationdesign04',
-    question: "Which factor has the greatest impact on voltage drop over long cable runs?",
-    options: ["Insulation type", "Cable resistance", "Cable reactance", "Circuit breaker type"],
-    correctAnswer: "Cable resistance",
-    explanation: "Cable resistance increases with length and has the most significant effect on voltage drop, especially in single-phase circuits."
+    question: 'Which regulation relates to overload protection requirements?',
+    options: ['Reg 132.5.1', 'Reg 433.1.1', 'Reg 544.1.1', 'Reg 411.3.1.2'],
+    correctAnswer: 'Reg 433.1.1',
+    explanation: 'Reg 433.1.1 in BS 7671 addresses the need for overload protection of circuits.'
   },
   {
     id: 'installationdesign05',
-    question: "What is the purpose of applying diversity in design calculations?",
-    options: ["To reduce costs", "To allow future load expansion", "To account for non-simultaneous loads", "To improve Zs readings"],
-    correctAnswer: "To account for non-simultaneous loads",
-    explanation: "Diversity considers that not all loads operate at full capacity simultaneously, allowing for more realistic current calculations."
+    question: 'Why are correction factors applied in cable calculations?',
+    options: ['To allow for voltage fluctuations', 'To adjust for environment', 'To account for earthing', 'To lower diversity'],
+    correctAnswer: 'To adjust for environment',
+    explanation: 'Correction factors like Ca and Cg account for temperature, grouping, and other conditions affecting cables.'
   },
   {
     id: 'installationdesign06',
-    question: "Which formula is used to calculate the total power of a three-phase load?",
-    options: ["P = V × I", "P = √3 × V × I × cos φ", "P = I²R", "P = V × I × sin φ"],
-    correctAnswer: "P = √3 × V × I × cos φ",
-    explanation: "This is the standard formula for three-phase power with a non-unity power factor."
+    question: 'What does a power factor of 0.85 suggest?',
+    options: ['Low efficiency', 'High current draw', 'Balanced loads', 'Weak earth fault path'],
+    correctAnswer: 'High current draw',
+    explanation: 'A power factor below 1 means more current is needed for the same power output, reducing efficiency.'
   },
   {
     id: 'installationdesign07',
-    question: "What is the maximum allowable voltage drop for lighting circuits in the UK?",
-    options: ["2%", "3%", "4%", "5%"],
-    correctAnswer: "3%",
-    explanation: "BS 7671 recommends that lighting circuits should not exceed 3% voltage drop to maintain safe and reliable operation."
+    question: 'Which system requires particular care with earth loop impedance and voltage drop?',
+    options: ['Domestic', 'Industrial', 'TT', 'Long rural'],
+    correctAnswer: 'Long rural',
+    explanation: 'Long cable runs increase resistance, impacting both voltage drop and Zs values.'
   },
   {
     id: 'installationdesign08',
-    question: "Which BS 7671 regulation requires protection against overload current?",
-    options: ["Reg 433.1.1", "Reg 411.3.1.1", "Reg 521.10.202", "Reg 131.8"],
-    correctAnswer: "Reg 433.1.1",
-    explanation: "Regulation 433.1.1 requires circuits to be protected against overload currents under normal conditions."
+    question: 'What is the role of diversity in design calculations?',
+    options: ['Improve Zs', 'Reduce costs', 'Account for load variety', 'Prevent faults'],
+    correctAnswer: 'Account for load variety',
+    explanation: 'Diversity accounts for the fact that not all connected loads will operate simultaneously.'
   },
   {
     id: 'installationdesign09',
-    question: "What is the standard utilisation factor for a socket outlet circuit?",
-    options: ["0.5", "0.8", "1.0", "0.3"],
-    correctAnswer: "1.0",
-    explanation: "A utilisation factor of 1.0 is commonly used for socket circuits, assuming full potential use by the end user."
+    question: 'Which device is used for automatic disconnection during an earth fault?',
+    options: ['SPD', 'RCD', 'MCB', 'Switch fuse'],
+    correctAnswer: 'RCD',
+    explanation: 'RCDs detect imbalance between live and neutral, disconnecting quickly in case of leakage.'
   },
   {
     id: 'installationdesign10',
-    question: "When designing for external influences, which code represents water ingress protection?",
-    options: ["AD", "AE", "BD", "IP"],
-    correctAnswer: "IP",
-    explanation: "The IP (Ingress Protection) code classifies degrees of protection against solid objects and water penetration."
+    question: 'What does IP65 mean in electrical design?',
+    options: ['Protected against dust and jets', 'Protected against immersion', 'Indoor use only', 'Low voltage only'],
+    correctAnswer: 'Protected against dust and jets',
+    explanation: 'IP65 means the product is dust-tight and resistant to water jets, suitable for outdoor use.'
   },
   {
     id: 'installationdesign11',
-    question: "What must be considered when designing for future electrical load expansion?",
-    options: ["Temporary load", "Cable colour", "Spare capacity", "Supply earthing system"],
-    correctAnswer: "Spare capacity",
-    explanation: "Allowing for spare capacity ensures the system can safely support future additional loads without major redesign."
+    question: 'Which document outlines UK energy efficiency guidance for installations?',
+    options: ['BS 5839', 'Part L', 'BS 7671 Section 8', 'Part P'],
+    correctAnswer: 'BS 7671 Section 8',
+    explanation: 'Section 8 of BS 7671 provides energy efficiency guidance for electrical system design.'
   },
   {
     id: 'installationdesign12',
-    question: "What is the maximum demand of a 100A, 230V single-phase installation with a diversity factor of 0.8?",
-    options: ["18.4 kW", "23.0 kW", "16.0 kW", "20.7 kW"],
-    correctAnswer: "18.4 kW",
-    explanation: "Using P = VI × diversity = 100A × 230V × 0.8 = 18,400W = 18.4 kW."
+    question: 'What must be included when allowing for future electrical loads?',
+    options: ['Larger fuses', 'Spare capacity', 'Double RCDs', 'Extra bonding'],
+    correctAnswer: 'Spare capacity',
+    explanation: 'Spare capacity in panels or cables helps support load increases without major changes.'
   },
   {
     id: 'installationdesign13',
-    question: "Which component ensures automatic disconnection of supply in the event of a fault?",
-    options: ["Main switch", "SPD", "Overcurrent device", "RCD"],
-    correctAnswer: "RCD",
-    explanation: "RCDs detect earth leakage and disconnect supply quickly to prevent electric shock."
+    question: 'What is the standard utilisation factor for socket circuits?',
+    options: ['0.6', '1.0', '0.5', '0.3'],
+    correctAnswer: '1.0',
+    explanation: 'Sockets are assumed to be fully utilised, so a factor of 1.0 is generally used.'
   },
   {
     id: 'installationdesign14',
-    question: "In a three-phase system, what does the term 'balanced load' mean?",
-    options: ["Equal power factor on all lines", "Equal voltage on all phases", "Equal current in each phase", "Load is distributed randomly"],
-    correctAnswer: "Equal current in each phase",
-    explanation: "A balanced load means that all three phases carry equal current, reducing neutral conductor stress."
+    question: 'What does a balanced three-phase load achieve?',
+    options: ['Lower cable cost', 'Equal phase current', 'No fault current', 'Lower Zs'],
+    correctAnswer: 'Equal phase current',
+    explanation: 'Balanced loads ensure all phases carry equal current, improving stability and reducing losses.'
   },
   {
     id: 'installationdesign15',
-    question: "Which test confirms the suitability of a circuit for operation under normal load?",
-    options: ["R1+R2", "Voltage drop", "Prospective fault current", "Zs test"],
-    correctAnswer: "Voltage drop",
-    explanation: "Voltage drop tests confirm that circuits can operate under full load without excessive voltage loss."
+    question: 'What is typically checked using the Zs test?',
+    options: ['Voltage drop', 'RCD function', 'Earth loop path', 'Load balancing'],
+    correctAnswer: 'Earth loop path',
+    explanation: 'Zs verifies the total earth loop impedance to ensure disconnection times are met.'
   },
   {
     id: 'installationdesign16',
-    question: "When must a surge protective device (SPD) be installed?",
-    options: [
-      "In all installations over 25A",
-      "Where interruption would cause danger to life",
-      "If the building has a metal roof",
-      "Only in outdoor installations"
-    ],
-    correctAnswer: "Where interruption would cause danger to life",
-    explanation: "BS 7671 requires SPDs where failure of equipment could impact safety, human life, or public services."
+    question: 'Which code classifies protection against water ingress?',
+    options: ['PD', 'AD', 'IP', 'SP'],
+    correctAnswer: 'IP',
+    explanation: 'IP codes classify the level of protection against dust and moisture for enclosures.'
   },
   {
     id: 'installationdesign17',
-    question: "Which regulation defines requirements for circuit arrangement and division?",
-    options: ["Reg 314.1", "Reg 433.3.1", "Reg 536.4.203", "Reg 411.4.4"],
-    correctAnswer: "Reg 314.1",
-    explanation: "Reg 314.1 addresses proper arrangement to minimise inconvenience and prevent danger during faults or maintenance."
+    question: 'What does Reg 314.1 in BS 7671 relate to?',
+    options: ['Voltage drop', 'Circuit design', 'Isolation methods', 'Arrangement and division'],
+    correctAnswer: 'Arrangement and division',
+    explanation: 'Regulation 314.1 ensures circuits are arranged to reduce inconvenience and improve safety.'
   },
   {
     id: 'installationdesign18',
-    question: "What is the purpose of correction factors (e.g. Ca, Cg) in cable sizing?",
-    options: ["To adjust for installation method", "To increase diversity", "To improve power factor", "To lower Zs values"],
-    correctAnswer: "To adjust for installation method",
-    explanation: "Correction factors compensate for environmental or grouping conditions that affect a cable’s current-carrying capacity."
+    question: 'Which factor most affects voltage drop on a circuit?',
+    options: ['Cable resistance', 'Breaker rating', 'Cable colour', 'RCD type'],
+    correctAnswer: 'Cable resistance',
+    explanation: 'Longer runs increase resistance, which directly increases the voltage drop.'
   },
   {
     id: 'installationdesign19',
-    question: "How is the final circuit protective device rated?",
-    options: ["Greater than cable capacity", "Equal to design current", "Less than design current", "Between Ib and Iz"],
-    correctAnswer: "Between Ib and Iz",
-    explanation: "The protective device must be rated above Ib (design current) but not exceed Iz (cable capacity)."
+    question: 'When is an SPD required under BS 7671?',
+    options: ['In all TT systems', 'Where risk is high', 'When bonding is weak', 'On lighting circuits only'],
+    correctAnswer: 'Where risk is high',
+    explanation: 'SPDs must be fitted where failure of sensitive equipment could affect life or public services.'
   },
   {
     id: 'installationdesign20',
-    question: "What does a cos φ of 0.85 indicate?",
-    options: ["High resistance", "High harmonics", "Poor earthing", "Low power factor"],
-    correctAnswer: "Low power factor",
-    explanation: "A power factor of 0.85 indicates that only 85% of the current is used for useful work, leading to higher current draw."
+    question: 'Which unit represents power factor?',
+    options: ['cos φ', 'R1+R2', 'Zs', 'kWh'],
+    correctAnswer: 'cos φ',
+    explanation: 'Power factor is the cosine of the phase angle between voltage and current.'
   },
   {
     id: 'installationdesign21',
-    question: "What is the main benefit of segregating safety circuits from general power circuits?",
-    options: ["Reduces voltage drop", "Improves bonding", "Minimises EMC", "Prevents mutual interference"],
-    correctAnswer: "Prevents mutual interference",
-    explanation: "Segregation helps avoid electromagnetic interference and ensures integrity of emergency or safety-related circuits."
+    question: 'What is the benefit of separating safety circuits?',
+    options: ['Improves power factor', 'Prevents EMC issues', 'Lowers R1+R2', 'Increases capacity'],
+    correctAnswer: 'Prevents EMC issues',
+    explanation: 'Segregating safety circuits reduces the chance of electromagnetic interference.'
   },
   {
     id: 'installationdesign22',
-    question: "Which installation type requires extra consideration for voltage drop and earth loop impedance?",
-    options: ["Industrial", "Domestic", "TT system", "Long rural circuits"],
-    correctAnswer: "Long rural circuits",
-    explanation: "Long circuits can suffer from excessive volt drop and high Zs, which affect protection and functionality."
+    question: 'What is considered when choosing protective devices?',
+    options: ['RCD speed', 'Circuit type', 'Design current', 'Enclosure colour'],
+    correctAnswer: 'Design current',
+    explanation: 'Protective devices must be suitable for the current expected under normal operation.'
   },
   {
     id: 'installationdesign23',
-    question: "What is the recommended minimum IP rating for accessories installed outdoors?",
-    options: ["IP33", "IP44", "IP54", "IP65"],
-    correctAnswer: "IP65",
-    explanation: "IP65 offers dust-tight and water jet resistance, suitable for general external environments."
+    question: 'What is the typical diversity factor applied to general lighting?',
+    options: ['0.9', '0.7', '1.0', '0.6'],
+    correctAnswer: '0.7',
+    explanation: 'Lighting loads are generally not fully used at once, so 0.7 is commonly applied.'
   },
   {
     id: 'installationdesign24',
-    question: "Which BS 7671 regulation requires consideration of external influences in design?",
-    options: ["Reg 421.1.201", "Reg 132.5.1", "Reg 411.3.2", "Reg 433.1.1"],
-    correctAnswer: "Reg 132.5.1",
-    explanation: "Regulation 132.5.1 requires designers to assess environmental and external conditions when selecting components."
+    question: 'How is maximum demand calculated for small installations?',
+    options: ['Sum of fuse ratings', 'Ib × diversity', 'Main fuse × 0.5', 'Load divided by 2'],
+    correctAnswer: 'Ib × diversity',
+    explanation: 'This method estimates the true expected load based on usage patterns.'
   },
   {
     id: 'installationdesign25',
-    question: "How is maximum demand generally calculated in a small commercial installation?",
-    options: ["Sum of Ib values", "Full load of main fuse", "Ib × diversity factor", "Using R1+R2 values"],
-    correctAnswer: "Ib × diversity factor",
-    explanation: "Maximum demand is estimated using the total design currents with appropriate diversity factors applied."
-  }
+    question: 'Which regulation requires designers to assess external conditions?',
+    options: ['Reg 132.5.1', 'Reg 411.1', 'Reg 434.5', 'Reg 522.6'],
+    correctAnswer: 'Reg 132.5.1',
+    explanation: 'This regulation ensures environmental factors are considered when selecting materials and methods.'
+  },
 ];
 
 async function uploadQuestions() {
