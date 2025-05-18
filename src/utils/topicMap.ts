@@ -23,5 +23,5 @@ export const topicMap: Record<string, string> = {
   'electrical-l3-installation-design': 'electrical-l3-installation-design',
   'electrical-l3-renewables': 'electrical-l3-renewables-microgeneration',
   'electrical-l3-smart-tech': 'electrical-l3-smart-technology-integration',
-  'electrical-l3-three-phase': 'electrical-l3-three-phase-systems-motors',
+  'electrical-l3-three-phase': 'electrical-l3-three-phase',
 };

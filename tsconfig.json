@@ -33,7 +33,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-, "src/components/UpgradeModal.tsx"  ],
+, "src/components/UpgradeModal.tsx", "scripts/validateQuestionCollections.cts"  ],
   "exclude": [
     "node_modules"
   ]

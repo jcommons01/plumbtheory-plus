@@ -199,7 +199,7 @@ const questions = [
 async function uploadQuestions() {
   for (const q of questions) {
     try {
-      await setDoc(doc(db, 'questions', 'electrical-l3-installation-design', 'items', q.id), {
+      await setDoc(doc(db, 'questions', 'electrical-l3-design', 'items', q.id), {
         question: q.question,
         options: q.options,
         correctAnswer: q.correctAnswer,
