@@ -1,4 +1,5 @@
 // ✅ UPDATED: src/pages/quiz/[topic].tsx with dark theme and polished design
+import { topicMap } from '@/utils/topicMap';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getQuizQuestions, updateQuizProgress } from '@/lib/firebase';
@@ -56,8 +57,8 @@ export default function Quiz() {
     try {
       setIsLoading(true);
       const amountNumber = parseInt(amount as string) || 10;
-      const fetchedQuestions = await getQuizQuestions(user.uid, topic, amountNumber);
-
+const resolvedTopic = topicMap[topic] || topic;
+const fetchedQuestions = await getQuizQuestions(user.uid, resolvedTopic, amountNumber);
       const shuffledQuestions = fetchedQuestions.map((q) => ({
         ...q,
         options: shuffleArray(q.options),
