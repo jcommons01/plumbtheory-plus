@@ -36,7 +36,30 @@ export default function Topics() {
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [questionCount, setQuestionCount] = useState<number>(10);
   const [selectedTrade, setSelectedTrade] = useState('Plumbing');
+  useEffect(() => {
+  const savedTrade = localStorage.getItem('lastSelectedTrade');
+  if (savedTrade) {
+    setSelectedTrade(savedTrade);
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem('lastSelectedTrade', selectedTrade);
+}, [selectedTrade]);
+
   const [selectedLevel, setSelectedLevel] = useState<number>(2);
+  // Persist selected level per session
+useEffect(() => {
+  const savedLevel = localStorage.getItem('lastSelectedLevel');
+  if (savedLevel) {
+    setSelectedLevel(Number(savedLevel));
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem('lastSelectedLevel', selectedLevel.toString());
+}, [selectedLevel]);
+
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
   useEffect(() => {
