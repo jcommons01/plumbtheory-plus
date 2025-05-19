@@ -4,7 +4,7 @@ export const topicMap: Record<string, string> = {
   'electrical-l2-building-regs-part-p': 'electrical-l2-building-regulations-part-p',
   'electrical-l2-cables-containment': 'electrical-l2-cables-containment',
   'electrical-l2-electrical-science': 'electrical-l2-electrical-science-principles',
-  'electrical-l2-health-safety': 'electrical-l2-health-and-safety',
+  'electrical-l2-health-safety': 'electrical-l2-health-safety',
   'electrical-l2-initial-verification': 'electrical-l2-initial-verification-testing',
   'electrical-l2-installation-methods': 'electrical-l2-installation-methods',
   'electrical-l2-tools-materials': 'electrical-l2-tools-materials',
