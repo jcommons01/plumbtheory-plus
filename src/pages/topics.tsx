@@ -268,49 +268,52 @@ export default function Topics() {
   };
 
   const renderTopics = () => {
-    const filtered = topics
-      .filter((t) =>
-        selectedTrade === 'Building Regulations'
-          ? t.trade === 'Building Regulations'
-          : t.trade === selectedTrade && t.level === selectedLevel
-      )
-      .sort((a, b) => Number(a.isPro) - Number(b.isPro));
-  
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((topic) => {
-          const progressData = userData?.quizProgress?.[topic.id] || {};
-          const lastCorrect = progressData.lastCorrect ?? null;
-          const lastTotal = progressData.lastTotal ?? null;
-          const seenIds = progressData.seenIds || [];
-  
-          const hasAttempted = lastCorrect !== null && lastTotal !== null;
-          const percentage =
-            hasAttempted && lastTotal > 0
-              ? Math.round((lastCorrect / lastTotal) * 100)
-              : 0;
-  
-          const caption = hasAttempted
-            ? `${lastCorrect}/${lastTotal} - Last attempt\nSeen: ${seenIds.length} questions`
-            : 'No attempts yet';
-  
-          return (
-            <TopicCard
-              key={topic.id}
-              title={topic.title}
-              icon={topic.icon}
-              progress={percentage}
-              caption={caption}
-              isPro={topic.isPro}
-              isUserPro={!!userData?.isPro}
-              level={topic.level} // ✅ Needed for styling based on level
-              onClick={() => openQuizOptions(topic)}
-            />
-          );
-        })}
-      </div>
-    );
-  };
+  const filtered = topics
+    .filter((t) =>
+      selectedTrade === 'Building Regulations'
+        ? t.trade === 'Building Regulations'
+        : t.trade === selectedTrade && t.level === selectedLevel
+    )
+    .sort((a, b) => Number(a.isPro) - Number(b.isPro));
+
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {filtered.map((topic) => {
+        
+
+        const progressData = userData?.quizProgress?.[topic.id] || {};
+        const lastCorrect = progressData.lastCorrect ?? null;
+        const lastTotal = progressData.lastTotal ?? null;
+        const seenIds = progressData.seenIds || [];
+
+        const hasAttempted = lastCorrect !== null && lastTotal !== null;
+        const percentage =
+          hasAttempted && lastTotal > 0
+            ? Math.round((lastCorrect / lastTotal) * 100)
+            : 0;
+
+        const caption = hasAttempted
+          ? `${lastCorrect}/${lastTotal} - Last attempt\nSeen: ${seenIds.length} questions`
+          : 'No attempts yet';
+
+        return (
+          <TopicCard
+            key={topic.id}
+            title={topic.title}
+            icon={topic.icon}
+            progress={percentage}
+            caption={caption}
+            isPro={topic.isPro}
+            isUserPro={!!userData?.isPro}
+            level={topic.level}
+            onClick={() => openQuizOptions(topic)}
+          />
+        );
+      })}
+    </div>
+  );
+};
   
   
 
@@ -342,38 +345,38 @@ export default function Topics() {
           {/* Level Selection (hide for trades without levels) */}
 {(() => {
   const currentTrade = TRADE_LEVELS.find((t) => t.name === selectedTrade);
-  if (!currentTrade || !currentTrade.levels || currentTrade.levels.length === 0) return null;
+
+const hasLevels = !!(currentTrade?.levels && currentTrade.levels.length > 0);
 
   return (
-    <div className="flex justify-center mb-6">
-  <div className="inline-flex items-center bg-gray-800 p-1 rounded-lg">
-    {currentTrade.levels.map((level) => (
-      <button
-        key={level}
-        className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${
-          selectedLevel === level
-            ? level === 2
-              ? 'bg-green-700 text-white shadow' // Brighter dark green
-              : 'bg-red-700 text-white shadow'   // Brighter dark red
-            : 'text-gray-300 hover:bg-gray-700'
-        }`}
-        
-        
-        
-        
-        onClick={() => setSelectedLevel(level)}
-      >
-        {`Level ${level}`}
-      </button>
-    ))}
-  </div>
-</div>
+    <>
+      {/* Show level buttons if the trade has levels */}
+      {hasLevels && (
+        <div className="flex justify-center mb-2">
+          <div className="inline-flex items-center bg-gray-800 p-1 rounded-lg">
+            {currentTrade!.levels.map((level) => (
+              <button
+                key={level}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${
+                  selectedLevel === level
+                    ? level === 2
+                      ? 'bg-green-700 text-white shadow'
+                      : 'bg-red-700 text-white shadow'
+                    : 'text-gray-300 hover:bg-gray-700'
+                }`}
+                onClick={() => setSelectedLevel(level)}
+              >
+                {`Level ${level}`}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-
-
-
+    </>
   );
 })()}
+
 
           
           {/* Reference Library Button - Kept the original emerald style as it's a distinct action */}

@@ -9,6 +9,7 @@ type TopicCardProps = {
   isUserPro: boolean;
   level: number; // ✅ Added level to support dynamic styling
   onClick: () => void;
+  compact?: boolean;
 };
 
 const TopicCard: React.FC<TopicCardProps> = ({
@@ -20,17 +21,19 @@ const TopicCard: React.FC<TopicCardProps> = ({
   isUserPro,
   level, // ✅ Add this here to bring it into scope
   onClick,
+  compact,
 }) => {
 
   const locked = isPro && !isUserPro;
 
   return (
     <div
-      onClick={!locked ? onClick : undefined}
-      className={`bg-white shadow-md rounded-lg p-4 transition cursor-pointer ${
-        locked ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg'
-      }`}
-    >
+  onClick={!locked ? onClick : undefined}
+  className={`bg-white shadow-md rounded-lg transition cursor-pointer ${
+    compact ? 'p-3 max-w-xs mx-auto' : 'p-4'
+  } ${locked ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg'}`}
+>
+
       <div className="flex items-center space-x-3 mb-2">
         <span className="text-2xl">{icon}</span>
         <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
