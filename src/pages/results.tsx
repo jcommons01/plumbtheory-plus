@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
-import { topicTitles } from '@/utils/topicTitles';
 
 const formatTopicTitle = (id: string) => {
   let label = id;
@@ -89,7 +88,7 @@ export default function Results() {
           {/* Enhanced header section - reduced vertical padding */}
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold mb-3">
-  Quiz Results: {topicTitles[topic] || formatTopicTitle(topic)}
+Quiz Results: {formatTopicTitle(topic)}
 </h1>
 
             

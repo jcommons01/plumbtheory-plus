@@ -1,5 +1,4 @@
 import React from 'react';
-import { topicTitles } from '@/utils/topicTitles';
 
 type TopicCardProps = {
   title: string;
