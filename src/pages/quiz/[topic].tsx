@@ -1,5 +1,5 @@
 // ✅ UPDATED: src/pages/quiz/[topic].tsx with dark theme and polished design
-import { topicMap } from '@/utils/topicMap';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getQuizQuestions, updateQuizProgress } from '@/lib/firebase';
@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 import QuizQuestion from '@/components/QuizQuestion';
 import ProgressBar from '@/components/ProgressBar';
-import { topicTitles } from '@/utils/topicTitles';
+
 
 function shuffleArray<T>(array: T[]): T[] {
   const copy = [...array];
@@ -57,7 +57,7 @@ export default function Quiz() {
     try {
       setIsLoading(true);
       const amountNumber = parseInt(amount as string) || 10;
-const resolvedTopic = topicMap[topic] || topic;
+const resolvedTopic = topic;
 const fetchedQuestions = await getQuizQuestions(user.uid, resolvedTopic, amountNumber);
       const shuffledQuestions = fetchedQuestions.map((q) => ({
         ...q,
@@ -193,8 +193,9 @@ const fetchedQuestions = await getQuizQuestions(user.uid, resolvedTopic, amountN
           {/* Updated quiz header with refined styling */}
           <h1 className="text-2xl md:text-3xl font-bold mb-1 text-center text-white">
   {typeof topic === 'string'
-    ? `${topicTitles[topic] || topic.replace(/-/g, ' ')} Quiz`
-    : 'Quiz'}
+  ? `${topic.replace(/-/g, ' ')} Quiz`
+  : 'Quiz'}
+
 </h1>
 
           <p className="text-center text-sm text-gray-400 mb-6">
