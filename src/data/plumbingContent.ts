@@ -13,12 +13,10 @@ const plumbingContent = {
           ["Copper", "15mm", "1.2", "1.8"],
           ["Copper", "22mm", "1.8", "2.4"],
           ["Copper", "28mm", "1.8", "2.4"],
-          ["Copper", "35mm", "2.0", "2.5"],
-          ["Copper", "42mm", "2.0", "2.5"],
-          ["Copper", "54mm", "2.0", "2.5"],
-          ["Copper", "67mm", "2.5", "3.0"],
-          ["Copper", "76mm", "2.5", "3.0"],
-          ["Copper", "108mm", "2.5", "3.0"],
+          ["Copper", "35mm", "2.4", "3.0"],
+          ["Copper", "42mm", "2.4", "3.0"],
+          ["Copper", "54mm", "2.7", "3.0"],
+   
   
           // Divider: Plastic
           ["DIVIDER", "Plastic Pipe (Polybutylene / PEX)"],
@@ -40,26 +38,26 @@ const plumbingContent = {
           // Divider: Steel / LCS
           ["DIVIDER", "Steel (LCS) Pipework"],
   
-          ["Steel (LCS)", "½\" (15mm)", "1.2", "1.8"],
-          ["Steel (LCS)", "¾\" (20mm)", "1.8", "2.4"],
-          ["Steel (LCS)", "1\" (25mm)", "2.0", "2.4"],
-          ["Steel (LCS)", "1¼\"", "2.0", "2.5"],
-          ["Steel (LCS)", "1½\"", "2.0", "2.5"],
-          ["Steel (LCS)", "2\"", "2.5", "3.0"],
+          ["Steel (LCS)", "½\" (15mm)", "1.8", "2.4"],
+          ["Steel (LCS)", "¾\" (20mm)", "2.4", "3.0"],
+          ["Steel (LCS)", "1\" (25mm)", "2.4", "3.0"],
+          ["Steel (LCS)", "1¼\"", "2.7", "3.6"],
+          ["Steel (LCS)", "1½\"", "3.0", "3.6"],
+        
   
           // Divider: Push-fit Waste
           ["DIVIDER", "Push-fit Waste Pipework"],
   
-          ["Push-fit Waste", "32mm", "0.4", "0.6"],
-          ["Push-fit Waste", "40mm", "0.5", "0.8"],
-          ["Push-fit Waste", "50mm", "0.6", "1.0"],
+          ["Push-fit Waste", "32mm", "0.5", "1.2"],
+          ["Push-fit Waste", "40mm", "0.5", "1.2"],
+          ["Push-fit Waste", "50mm", "0.9", "1.2"],
   
           // Divider: Solvent Weld Waste
           ["DIVIDER", "Solvent Weld Waste Pipework"],
   
-          ["Solvent Weld", "32mm", "0.4", "0.6"],
-          ["Solvent Weld", "40mm", "0.5", "0.8"],
-          ["Solvent Weld", "50mm", "0.6", "1.0"]
+          ["Solvent Weld", "32mm", "0.5", "1.2"],
+          ["Solvent Weld", "40mm", "0.5", "1.2"],
+          ["Solvent Weld", "50mm", "0.9", "1.2"]
         ]
       }
     },
