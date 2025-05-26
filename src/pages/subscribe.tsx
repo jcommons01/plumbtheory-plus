@@ -247,7 +247,7 @@ export default function SubscribePage() {
                 <div className="bg-gray-800 rounded-lg p-5">
                   <h4 className="font-semibold mb-2">Can I cancel my subscription?</h4>
                   <p className="text-gray-300">
-                    Yes, you can cancel your subscription at any time from your account page. You'll continue to have Pro access until the end of your current billing period.
+                    Yes, you can cancel your subscription at any time from your account page.
                   </p>
                 </div>
                 
