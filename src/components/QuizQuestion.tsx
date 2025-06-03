@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthProvider';
 import { toggleBookmark } from '@/lib/bookmark';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 interface QuizQuestionProps {
   question: {
@@ -10,6 +12,7 @@ interface QuizQuestionProps {
     options: string[];
     correctAnswer?: string;
     explanation?: string;
+    topicId?: string;
   };
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
@@ -23,6 +26,7 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
   const { user } = useAuth();
   const [bookmarked, setBookmarked] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
+  const [reportSent, setReportSent] = useState(false);
 
   const handleBookmark = async () => {
     if (!user || !question.id) return;
@@ -30,10 +34,30 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
     setBookmarked(!bookmarked);
   };
 
+  const handleReportQuestion = async () => {
+  if (!question.id) return;
+  try {
+    await addDoc(collection(db, 'questionReports'), {
+      questionId: question.id,
+      topicId: question.topicId || null,
+      questionText: question.text,
+      options: question.options,
+      correctAnswer: question.correctAnswer,
+      reportText: 'Auto-reported for review',
+      timestamp: serverTimestamp(),
+      userId: user?.uid || 'anonymous',
+    });
+    setReportSent(true);
+    setTimeout(() => setReportSent(false), 3000);
+  } catch (error) {
+    console.error('Error reporting question:', error);
+  }
+};
+
+
   const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
 
   useEffect(() => {
-    // Shuffle options every time the question changes
     const shuffled = [...question.options];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -55,7 +79,9 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
         >
           ★
         </button>
+        
       )}
+
 
       <h2 className="text-xl font-bold mb-4">{question.text}</h2>
 
@@ -109,6 +135,29 @@ const QuizQuestion: FC<QuizQuestionProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* 🛠 Report Question Button */}
+      {!reportSent ? (
+  <button
+  onClick={handleReportQuestion}
+  className="mt-4 inline-flex items-center gap-2 px-3 py-2 border border-red-500 text-red-400 text-sm rounded-md hover:bg-red-500 hover:text-white transition"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m0 4H9a2 2 0 01-2-2v-2a2 2 0 012-2h6a2 2 0 012 2v2a2 2 0 01-2 2z" />
+  </svg>
+  Report this question
+</button>
+
+) : (
+  <div className="mt-4 inline-flex items-center gap-2 text-green-400 text-sm">
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+  </svg>
+  Thanks for reporting!
+</div>
+
+)}
+
     </div>
   );
 };

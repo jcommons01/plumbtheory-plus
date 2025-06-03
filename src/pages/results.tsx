@@ -1,28 +1,12 @@
+import { formatTopicTitle } from '@/utils/formatTopicTitle';
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
 
-const formatTopicTitle = (id: string) => {
-  let label = id;
 
-  // Extract level if present
-  let levelSuffix = '';
-  if (id.startsWith('level2-')) {
-    label = id.replace('level2-', '');
-    levelSuffix = ' (Level 2)';
-  } else if (id.startsWith('level3-')) {
-    label = id.replace('level3-', '');
-    levelSuffix = ' (Level 3)';
-  }
+const capitalize = (word: string) =>
+  word.charAt(0).toUpperCase() + word.slice(1);
 
-  // Capitalise words
-  const capitalised = label
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-
-  return capitalised + levelSuffix;
-};
 
 
 type QuestionResult = {

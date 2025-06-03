@@ -3,7 +3,7 @@ import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 import { useEffect, useState } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
 const ADMIN_EMAIL = 'jordoncommons@gmail.com';
@@ -22,7 +22,10 @@ export default function AdminReportsPage() {
   useEffect(() => {
     const fetchReports = async () => {
       const querySnapshot = await getDocs(collection(db, 'questionReports'));
-      const reportData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const reportData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       setReports(reportData);
     };
 
@@ -30,6 +33,15 @@ export default function AdminReportsPage() {
       fetchReports();
     }
   }, [userData]);
+
+  const handleDelete = async (reportId: string) => {
+    try {
+      await deleteDoc(doc(db, 'questionReports', reportId));
+      setReports((prev) => prev.filter((r) => r.id !== reportId));
+    } catch (error) {
+      console.error('Failed to delete report:', error);
+    }
+  };
 
   if (loading) {
     return (
@@ -61,7 +73,18 @@ export default function AdminReportsPage() {
         ) : (
           <div className="space-y-4">
             {reports.map((report) => (
-              <div key={report.id} className="bg-white p-4 rounded shadow border">
+              <div
+                key={report.id}
+                className="bg-white p-4 rounded shadow border relative"
+              >
+                {/* 🗑️ Delete Button */}
+                <button
+                  onClick={() => handleDelete(report.id)}
+                  className="absolute top-3 right-4 text-sm text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+
                 <h3 className="font-semibold text-blue-700 mb-1">Question:</h3>
                 <p className="mb-2 text-gray-800">{report.questionText}</p>
 

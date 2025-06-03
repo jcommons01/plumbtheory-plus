@@ -1,5 +1,6 @@
 // ✅ UPDATED: src/pages/quiz/[topic].tsx with dark theme and polished design
 
+import { formatTopicTitle } from '@/utils/formatTopicTitle';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getQuizQuestions, updateQuizProgress } from '@/lib/firebase';
@@ -7,6 +8,8 @@ import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
 import QuizQuestion from '@/components/QuizQuestion';
 import ProgressBar from '@/components/ProgressBar';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -193,8 +196,9 @@ const fetchedQuestions = await getQuizQuestions(user.uid, resolvedTopic, amountN
           {/* Updated quiz header with refined styling */}
           <h1 className="text-2xl md:text-3xl font-bold mb-1 text-center text-white">
   {typeof topic === 'string'
-  ? `${topic.replace(/-/g, ' ')} Quiz`
+  ? formatTopicTitle(topic)
   : 'Quiz'}
+
 
 </h1>
 
@@ -299,19 +303,40 @@ const QuizQuestionDark = ({
     options: string[];
     correctAnswer?: string;
     explanation?: string;
+    topicId?: string;
   };
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
 }) => {
   const [bookmarked, setBookmarked] = useState(false);
-  
+  const [reportSent, setReportSent] = useState(false);
+  const { user } = useAuth(); // make sure useAuth is imported
   const handleBookmark = async () => {
-    // Bookmark functionality would go here
     setBookmarked(!bookmarked);
   };
-  
+
+  const handleReportQuestion = async () => {
+    if (!question.id) return;
+    try {
+      await addDoc(collection(db, 'questionReports'), {
+        questionId: question.id,
+        topicId: question.topicId || null,
+        questionText: question.text,
+        options: question.options,
+        correctAnswer: question.correctAnswer,
+        reportText: 'Auto-reported for review',
+        timestamp: serverTimestamp(),
+        userId: user?.uid || 'anonymous',
+      });
+      setReportSent(true);
+      setTimeout(() => setReportSent(false), 3000);
+    } catch (error) {
+      console.error('Error reporting question:', error);
+    }
+  };
+
   const normalizedCorrect = question.correctAnswer?.trim().toLowerCase();
-  
+
   return (
     <div className="bg-gray-800 rounded-xl shadow-lg p-6 relative">
       {/* Bookmark button */}
@@ -326,19 +351,20 @@ const QuizQuestionDark = ({
           ★
         </button>
       )}
-      
+
       {/* Question text */}
       <h2 className="text-xl font-bold mb-5 text-white pr-8">{question.text}</h2>
-      
+
       {/* Answer options */}
       <div className="space-y-3 mb-4">
         {question.options.map((option, index) => {
           const normalizedOption = option.trim().toLowerCase();
           const isSelected = selectedAnswer === option;
           const isCorrect = normalizedOption === normalizedCorrect;
-          
-          let optionClasses = 'w-full text-left px-4 py-3 rounded-lg border transition-colors focus:outline-none';
-          
+
+          let optionClasses =
+            'w-full text-left px-4 py-3 rounded-lg border transition-colors focus:outline-none';
+
           if (selectedAnswer) {
             if (isCorrect) {
               optionClasses += ' bg-green-900 bg-opacity-20 border-green-600 text-green-300';
@@ -350,7 +376,7 @@ const QuizQuestionDark = ({
           } else {
             optionClasses += ' hover:bg-gray-700 cursor-pointer border-gray-600 text-gray-200';
           }
-          
+
           return (
             <button
               key={index}
@@ -363,7 +389,7 @@ const QuizQuestionDark = ({
           );
         })}
       </div>
-      
+
       {/* Explanation */}
       {selectedAnswer && question.explanation && (
         <div className="mt-5 p-4 bg-blue-900 bg-opacity-20 border-l-4 border-blue-600 rounded-lg">
@@ -371,6 +397,24 @@ const QuizQuestionDark = ({
           <p className="text-gray-300">{question.explanation}</p>
         </div>
       )}
+
+      {/* Report button */}
+      {selectedAnswer && (
+  !reportSent ? (
+    <button
+      onClick={handleReportQuestion}
+      className="mt-4 inline-flex items-center gap-2 px-3 py-2 border border-red-500 text-red-400 text-sm rounded-md hover:bg-red-500 hover:text-white transition"
+    >
+      Report this question
+    </button>
+  ) : (
+    <p className="mt-4 text-sm text-green-400">
+      Thanks for reporting!
+    </p>
+  )
+)}
+
     </div>
   );
 };
+
