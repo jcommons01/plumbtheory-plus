@@ -15,7 +15,7 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { User, Question } from '@/types/user';
+import { UserData, Question } from '@/types/user';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -37,13 +37,13 @@ export const signUp = async (email: string, password: string) => {
       const user = userCredential.user;
       const now = new Date().toISOString();
 
-      const userData: User = {
-        uid: user.uid,
-        email: user.email || '',
-        isPro: false,
-        quizProgress: {},
-        createdAt: now,
-      };
+      const userData: UserData = {
+  uid: user.uid,
+  email: user.email || '',
+  isPro: false,
+  quizProgress: {},
+  createdAt: now,
+};
 
       await setDoc(doc(db, 'users', user.uid), userData);
       return userCredential;
@@ -62,7 +62,8 @@ export const logOut = () => {
 export const getUserData = async (uid: string) => {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
-  return docSnap.exists() ? (docSnap.data() as User) : null;
+  return docSnap.exists() ? (docSnap.data() as UserData) : null;
+
 };
 
 export const updateUserIsPro = async (uid: string, isPro: boolean) => {
@@ -83,7 +84,8 @@ export const updateQuizProgress = async (
 
   if (!userSnap.exists()) return;
 
-  const user = userSnap.data() as User;
+  const user = userSnap.data() as UserData;
+
   const existing = user.quizProgress?.[topic] || {};
 
   const updatedProgress = {
@@ -132,8 +134,7 @@ export const getQuizQuestions = async (
 
     const userRef = doc(db, 'users', uid);
     const userSnap = await getDoc(userRef);
-    const userData = userSnap.exists() ? (userSnap.data() as User) : null;
-
+    const userData = userSnap.exists() ? (userSnap.data() as UserData) : null;
     const seenQuestionIds = userData?.quizProgress?.[topic]?.seenIds || [];
 
     let seenIds = seenQuestionIds;
