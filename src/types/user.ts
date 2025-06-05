@@ -1,12 +1,10 @@
-// ✅ FILE: src/types/user.ts
-
 export type QuizAttempt = {
   score: number;
   total: number;
   timestamp: string;
 };
 
-export type User = {
+export type UserData = {
   uid: string;
   email: string;
   isPro: boolean;
@@ -15,6 +13,7 @@ export type User = {
   stripeSubscriptionId?: string;
   trialActive?: boolean;
   trialStartedAt?: string;
+  currentPeriodEnd?: number; // ✅ Add this field
   quizProgress: {
     [topic: string]: {
       bestScore?: number;

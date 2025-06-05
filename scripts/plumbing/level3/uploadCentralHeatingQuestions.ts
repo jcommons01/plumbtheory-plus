@@ -340,10 +340,10 @@ const centralHeatingQuestions = [
   {
     id: 'centralHeatingQ41',
     topic: 'central-heating',
-    question: 'How is system water introduced into a sealed central heating system?',
-    options: ['Via boiler condensate line', 'Through a header tank', 'Using a cold fill loop', 'From a TRV'],
-    correctAnswer: 'Using a cold fill loop',
-    explanation: 'The filling loop allows controlled water introduction from the mains.'
+    question: 'What precaution should be taken when using the filling loop on a sealed system?',
+    options: ['Leave it open for continuous topping up', 'Ensure the system is cold before opening the loop', 'Connect it to the hot water pipe', 'Bleed all radiators first'],
+    correctAnswer: 'Ensure the system is cold before opening the loop',
+    explanation: 'Filling a hot system can cause incorrect pressure readings and risks overpressurising due to expansion.'
   },
   {
     id: 'centralHeatingQ42',

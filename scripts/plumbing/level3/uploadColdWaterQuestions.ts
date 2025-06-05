@@ -22,8 +22,8 @@ const coldWaterQuestions = [
     topic: 'cold-water',
     question: 'What is the minimum pressure required for mains cold water in the UK?',
     options: ['1.0 bar', '2.0 bar', '1.5 bar', '0.5 bar'],
-    correctAnswer: '1.5 bar',
-    explanation: 'The minimum legal and functional requirement is 1.5 bar to ensure reliable flow.'
+    correctAnswer: '1.0 bar',
+    explanation: 'The minimum legal and functional requirement is 1.0 bar to ensure reliable flow.'
   },
   {
     id: 'coldWaterQ2',
@@ -45,8 +45,8 @@ const coldWaterQuestions = [
     id: 'coldWaterQ4',
     topic: 'cold-water',
     question: 'A borehole supply for a remote home must follow which regulation?',
-    options: ['Private Water Supplies Regulations 2009', 'Part G', 'Building Regs Part H', 'Water Bylaws 1985'],
-    correctAnswer: 'Private Water Supplies Regulations 2009',
+    options: ['Private Water Supplies Regulations 2016', 'Part G', 'Building Regs Part H', 'Water Bylaws 1985'],
+    correctAnswer: 'Private Water Supplies Regulations 2016',
     explanation: 'The Private Water Supplies Regs ensure safety of non-mains sources.'
   },
   {
@@ -69,8 +69,8 @@ const coldWaterQuestions = [
     id: 'coldWaterQ7',
     topic: 'cold-water',
     question: 'What is the minimum separation between overflow and warning pipes in a CWSC?',
-    options: ['50mm', '100mm', '10mm', '75mm'],
-    correctAnswer: '50mm',
+    options: ['25mm', '100mm', '10mm', '75mm'],
+    correctAnswer: '25mm',
     explanation: 'The warning pipe should activate before the overflow is used.'
   },
   {
@@ -85,9 +85,9 @@ const coldWaterQuestions = [
     id: 'coldWaterQ9',
     topic: 'cold-water',
     question: 'What British Standard outlines appliance-to-occupant ratios?',
-    options: ['BS EN 806', 'BS 6700', 'BS 7671', 'BS 5536'],
-    correctAnswer: 'BS 6700',
-    explanation: 'BS 6700 provides plumbing design criteria and guidance.'
+    options: ['BS EN 806', 'BS 6465', 'BS 7671', 'BS 5536'],
+    correctAnswer: 'BS 6465',
+    explanation: 'BS 6465 provides plumbing design criteria and guidance.'
   },
   {
     id: 'coldWaterQ10',
@@ -189,8 +189,8 @@ const coldWaterQuestions = [
     id: 'coldWaterQ22',
     topic: 'cold-water',
     question: 'What body enforces Water Supply (Water Fittings) Regulations?',
-    options: ['WRAS', 'Ofwat', 'Local Water Authority', 'Building Control'],
-    correctAnswer: 'Local Water Authority',
+    options: ['WRAS', 'Ofwat', 'Water undertakers', 'Building Control'],
+    correctAnswer: 'Water undertakers',
     explanation: 'Water suppliers are responsible for enforcement.'
   },
   {
@@ -277,7 +277,7 @@ const coldWaterQuestions = [
     id: 'coldWaterQ33',
     topic: 'cold-water',
     question: 'Which regulation governs the design and installation of domestic plumbing systems in the UK?',
-    options: ['Gas Safety Regulations', 'Part G of Building Regs', 'Health and Safety Act', 'Water Pressure Act'],
+    options: ['The Water Supply Regulations 1999', 'Part G of Building Regs', 'Health and Safety Act 1974', 'Water Pressure Act'],
     correctAnswer: 'Part G of Building Regs',
     explanation: 'Part G covers cold/hot water supply, hygiene, and efficiency.'
   },
@@ -324,7 +324,7 @@ const coldWaterQuestions = [
   {
     id: 'coldWaterQ39',
     topic: 'cold-water',
-    question: 'Which type of valve can be operated without tools in an emergency?',
+    question: 'Which type of valve can be quickly operated without tools in an emergency?',
     options: ['Gate valve', 'Ball valve with lever', 'Service valve', 'Double check valve'],
     correctAnswer: 'Ball valve with lever',
     explanation: 'Levers allow fast manual operation during emergencies.'
@@ -381,17 +381,17 @@ const coldWaterQuestions = [
     id: 'coldWaterQ46',
     topic: 'cold-water',
     question: 'Which document outlines the calculation method for pipe sizing in cold water services?',
-    options: ['BS 8558', 'BS 7671', 'WRAS Guide', 'Part H of Building Regs'],
-    correctAnswer: 'BS 8558',
-    explanation: 'BS 8558 gives guidance on design, installation, testing, and maintenance of services including pipe sizing.'
+    options: ['BS EN 806-3', 'BS 7671', 'WRAS Guide', 'Part H of Building Regs'],
+    correctAnswer: 'BS EN 806-3',
+    explanation: 'BS EN 806-3 gives guidance on design, installation, testing, and maintenance of services including pipe sizing.'
   },
   {
     id: 'coldWaterQ47',
     topic: 'cold-water',
     question: 'What is the maximum velocity recommended in cold water pipework to reduce noise and erosion?',
-    options: ['3 m/s', '2 m/s', '4.5 m/s', '1 m/s'],
-    correctAnswer: '3 m/s',
-    explanation: 'To prevent pipe erosion and water hammer, cold water flow velocity is typically limited to 3 m/s.'
+    options: ['2/4 m/s', '2 m/s', '4.5 m/s', '1 m/s'],
+    correctAnswer: '2.4 m/s',
+    explanation: 'To prevent pipe erosion and water hammer, cold water flow velocity is typically limited to 2.4 m/s.'
   },
   {
     id: 'coldWaterQ48',
@@ -404,10 +404,10 @@ const coldWaterQuestions = [
   {
     id: 'coldWaterQ49',
     topic: 'cold-water',
-    question: 'When designing a cold water riser in a multi-storey building, what is the primary reason for using a break tank and booster set?',
-    options: ['To comply with WRAS', 'To avoid airlocks', 'To manage pressure zones and prevent overpressurisation', 'To eliminate backflow risk'],
-    correctAnswer: 'To manage pressure zones and prevent overpressurisation',
-    explanation: 'Break tanks allow zoned distribution systems in high-rise buildings where mains pressure is insufficient or over-pressurised.'
+    question: 'What is the primary purpose of using a break tank and booster set in a cold water riser system?',
+    options: ['To comply with WRAS', 'To avoid airlocks', 'To reduce noise in pipework', 'To eliminate backflow risk'],
+    correctAnswer: 'To eliminate backflow risk',
+    explanation: 'Break tanks provide a physical air gap between the mains supply and the boosted system, ensuring there is no risk of contaminated water returning to the mains.'
   },
   {
     id: 'coldWaterQ50',

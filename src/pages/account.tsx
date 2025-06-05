@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthProvider';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -20,8 +21,9 @@ interface UserData {
   stripeSubscriptionId?: string | null;
   quizProgress?: Record<string, QuizProgress>;
   createdAt?: string;
-  // Don't include fields that don't exist in your actual data
+  currentPeriodEnd?: number; // 👈 Add this line
 }
+
 
 export default function AccountPage() {
   const { user, userData } = useAuth();
@@ -29,6 +31,19 @@ export default function AccountPage() {
   const [success, setSuccess] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [billingDate, setBillingDate] = useState<string | null>(null);
+
+  useEffect(() => {
+  if (userData?.currentPeriodEnd) {
+    const date = new Date(userData.currentPeriodEnd * 1000);
+    setBillingDate(
+      date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      })
+    );
+  }
+}, [userData]);
 
   
   // Simple quiz stats with no references to missing properties
@@ -132,7 +147,8 @@ export default function AccountPage() {
                   {user?.email ? user.email.charAt(0).toUpperCase() : 'U'}
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-white">{user?.email || 'Not logged in'}</h2>
+                  <h2 className="text-xl font-bold text-white break-words">{user?.email || 'Not logged in'}</h2>
+
                   <div className="flex items-center mt-1">
                     {userData?.isPro ? (
                       <span className="bg-blue-600 text-white text-xs py-1 px-3 rounded-full font-semibold">PRO</span>
@@ -210,7 +226,7 @@ export default function AccountPage() {
                       <div className="space-y-3">
                         <div className="flex justify-between">
                           <span className="text-gray-300">Email</span>
-                          <span className="text-white">{user?.email || 'Not logged in'}</span>
+                          <span className="text-white break-words max-w-[180px] text-right">{user?.email || 'Not logged in'}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-300">Member Since</span>

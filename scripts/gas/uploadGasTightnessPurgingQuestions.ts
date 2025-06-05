@@ -20,10 +20,10 @@ const gasTightnessPurgingQuestions = [
   {
     id: 'gasTightnessQ1',
     topic: 'gas-tightness-purging',
-    question: 'What is the maximum allowable pressure drop during a domestic tightness test (natural gas)?',
+    question: 'According to IGE/UP/1B, what is the acceptable pressure drop during a tightness test on a new or existing domestic natural gas installation, when no smell of gas is present?',
     options: ['0 mbar', '1 mbar', '2 mbar', 'Up to 4 mbar'],
     correctAnswer: '0 mbar',
-    explanation: 'There should be no pressure drop when no smell of gas is present.',
+    explanation: 'IGE/UP/1B specifies that for both new and existing domestic gas installations, there should be no pressure drop after the stabilisation period if no smell of gas is present.',
   },
   {
     id: 'gasTightnessQ2',
@@ -87,7 +87,7 @@ const gasTightnessPurgingQuestions = [
     question: 'What is the typical duration for a domestic tightness test?',
     options: ['30 seconds', '1 minute', '2 minutes', '5 minutes'],
     correctAnswer: '2 minutes',
-    explanation: 'Domestic tightness tests are held for 2 minutes to observe any pressure drop.',
+    explanation: 'Domestic tightness tests are held for 2 minutes to observe any pressure drop after stabilization.',
   },
   {
     id: 'gasTightnessQ10',

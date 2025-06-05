@@ -2,15 +2,16 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User as FirebaseUser } from 'firebase/auth';
 import { auth, getUserData } from '@/lib/firebase';
-import { User } from '@/types/user';
+import { UserData } from '@/types/user';
 import { useRouter } from 'next/router';
 
 type AuthContextType = {
   user: FirebaseUser | null;
-  userData: User | null;
+  userData: UserData | null; // ✅ use correct type
   loading: boolean;
   error: string | null;
 };
+
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
@@ -27,7 +28,7 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<FirebaseUser | null>(null);
-  const [userData, setUserData] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
