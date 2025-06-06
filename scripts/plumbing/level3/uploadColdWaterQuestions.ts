@@ -236,10 +236,10 @@ const coldWaterQuestions = [
   {
     id: 'coldWaterQ28',
     topic: 'cold-water',
-    question: 'Which type of water system receives water directly from the mains?',
-    options: ['Vented', 'Indirect', 'Pressurised', 'Direct'],
-    correctAnswer: 'Direct',
-    explanation: 'Direct systems take cold water straight from the mains to all outlets.'
+    question: 'In a direct water system, where does the cold water supply come from?',
+    options: ['From a cold water storage cistern', 'From the mains water supply', 'From a hot water cylinder', 'From a header tank'],
+    correctAnswer: 'From the mains water supply',
+    explanation: 'In direct systems, cold water is supplied straight from the mains to taps and appliances, without relying on storage cisterns.'
   },
   {
     id: 'coldWaterQ29',
@@ -423,7 +423,7 @@ const coldWaterQuestions = [
 async function upload() {
   for (const q of coldWaterQuestions) {
     try {
-        await setDoc(doc(db, 'questions', q.id), q);
+      await setDoc(doc(db, 'questions', 'cold-water', 'items', q.id), q);
       console.log(`✅ Uploaded: ${q.id}`);
     } catch (err) {
       console.error(`❌ Error uploading ${q.id}:`, err);
@@ -432,3 +432,4 @@ async function upload() {
 }
 
 upload();
+
