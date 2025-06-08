@@ -300,44 +300,51 @@ useEffect(() => {
     )
     .sort((a, b) => Number(a.isPro) - Number(b.isPro));
 
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {filtered.map((topic) => {
-        
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={`${selectedTrade}-${selectedLevel}`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        {filtered.map((topic) => {
+          const progressData = userData?.quizProgress?.[topic.id] || {};
+          const lastCorrect = progressData.lastCorrect ?? null;
+          const lastTotal = progressData.lastTotal ?? null;
+          const seenIds = progressData.seenIds || [];
 
-        const progressData = userData?.quizProgress?.[topic.id] || {};
-        const lastCorrect = progressData.lastCorrect ?? null;
-        const lastTotal = progressData.lastTotal ?? null;
-        const seenIds = progressData.seenIds || [];
+          const hasAttempted = lastCorrect !== null && lastTotal !== null;
+          const percentage =
+            hasAttempted && lastTotal > 0
+              ? Math.round((lastCorrect / lastTotal) * 100)
+              : 0;
 
-        const hasAttempted = lastCorrect !== null && lastTotal !== null;
-        const percentage =
-          hasAttempted && lastTotal > 0
-            ? Math.round((lastCorrect / lastTotal) * 100)
-            : 0;
+          const caption = hasAttempted
+            ? `${lastCorrect}/${lastTotal} - Last attempt\nSeen: ${seenIds.length} questions`
+            : 'No attempts yet';
 
-        const caption = hasAttempted
-          ? `${lastCorrect}/${lastTotal} - Last attempt\nSeen: ${seenIds.length} questions`
-          : 'No attempts yet';
-
-        return (
-          <TopicCard
-            key={topic.id}
-            title={topic.title}
-            icon={topic.icon}
-            progress={percentage}
-            caption={caption}
-            isPro={topic.isPro}
-            isUserPro={!!userData?.isPro}
-            level={topic.level}
-            onClick={() => openQuizOptions(topic)}
-          />
-        );
-      })}
-    </div>
+          return (
+            <TopicCard
+              key={topic.id}
+              title={topic.title}
+              icon={topic.icon}
+              progress={percentage}
+              caption={caption}
+              isPro={topic.isPro}
+              isUserPro={!!userData?.isPro}
+              level={topic.level}
+              onClick={() => openQuizOptions(topic)}
+            />
+          );
+        })}
+      </motion.div>
+    </AnimatePresence>
   );
 };
+
   
   
 
