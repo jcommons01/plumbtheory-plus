@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from 'framer-motion'; // ✅ At the top of the file
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
@@ -408,47 +409,60 @@ const hasLevels = !!(currentTrade?.levels && currentTrade.levels.length > 0);
           {/* Topics Grid */}
           {renderTopics()}
           
-          {/* Question Count Modal - UPDATED with consistent blue */}
-          {selectedTopic && (
-            <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-              <div className="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full border border-gray-700">
-                <h2 className="text-xl font-bold mb-6 text-white text-center">
-                  How many questions for {selectedTopic.title}?
-                </h2>
-                <div className="flex flex-wrap justify-center gap-3 mb-6">
-                  {[5, 10, 15, 25, 50]
-                    .filter((amount) => amount <= (selectedTopic?.totalQuestions || 50))
-                    .map((amount) => (
-                      <button
-                        key={amount}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                          questionCount === amount
-                            ? 'bg-blue-600 text-white' // Changed from gradient to solid blue
-                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                        }`}
-                        onClick={() => setQuestionCount(amount)}
-                      >
-                        {amount} Questions
-                      </button>
-                    ))}
-                </div>
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                  <button
-                    onClick={startQuiz}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors w-full" // Changed from gradient to solid blue
-                  >
-                    Start Quiz
-                  </button>
-                  <button
-                    onClick={() => setSelectedTopic(null)}
-                    className="bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-3 px-6 rounded-lg transition-colors w-full"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+          <AnimatePresence>
+  {selectedTopic && (
+    <motion.div
+      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full border border-gray-700"
+      >
+        <h2 className="text-xl font-bold mb-6 text-white text-center">
+          How many questions for {selectedTopic.title}?
+        </h2>
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
+          {[5, 10, 15, 25, 50]
+            .filter((amount) => amount <= (selectedTopic?.totalQuestions || 50))
+            .map((amount) => (
+              <button
+                key={amount}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  questionCount === amount
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                }`}
+                onClick={() => setQuestionCount(amount)}
+              >
+                {amount} Questions
+              </button>
+            ))}
+        </div>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <button
+            onClick={startQuiz}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors w-full"
+          >
+            Start Quiz
+          </button>
+          <button
+            onClick={() => setSelectedTopic(null)}
+            className="bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-3 px-6 rounded-lg transition-colors w-full"
+          >
+            Cancel
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
           
           {/* Upgrade Modal - Original component preserved */}
           <UpgradeModal
