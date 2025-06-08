@@ -1,5 +1,6 @@
 // ✅ UPDATED: src/pages/quiz/[topic].tsx with dark theme and polished design
 
+import { motion } from 'framer-motion';
 import { formatTopicTitle } from '@/utils/formatTopicTitle';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -213,18 +214,25 @@ const fetchedQuestions = await getQuizQuestions(user.uid, resolvedTopic, amountN
           </div>
 
           {currentQ && (
-            <QuizQuestionDark
-              question={{
-                id: currentQ.id,
-                text: currentQ.question,
-                options: currentQ.options,
-                correctAnswer: currentQ.correctAnswer,
-                explanation: currentQ.explanation,
-              }}
-              selectedAnswer={answers[currentQuestion]}
-              onSelectAnswer={handleAnswer}
-            />
-          )}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3, ease: 'easeOut' }}
+  >
+    <QuizQuestionDark
+      question={{
+        id: currentQ.id,
+        text: currentQ.question,
+        options: currentQ.options,
+        correctAnswer: currentQ.correctAnswer,
+        explanation: currentQ.explanation,
+      }}
+      selectedAnswer={answers[currentQuestion]}
+      onSelectAnswer={handleAnswer}
+    />
+  </motion.div>
+)}
+
 
           {/* Updated navigation buttons with refined styling */}
           <div className="flex justify-between mt-8">
