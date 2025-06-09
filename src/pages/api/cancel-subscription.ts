@@ -12,18 +12,13 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil',
+  apiVersion: '2025-03-31.basil', // leave this as-is for now
 });
-
-type ExtendedSubscription = Stripe.Subscription & {
-  current_period_end: number;
-};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { uid } = req.body;
-
   if (!uid) return res.status(400).json({ error: 'Missing UID' });
 
   try {
@@ -32,22 +27,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const userData = userSnap.data();
 
     const subscriptionId = userData?.stripeSubscriptionId;
-
     if (!subscriptionId) {
       return res.status(400).json({ error: 'No subscription ID found' });
     }
 
+    // 👇 Temporarily cast as 'any' because 2025-03-31.basil types are incomplete
     const subscription = await stripe.subscriptions.update(subscriptionId, {
       cancel_at_period_end: true,
-    }) as unknown as ExtendedSubscription;
+    }) as any;
 
     const cancelAtPeriodEnd = subscription.cancel_at_period_end;
-    const currentPeriodEnd = subscription.current_period_end * 1000;
+    const currentPeriodEnd = subscription.current_period_end
+      ? subscription.current_period_end * 1000
+      : null;
 
-    await userRef.update({
+    const updateData: Record<string, any> = {
       cancelAtPeriodEnd,
-      subscriptionEndDate: currentPeriodEnd,
-    });
+    };
+
+    if (currentPeriodEnd) {
+      updateData.subscriptionEndDate = currentPeriodEnd;
+    }
+
+    await userRef.update(updateData);
 
     return res.status(200).json({ success: true });
   } catch (error: any) {
