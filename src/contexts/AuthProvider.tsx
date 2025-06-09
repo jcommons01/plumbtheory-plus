@@ -8,21 +8,17 @@ import { useRouter } from 'next/router';
 type AuthContextType = {
   user: FirebaseUser | null;
   userData: UserData | null;
-  setUserData: React.Dispatch<React.SetStateAction<UserData | null>>; // ✅ added
   loading: boolean;
   error: string | null;
 };
 
 
-
 const AuthContext = createContext<AuthContextType>({
   user: null,
   userData: null,
-  setUserData: () => {}, // ✅ <-- this was missing!
   loading: true,
   error: null,
 });
-
 
 export const useAuth = () => useContext(AuthContext);
 
@@ -33,6 +29,7 @@ type AuthProviderProps = {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -44,38 +41,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       try {
         if (firebaseUser) {
-  const data = await getUserData(firebaseUser.uid);
-
-  // 🔐 Check for Pro expiry
-  const now = Date.now();
-  if (
-    data?.cancelAtPeriodEnd &&
-    data?.subscriptionEndDate &&
-    now > data.subscriptionEndDate
-  ) {
-    console.log('⚠️ Pro access expired — downgrading user.');
-
-    const { doc, updateDoc } = await import('firebase/firestore');
-    const { db } = await import('@/lib/firebase');
-
-    const userRef = doc(db, 'users', firebaseUser.uid);
-    await updateDoc(userRef, {
-      isPro: false,
-      stripeSubscriptionId: null,
-      cancelAtPeriodEnd: false,
-      subscriptionEndDate: null,
-    });
-
-    // Clean the local copy
-    data.isPro = false;
-    data.stripeSubscriptionId = null;
-    data.cancelAtPeriodEnd = false;
-    data.subscriptionEndDate = null;
-  }
-
-  setUserData(data);
-}
- else {
+          const data = await getUserData(firebaseUser.uid);
+          setUserData(data);
+        } else {
           setUserData(null);
 
           const protectedRoutes = [
@@ -107,8 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [router]);
 
   return (
-    <AuthContext.Provider value={{ user, userData, setUserData, loading, error }}>
-
+    <AuthContext.Provider value={{ user, userData, loading, error }}>
       {children}
     </AuthContext.Provider>
   );
