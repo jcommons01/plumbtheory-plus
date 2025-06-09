@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 import * as admin from 'firebase-admin';
 
-// Initialize Firebase Admin if needed
 if (!admin.apps.length) {
   const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!);
   admin.initializeApp({
@@ -15,6 +14,10 @@ const db = admin.firestore();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil',
 });
+
+type ExtendedSubscription = Stripe.Subscription & {
+  current_period_end: number;
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -34,14 +37,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'No subscription ID found' });
     }
 
-    // ✅ Cancel the Stripe subscription
-    await stripe.subscriptions.update(subscriptionId, {
+    const subscription = await stripe.subscriptions.update(subscriptionId, {
       cancel_at_period_end: true,
-    });
+    }) as unknown as ExtendedSubscription;
+
+    const cancelAtPeriodEnd = subscription.cancel_at_period_end;
+    const currentPeriodEnd = subscription.current_period_end * 1000;
 
     await userRef.update({
-      isPro: false,
-      stripeSubscriptionId: null,
+      cancelAtPeriodEnd,
+      subscriptionEndDate: currentPeriodEnd,
     });
 
     return res.status(200).json({ success: true });

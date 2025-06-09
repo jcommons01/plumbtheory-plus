@@ -10,10 +10,13 @@ export type UserData = {
   isPro: boolean;
   createdAt: string;
   stripeCustomerId?: string;
-  stripeSubscriptionId?: string;
+  stripeSubscriptionId?: string | null; // ✅ allow null
+  cancelAtPeriodEnd?: boolean;          // ✅ added
+  subscriptionEndDate?: number | null;         // ✅ added
   trialActive?: boolean;
   trialStartedAt?: string;
-  currentPeriodEnd?: number; // ✅ Add this field
+  currentPeriodEnd?: number;
+
   quizProgress: {
     [topic: string]: {
       bestScore?: number;

@@ -389,7 +389,7 @@ const coldWaterQuestions = [
     id: 'coldWaterQ47',
     topic: 'cold-water',
     question: 'What is the maximum velocity recommended in cold water pipework to reduce noise and erosion?',
-    options: ['2/4 m/s', '2 m/s', '4.5 m/s', '1 m/s'],
+    options: ['2.4 m/s', '2 m/s', '4.5 m/s', '1 m/s'],
     correctAnswer: '2.4 m/s',
     explanation: 'To prevent pipe erosion and water hammer, cold water flow velocity is typically limited to 2.4 m/s.'
   },

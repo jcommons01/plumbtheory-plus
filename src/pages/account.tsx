@@ -1,3 +1,4 @@
+import { format } from 'date-fns'; // add this at the top if not already imported
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthProvider';
@@ -26,7 +27,7 @@ interface UserData {
 
 
 export default function AccountPage() {
-  const { user, userData } = useAuth();
+  const { user, userData, setUserData } = useAuth();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
@@ -403,10 +404,16 @@ export default function AccountPage() {
                           </button>
                           
                           {success && (
-                            <div className="mt-4 p-3 bg-green-900 bg-opacity-50 border border-green-700 text-green-400 rounded">
-                              ✅ Your subscription has been successfully cancelled. You'll still have access until the end of your current billing period.
-                            </div>
-                          )}
+  <div className="mt-4 flex items-center p-4 bg-green-600 bg-opacity-20 border border-green-500 text-green-300 rounded-lg animate-slide-in">
+    <svg className="w-6 h-6 text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+    </svg>
+    <p className="text-sm">
+      Your subscription has been successfully cancelled. You'll still have access until the end of your current billing period.
+    </p>
+  </div>
+)}
+
                         </div>
                       </div>
                     ) : (
