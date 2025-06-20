@@ -51,7 +51,7 @@ export default function ComparisonTable({ topics, trade }: Props) {
   return (
     <div className="max-w-3xl mx-auto my-10 rounded-2xl shadow-lg overflow-hidden bg-[#181f2a] border border-[#232c3b]">
       <h2 className="text-2xl font-bold text-center py-6 bg-blue-600 text-white rounded-t-2xl">
-        Free vs <span className="inline-flex items-center gap-1"><span className="bg-green-600 text-white px-2 py-0.5 rounded-full text-xs font-semibold">Pro Topics</span></span> by Trade & Level
+        Free vs <span className="inline-flex items-center gap-1"><span className="bg-green-600 text-white px-2 py-0.5 rounded-full text-xs font-semibold">Pro</span></span>
       </h2>
       {/* Mobile Card Layout */}
       <div className="md:hidden p-4 space-y-6">
