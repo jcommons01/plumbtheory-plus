@@ -65,7 +65,7 @@ export default function ComparisonTable({ topics, trade }: Props) {
               {data?.levels && (
                 <div className="flex flex-col gap-2 w-full items-center">
                   <div className="flex flex-col gap-1 w-full items-center">
-                    <span className="text-sm text-gray-300 font-semibold text-center w-full">Level 2 <span role="img" aria-label="free">🆓</span></span>
+                    <span className="text-sm text-gray-300 font-semibold text-center w-full">Level 2</span>
                     <div className="flex gap-2 flex-wrap items-center justify-center w-full">
                       {data.levels[2].free > 0 ? badge(data.levels[2].free, 'Free') : null}
                       {data.levels[2].pro > 0 ? badge(data.levels[2].pro, 'Pro') : null}
@@ -73,7 +73,7 @@ export default function ComparisonTable({ topics, trade }: Props) {
                     </div>
                   </div>
                   <div className="flex flex-col gap-1 w-full items-center">
-                    <span className="text-sm text-gray-300 font-semibold text-center w-full">Level 3 <span role="img" aria-label="graduate">🎓</span></span>
+                    <span className="text-sm text-gray-300 font-semibold text-center w-full">Level 3</span>
                     <div className="flex gap-2 flex-wrap items-center justify-center w-full">
                       {data.levels[3].free > 0 ? badge(data.levels[3].free, 'Free') : null}
                       {data.levels[3].pro > 0 ? badge(data.levels[3].pro, 'Pro') : null}
@@ -102,8 +102,8 @@ export default function ComparisonTable({ topics, trade }: Props) {
           <thead className="md:table-header-group">
             <tr className="md:table-row">
               <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold md:table-cell whitespace-nowrap">Trade</th>
-              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold md:table-cell whitespace-nowrap">Level 2 <span className="ml-1" role="img" aria-label="free">🆓</span></th>
-              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold md:table-cell whitespace-nowrap">Level 3 <span className="ml-1" role="img" aria-label="graduate">🎓</span></th>
+              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold md:table-cell whitespace-nowrap">Level 2</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold md:table-cell whitespace-nowrap">Level 3</th>
               <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold md:table-cell whitespace-nowrap">Other</th>
             </tr>
           </thead>
