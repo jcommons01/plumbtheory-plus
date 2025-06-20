@@ -32,8 +32,10 @@ const TopicCard: React.FC<TopicCardProps> = ({
   return (
     <div
       onClick={!locked ? onClick : undefined}
-      className={`bg-white shadow-md rounded-lg transition cursor-pointer flex flex-col justify-between h-44 min-h-[11rem] max-h-56 p-4 ${locked ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg'}`}
-      style={{ position: 'relative' }}
+      className={`bg-white shadow-md rounded-lg transition cursor-pointer flex flex-col justify-between min-h-[10rem] p-4 h-auto` +
+        (compact ? ' max-w-xs mx-auto' : '') +
+        (locked && !showLearn ? ' opacity-50 cursor-not-allowed' : ' hover:shadow-lg')}
+      style={{ position: 'relative', pointerEvents: locked && !showLearn ? 'none' : 'auto' }}
     >
       {/* Info Icon - always visible, even if locked */}
       {whatYoullLearn && (
@@ -80,9 +82,9 @@ const TopicCard: React.FC<TopicCardProps> = ({
         </div>
       )}
 
-      <div className="flex items-center space-x-3 mb-2 min-h-[2.5rem]">
+      <div className="flex items-center space-x-3 mb-2">
         <span className="text-2xl">{icon}</span>
-        <h3 className="text-lg font-semibold text-gray-800 truncate" style={{maxWidth: 'calc(100% - 2.5rem)'}}>{title}</h3>
+        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
         {locked && (
           <div className="ml-auto">
             <svg
@@ -112,7 +114,7 @@ const TopicCard: React.FC<TopicCardProps> = ({
         </div>
       </div>
 
-      <p className="text-sm text-gray-600 mt-1 whitespace-pre-line">
+      <p className="text-sm text-gray-600 mt-1 whitespace-pre-line w-full max-w-full overflow-visible">
         {caption}
       </p>
 
