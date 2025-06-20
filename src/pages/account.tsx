@@ -374,7 +374,7 @@ export default function AccountPage() {
                           {showCancelWarning ? (
     <div className="mb-4 p-4 bg-yellow-900 bg-opacity-70 border border-yellow-700 text-yellow-300 rounded flex items-center">
       <svg className="h-6 w-6 mr-3 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" /></svg>
-      <span>Are you sure? You will lose access to Pro topics at the end of your billing period.</span>
+      <span>Are you sure? You will lose access to Pro topics.</span>
       <button
         onClick={handleCancel}
         disabled={loading}
