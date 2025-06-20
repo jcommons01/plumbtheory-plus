@@ -11,6 +11,8 @@ declare global {
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthProvider';
 import Layout from '@/components/Layout';
+import ComparisonTable from '@/components/ComparisonTable';
+import { topics } from '@/data/topics';
 
 export default function SubscribePage() {
   const { userData } = useAuth();
@@ -188,6 +190,11 @@ export default function SubscribePage() {
                   )}
                 </div>
               </div>
+            </div>
+
+            {/* --- Free vs Pro Comparison Table --- */}
+            <div className="my-16">
+              <ComparisonTable topics={topics} trade="Plumbing" />
             </div>
 
             {/* Testimonials */}
