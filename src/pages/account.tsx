@@ -29,6 +29,7 @@ export default function AccountPage() {
   const [success, setSuccess] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [billingDate, setBillingDate] = useState<string | null>(null);
+  const [showCancelWarning, setShowCancelWarning] = useState(false);
 
   
   // Simple quiz stats with no references to missing properties
@@ -370,27 +371,38 @@ export default function AccountPage() {
                         )}
                         
                         <div className="border-t border-gray-600 my-6 pt-6">
-                          <button
-                            onClick={handleCancel}
-                            disabled={loading}
-                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded transition-all disabled:opacity-50 flex items-center"
-                          >
-                            {loading ? (
-                              <>
-                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                Cancelling...
-                              </>
-                            ) : 'Cancel Subscription'}
-                          </button>
-                          
-                          {success && (
-                            <div className="mt-4 p-3 bg-green-900 bg-opacity-50 border border-green-700 text-green-400 rounded">
-                              ✅ Your subscription has been successfully cancelled. You'll still have access until the end of your current billing period.
-                            </div>
-                          )}
+                          {showCancelWarning ? (
+    <div className="mb-4 p-4 bg-yellow-900 bg-opacity-70 border border-yellow-700 text-yellow-300 rounded flex items-center">
+      <svg className="h-6 w-6 mr-3 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" /></svg>
+      <span>Are you sure? You will lose access to Pro topics at the end of your billing period.</span>
+      <button
+        onClick={handleCancel}
+        disabled={loading}
+        className="ml-auto bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-all disabled:opacity-50 flex items-center"
+      >
+        {loading ? (
+          <>
+            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Cancelling...
+          </>
+        ) : 'Yes, Cancel Subscription'}
+      </button>
+      <button
+        onClick={() => setShowCancelWarning(false)}
+        className="ml-4 text-sm text-gray-400 hover:text-white underline"
+      >
+        Nevermind
+      </button>
+    </div>
+  ) : (
+    <button
+      onClick={() => setShowCancelWarning(true)}
+      disabled={loading}
+      className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded transition-all disabled:opacity-50 flex items-center"
+    >
+      Cancel Subscription
+    </button>
+  )}
                         </div>
                       </div>
                     ) : (
@@ -405,19 +417,19 @@ export default function AccountPage() {
                           <ul className="space-y-2 mb-4">
                             <li className="flex items-start">
                               <svg className="h-5 w-5 text-green-400 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                               </svg>
                               <span className="text-gray-300">Access to all Level 2, Level 3 and Gas topics</span>
                             </li>
                             <li className="flex items-start">
                               <svg className="h-5 w-5 text-green-400 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                               </svg>
                               <span className="text-gray-300">Real-life scenario training</span>
                             </li>
                             <li className="flex items-start">
                               <svg className="h-5 w-5 text-green-400 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                               </svg>
                               <span className="text-gray-300">Complete reference library</span>
                             </li>
