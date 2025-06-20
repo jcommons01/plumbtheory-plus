@@ -54,13 +54,13 @@ export default function ComparisonTable({ topics, trade }: Props) {
         Free vs <span className="inline-flex items-center gap-1"><span className="bg-green-600 text-white px-2 py-0.5 rounded-full text-xs font-semibold">Pro Topics</span></span> by Trade & Level
       </h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-[#181f2a] block md:table">
+        <table className="min-w-[500px] w-full bg-[#181f2a] block md:table text-xs sm:text-sm">
           <thead className="block md:table-header-group">
             <tr className="block md:table-row">
-              <th className="py-2 px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell">Trade</th>
-              <th className="py-2 px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell">Level 2 <span className="ml-1" role="img" aria-label="free">🆓</span></th>
-              <th className="py-2 px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell">Level 3 <span className="ml-1" role="img" aria-label="graduate">🎓</span></th>
-              <th className="py-2 px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell">Other</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell whitespace-nowrap">Trade</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell whitespace-nowrap">Level 2 <span className="ml-1" role="img" aria-label="free">🆓</span></th>
+              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell whitespace-nowrap">Level 3 <span className="ml-1" role="img" aria-label="graduate">🎓</span></th>
+              <th className="py-2 px-2 sm:px-4 border-b border-[#232c3b] text-center text-white font-semibold block md:table-cell whitespace-nowrap">Other</th>
             </tr>
           </thead>
           <tbody className="block md:table-row-group">
